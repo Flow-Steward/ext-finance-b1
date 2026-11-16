@@ -56,10 +56,27 @@ def test_every_scaled_input_is_sent_multiplied(path: str, field: str, scale: int
 @pytest.mark.parametrize(("path", "field", "scale"), READ, ids=[f"{p}:{f}" for p, f, _ in READ])
 def test_every_scaled_answer_is_read_back_as_a_decimal(path: str, field: str, scale: int) -> None:
     name = field.split(".", 1)[1]
-    raw = {"id": 1, name: 12345, "untouched": 12345}
-    [row] = params.unscale([raw], {field: scale}, "data")
-    assert row[name] == format(Decimal(12345) / scale, "f")
-    assert row["untouched"] == 12345
+    expected = format(Decimal(12345) / scale, "f")
+    for given in (12345, "12345", " 12345 ", Decimal("12345")):
+        warnings: list[str] = []
+        raw = {"id": 1, name: given, "untouched": 12345}
+        [row] = params.unscale([raw], {field: scale}, "data", warnings)
+        assert row[name] == expected, given
+        assert row["untouched"] == 12345 and warnings == []
+    # Anything else in a scaled field is returned as sent, and named in the warnings.
+    for odd in ("12.5", "n/a", Decimal("12.5"), True):
+        warnings = []
+        [row] = params.unscale([{name: odd}], {field: scale}, "data", warnings)
+        assert row[name] == odd
+        assert len(warnings) == 1 and name in warnings[0]
+
+
+def test_a_scaled_field_sent_as_text_is_read_through_the_step() -> None:
+    fake = FakeB1({"cash-register/sales/list": page([{"id": 1, "total": "2541", "vat": "x"}])})
+    response = run(fake, "cash_register_sales_list", {"rows": 10})
+    [item] = response["result"]["items"]
+    assert item["total"] == "25.41" and item["vat"] == "x"
+    assert any("vat" in w for w in response["result"]["warnings"])
 
 
 def test_cash_register_sales_are_listed_in_plain_amounts() -> None:

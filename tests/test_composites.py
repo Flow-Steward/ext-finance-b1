@@ -20,7 +20,7 @@ def test_test_connection_lists_ten_currencies() -> None:
 
 
 def test_find_client_is_strict_and_rechecks_the_filter() -> None:
-    rows = [{"id": 1, "code": "123", "vatCode": "LT1"}, {"id": 2, "code": "1234"}]
+    rows = [{"id": 1, "code": "123", "vatCode": "LT1"}]
     fake = FakeB1({"clients/list": page(rows)})
     response = run(fake, "find_client", {"code": "123", "vat_code": "LT1"})
     assert response["result"]["client"]["id"] == 1
@@ -42,7 +42,7 @@ def test_find_or_create_client_creates_only_when_nothing_matches() -> None:
     )
     assert response["ok"] is True, response
     assert response["result"]["client_id"] == 7 and response["result"]["created"] is True
-    assert fake.calls[1].body == {"name": "UAB", "locationId": 1, "code": "123", "email": "a@b.lt"}
+    assert fake.calls[-1].body == {"name": "UAB", "locationId": 1, "code": "123", "email": "a@b.lt"}
     found = FakeB1({"clients/list": page([{"id": 3, "code": "123"}])})
     response = run(found, "find_or_create_client", {"code": "123", "name": "UAB", "location_id": 1})
     assert response["result"]["created"] is False and found.paths() == ["clients/list"]
@@ -295,3 +295,179 @@ def test_test_mode_runs_no_everyday_write() -> None:
         response = run(fake, operation, inputs, test_mode=True)
         assert response["ok"] is True and response["definitely_no_external_effect"] is True
     assert fake.calls == []
+
+
+# -- searches that cannot be trusted (R1) and near-duplicates (R2) -------------------------
+
+IGNORED = page(
+    [
+        {
+            "id": 1,
+            "code": "OTHER",
+            "vatCode": "X",
+            "email": "x@y.lt",
+            "barcode": "0",
+            "transactionId": "OTHER",
+            "clientId": 99,
+            "number": "OTHER",
+            "series": "Z",
+        }
+    ]
+)
+
+WRITING = [
+    (
+        "find_or_create_client",
+        {"code": "123", "name": "UAB", "location_id": 1},
+        "clients/list",
+        "clients/create",
+    ),
+    (
+        "find_or_create_item",
+        {"code": "A1", "name": "W", "attribute_id": 1, "measurement_unit_id": 2},
+        "reference-book/items/list",
+        "reference-book/items/create",
+    ),
+    ("create_sales_invoice", INVOICE, "warehouse/sales/list", "warehouse/sales/create"),
+    (
+        "create_purchase_invoice",
+        {
+            "supplier_id": 5,
+            "number": "PUR-1",
+            "purchase_date": "2026-11-16",
+            "warehouse_id": 1,
+            "operation_type_id": 2,
+            "currency_id": 1,
+            "employee_id": 4,
+            "lines": [
+                {
+                    "item_id": 7,
+                    "quantity": "1",
+                    "price_without_vat": "1",
+                    "price_with_vat": "1.21",
+                    "vat_rate": "21",
+                }
+            ],
+        },
+        "warehouse/purchases/list",
+        "warehouse/purchases/create",
+    ),
+    (
+        "record_sale_payment",
+        {
+            "sale_id": 100,
+            "payment_id": "PAY-1",
+            "payment_date": "2026-11-16",
+            "amount": "1",
+            "tax": "0",
+            "currency": "EUR",
+            "purpose": "x",
+        },
+        "bank/transactions/list",
+        "bank/sale-invoice/payment",
+    ),
+]
+
+
+@pytest.mark.parametrize(
+    ("operation", "inputs", "search", "write"), WRITING, ids=[w[0] for w in WRITING]
+)
+def test_a_search_the_server_did_not_filter_writes_nothing(
+    operation: str, inputs: dict, search: str, write: str
+) -> None:
+    fake = FakeB1({search: IGNORED, write: ok({"id": 1})})
+    response = run(fake, operation, inputs)
+    assert response["error_code"] == "invalid_response", response
+    assert response["definitely_no_external_effect"] is True
+    assert "cannot be trusted" in response["error"]
+    assert write not in fake.paths()
+
+
+@pytest.mark.parametrize(
+    ("operation", "inputs", "search", "write"), WRITING, ids=[w[0] for w in WRITING]
+)
+def test_more_matches_than_read_is_a_conflict(
+    operation: str, inputs: dict, search: str, write: str
+) -> None:
+    by_search: dict[str, dict[str, Any]] = {
+        "clients/list": {"code": "123"},
+        "reference-book/items/list": {"code": "A1"},
+        "warehouse/sales/list": {"transactionId": "SHOP-1001"},
+        "warehouse/purchases/list": {"clientId": 5, "number": "PUR-1"},
+        "bank/transactions/list": {"number": "PAY-1"},
+    }
+    keys = by_search[search]
+    fake = FakeB1(
+        {search: page([{"id": 1, **keys}], records=12, hasMore=True), write: ok({"id": 1})}
+    )
+    response = run(fake, operation, inputs)
+    assert response["error_code"] == "conflict", response
+    assert write not in fake.paths()
+
+
+@pytest.mark.parametrize(
+    ("operation", "path"),
+    [
+        ("find_client", "clients/list"),
+        ("find_item", "reference-book/items/list"),
+        ("find_sale", "warehouse/sales/list"),
+    ],
+)
+def test_a_find_step_does_not_say_not_found_when_the_filter_was_ignored(
+    operation: str, path: str
+) -> None:
+    inputs = {
+        "find_client": {"code": "123"},
+        "find_item": {"code": "A1"},
+        "find_sale": {"transaction_id": "T1"},
+    }[operation]
+    response = run(FakeB1({path: IGNORED}), operation, inputs)
+    assert response["error_code"] == "invalid_response"
+
+
+def test_a_client_that_matches_one_key_of_two_is_not_created_again() -> None:
+    def answer(call: Any) -> Any:
+        rules = {r["field"]: r["data"] for r in call.body["filters"]["rules"]}
+        if rules == {"code": "123"}:
+            return page([{"id": 42, "code": "123"}])
+        return page([])
+
+    fake = FakeB1({"clients/list": answer, "clients/create": ok({"id": 1})})
+    response = run(
+        fake,
+        "find_or_create_client",
+        {"code": "123", "email": "new@b.lt", "name": "UAB", "location_id": 1},
+    )
+    assert response["error_code"] == "conflict", response
+    assert "code 123 matches client 42" in response["error"]
+    assert "clients/create" not in fake.paths()
+
+
+def test_an_item_that_matches_its_barcode_but_not_its_code_is_not_created() -> None:
+    def answer(call: Any) -> Any:
+        rules = {r["field"]: r["data"] for r in call.body["filters"]["rules"]}
+        if rules == {"barcode": "475"}:
+            return page([{"id": 7, "barcode": "475"}])
+        return page([])
+
+    fake = FakeB1({"reference-book/items/list": answer, "reference-book/items/create": ok({})})
+    response = run(
+        fake,
+        "find_or_create_item",
+        {"code": "NEW", "barcode": "475", "name": "W", "attribute_id": 1, "measurement_unit_id": 2},
+    )
+    assert response["error_code"] == "conflict"
+    assert "barcode 475 matches item 7" in response["error"]
+    assert "reference-book/items/create" not in fake.paths()
+
+
+def test_a_client_is_created_when_no_key_finds_anything() -> None:
+    fake = FakeB1({"clients/list": page([]), "clients/create": ok({"id": 8})})
+    response = run(
+        fake,
+        "find_or_create_client",
+        {"code": "123", "email": "new@b.lt", "name": "UAB", "location_id": 1},
+    )
+    assert response["result"]["created"] is True
+    # The full set, then each key alone, then the write.
+    assert fake.paths() == ["clients/list", "clients/list", "clients/list", "clients/create"]

@@ -148,8 +148,8 @@ def _upload_headers(entry: Mapping[str, Any], given: Mapping[str, Any]) -> dict[
 # -- running ---------------------------------------------------------------------------------
 
 
-def _data_out(entry: Mapping[str, Any], answer: Mapping[str, Any]) -> Any:
-    return unscale(answer.get("data"), entry.get("answer_scales") or {}, "data")
+def _data_out(entry: Mapping[str, Any], answer: Mapping[str, Any], warnings: list[str]) -> Any:
+    return unscale(answer.get("data"), entry.get("answer_scales") or {}, "data", warnings)
 
 
 def run(context: Context, operation_id: str) -> dict[str, Any]:
@@ -201,16 +201,22 @@ def run(context: Context, operation_id: str) -> dict[str, Any]:
         task = answer.get("taskId")
         if task is None and isinstance(answer.get("data"), Mapping):
             task = answer["data"].get("taskId")
-        warnings = [] if task is not None else ["Site.pro Accounting returned no task ID"]
-        return {"task_id": task, "warnings": warnings}
+        missing = [] if task is not None else ["Site.pro Accounting returned no task ID"]
+        return {"task_id": task, "warnings": missing}
+    warnings: list[str] = []
     if kind in {"create", "update"}:
         answer = transport.write(path, wire, single_object=entry["single_object"])
-        data = _data_out(entry, answer)
+        data = _data_out(entry, answer, warnings)
         record_id = data.get("id") if isinstance(data, Mapping) else None
-        return {"id": record_id, "data": data, "message": answer.get("message"), "warnings": []}
+        return {
+            "id": record_id,
+            "data": data,
+            "message": answer.get("message"),
+            "warnings": warnings,
+        }
     answer = transport.read(path, wire)
     if entry.get("list"):
-        items = _data_out(entry, answer)
+        items = _data_out(entry, answer, warnings)
         items = items if isinstance(items, list) else ([] if items is None else [items])
         result = {
             "items": items,
@@ -220,13 +226,13 @@ def run(context: Context, operation_id: str) -> dict[str, Any]:
             "records": answer.get("records"),
             "next_cursor": answer.get("nextCursor"),
             "has_more": answer.get("hasMore"),
-            "warnings": [],
+            "warnings": warnings,
         }
     else:
         result = {
-            "data": _data_out(entry, answer),
+            "data": _data_out(entry, answer, warnings),
             "message": answer.get("message"),
-            "warnings": [],
+            "warnings": warnings,
         }
     budget.ensure_fits(result)
     return result

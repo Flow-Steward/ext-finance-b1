@@ -11,6 +11,7 @@ way (more decimals than N allows) is refused before anything is sent.
 
 from __future__ import annotations
 
+import re
 from collections.abc import Mapping
 from decimal import Decimal, localcontext
 from typing import Any
@@ -129,25 +130,51 @@ def body(
     return out
 
 
-def unscale(record: Any, scales: Mapping[str, int], prefix: str = "") -> Any:
+_WHOLE_RE = re.compile(r"^[+-]?\d{1,40}$")
+
+
+def unscale(
+    record: Any, scales: Mapping[str, int], prefix: str = "", warnings: list[str] | None = None
+) -> Any:
     """Answer fields documented as "multiplied by N" read back as plain decimals.
 
-    Fields whose scale the documentation does not give are returned as sent.
+    A whole number, given as a number or as text of digits, is divided by N. Any other
+    value in such a field (a fraction, other text) is returned as sent, and the field
+    is named in ``warnings``: it cannot be read in the documented unit. Fields whose
+    scale the documentation does not give are returned as sent.
     """
     if isinstance(record, list):
-        return [unscale(item, scales, prefix) for item in record]
+        return [unscale(item, scales, prefix, warnings) for item in record]
     if not isinstance(record, Mapping):
         return record
     out: dict[str, Any] = {}
     for key, value in record.items():
         path = f"{prefix}.{key}" if prefix else str(key)
         scale = scales.get(path)
-        if scale and isinstance(value, (int, Decimal)) and not isinstance(value, bool):
-            with localcontext() as ctx:
-                ctx.prec = 60
-                out[key] = format(Decimal(value) / scale, "f")
-        else:
-            out[key] = unscale(value, scales, path)
+        if not scale or value is None:
+            out[key] = unscale(value, scales, path, warnings) if not scale else value
+            continue
+        whole: Decimal | None = None
+        if isinstance(value, int) and not isinstance(value, bool):
+            whole = Decimal(value)
+        elif isinstance(value, Decimal) and value == value.to_integral_value():
+            whole = value
+        elif isinstance(value, str) and _WHOLE_RE.fullmatch(value.strip()):
+            whole = Decimal(value.strip())
+        if whole is None:
+            out[key] = value
+            if warnings is not None:
+                note = (
+                    f"{key} is not a whole number, so it cannot be read as a plain amount "
+                    f"(Site.pro Accounting documents it multiplied by {scale}); it is returned "
+                    "as sent"
+                )
+                if note not in warnings:
+                    warnings.append(note)
+            continue
+        with localcontext() as ctx:
+            ctx.prec = 60
+            out[key] = format(whole / scale, "f")
     return out
 
 

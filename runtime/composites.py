@@ -29,7 +29,13 @@ REPORT_POLL_SECONDS = 15.0
 
 
 def _find(context: Context, path: str, rules: list[tuple[str, str]]) -> list[Mapping[str, Any]]:
-    """Records of a list whose fields equal the given values exactly (at most 10)."""
+    """Records of a list whose fields equal the given values exactly.
+
+    Site.pro Accounting applies the filter; every row it returns is checked again here.
+    A row that does not match means the filter was not applied as asked, so the search
+    cannot be trusted: the step stops without writing anything. When more rows match
+    than were read, that is several matches.
+    """
     answer = context.transport.read(
         path,
         {
@@ -42,12 +48,55 @@ def _find(context: Context, path: str, rules: list[tuple[str, str]]) -> list[Map
     )
     data = answer.get("data")
     rows = data if isinstance(data, list) else []
-    # The filter is applied by Site.pro Accounting; each value is checked again here.
-    return [
+    matched = [
         row
         for row in rows
         if isinstance(row, Mapping) and all(str(row.get(f) or "") == v for f, v in rules)
     ]
+    if len(matched) != len(rows):
+        raise errors.no_effect(
+            errors.INVALID_RESPONSE,
+            f"Site.pro Accounting answered the search of {path} by {_described(rules)} with "
+            f"{len(rows) - len(matched)} records that do not match it: the search cannot be "
+            "trusted, so nothing was created or changed",
+            failure_class="provider",
+            retryable=False,
+        )
+    records = answer.get("records")
+    more = answer.get("hasMore") is True or (
+        isinstance(records, int) and not isinstance(records, bool) and records > len(matched)
+    )
+    if matched and more:
+        raise errors.no_effect(
+            errors.CONFLICT,
+            f"More than {len(matched)} records of {path} match {_described(rules)}; they do "
+            "not name one record, so nothing was created or changed",
+        )
+    return matched
+
+
+def _single_keys(context: Context, path: str, rules: list[tuple[str, str]], what: str) -> None:
+    """Before creating: no key may find a record on its own.
+
+    The full set of keys found nothing. When one key alone finds a record, the record is
+    there with other data: creating another would make a near-duplicate, so the step
+    stops and names what matched and what differs.
+    """
+    if len(rules) < 2:
+        return
+    hits = []
+    for field, value in rules:
+        for row in _find(context, path, [(field, value)]):
+            hits.append(f"{field} {value} matches {what} {row.get('id')}")
+    if hits:
+        differs = ", ".join(f for f, _ in rules)
+        raise errors.no_effect(
+            errors.CONFLICT,
+            f"No {what} has all of {differs} as given, but "
+            + "; ".join(hits[:10])
+            + f" with other values: nothing was created. Check that {what} in Site.pro "
+            "Accounting",
+        )
 
 
 def _one(found: list[Mapping[str, Any]], what: str, keys: str) -> Mapping[str, Any] | None:
@@ -144,6 +193,7 @@ def find_or_create_client(context: Context) -> dict[str, Any]:
     client = _one(_find(context, "clients/list", rules), "client", _described(rules))
     if client is not None:
         return {"client_id": client.get("id"), "created": False, "client": client, "warnings": []}
+    _single_keys(context, "clients/list", rules, "client")
     answer = _write(context, "clients/create", wire)
     return {"client_id": _created_id(answer), "created": True, "client": None, "warnings": []}
 
@@ -187,6 +237,7 @@ def find_or_create_item(context: Context) -> dict[str, Any]:
     item = _one(_find(context, "reference-book/items/list", rules), "item", _described(rules))
     if item is not None:
         return {"item_id": item.get("id"), "created": False, "item": item, "warnings": []}
+    _single_keys(context, "reference-book/items/list", rules, "item")
     answer = _write(context, "reference-book/items/create", wire)
     return {"item_id": _created_id(answer), "created": True, "item": None, "warnings": []}
 
