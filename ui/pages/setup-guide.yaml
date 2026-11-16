@@ -1,0 +1,23 @@
+page_id: setup-guide
+title: Setup Guide
+description: How to connect a B1 (Site.pro Accounting) company to Flow Steward — about two minutes to read.
+components:
+  - component_id: setup_b1
+    type: markdown
+    title: For the person who administers Site.pro Accounting
+    body: |
+      1. **Check the plan.** The API is available on Site.pro Accounting plans that include it, and its key works once an integration package is active.
+      2. **Create the API key.** Open **Settings → Integrations → API simplified**, press **+Add service**, choose the key for data reading and writing (or read-only, if workflows only read) and save. The window shows the API key.
+      3. **For the e-commerce steps**, create a separate key under **Settings → Integrations → API for e-commerce** and use it in a separate connection.
+      4. **Prepare what documents need.** Invoices need an employee (Personnel → Employees), VAT rates (Registers → Warehouse → VAT rates) and the items or services they sell.
+      5. Treat the key like a password: anyone with it can read and change the company's data.
+
+      [Site.pro: Integrations FAQ](https://site.pro/FAQ-Accounting/Settings/Integrations/) · [API documentation](https://site.pro/My-Accounting/doc/api)
+  - component_id: setup_flow_steward
+    type: markdown
+    title: For the person who connects in Flow Steward
+    body: |
+      1. Open **Connection** and add a connection. Name it after the company, for example `UAB X`.
+      2. Paste the API key.
+      3. Save and press **Test connection**. It lists ten currencies to check the key.
+      4. In a workflow, add a B1 step and pick this connection. Start with the everyday steps on **B1 API**: Find or create a client, Create a sales invoice with lines.

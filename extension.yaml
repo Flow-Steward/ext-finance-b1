@@ -1,0 +1,275 @@
+manifest_version: 2
+lifecycle:
+  data_schema_version: 1
+  data_migrations: []
+extension_id: flowsteward.b1
+kind: tool_provider
+version: 0.1.0
+release_stage: active
+billing_mode: free
+display_name: B1 (Site.pro Accounting)
+description: 'Connect workflows to B1 (Site.pro Accounting), the Lithuanian online accounting
+  software, through its API. Everyday steps find or create clients and items, create sales and
+  purchase invoices with their lines, record payments for sales checked for repeats and generate
+  reports; amounts are taken as plain decimals and converted where the API expects them multiplied.
+
+
+  Read steps cover the whole documented API: clients, items and reference data, sales, purchases
+  and stock, bank and cash, documents, general ledger, personnel, salary, production, long-term
+  assets and e-commerce orders, with cursor or page paging and filters, plus invoice and document
+  files and every report. Writes cover everyday sales, purchases, clients, items, payments and
+  shop orders. Each connection is one company, reached with its API key.'
+vendor:
+  name: Flow Steward
+  support_url: https://github.com/Flow-Steward/ext-finance-b1/issues
+  website_url: https://github.com/Flow-Steward/ext-finance-b1
+listing:
+  category: finance
+  tags:
+  - b1
+  - site-pro
+  - accounting
+  - lithuania
+  - invoices
+  - inventory
+  - payments
+  summary: Read and write B1 (Site.pro Accounting) clients, items, sales, purchases, payments,
+    stock and reports.
+  categories:
+  - finance
+  - inventory
+  - sales
+  setup_summary: Create an API key under Settings → Integrations → API simplified in Site.pro
+    Accounting, add it to a project connection and run the connection test.
+features:
+- tool
+- action
+required_scopes:
+- extension:invoke
+- artifact:read
+- artifact:write
+machine_auth:
+  service_account_key: svc_ext_b1
+  required_scopes:
+  - extension:invoke
+  - artifact:read
+  - artifact:write
+account_scope:
+  scope_type: project
+  description: Each B1 (Site.pro Accounting) company and API key is a project connection. A
+    project may hold several, for example one per company.
+egress:
+  hosts:
+  - site.pro
+external_effects:
+- operation_id: find_or_create_client
+  effect_kind: b1_find_or_create_client
+  channel: b1_api
+  idempotency: required
+  test_mode_behavior: suppress
+- operation_id: find_or_create_item
+  effect_kind: b1_find_or_create_item
+  channel: b1_api
+  idempotency: required
+  test_mode_behavior: suppress
+- operation_id: create_sales_invoice
+  effect_kind: b1_create_sales_invoice
+  channel: b1_api
+  idempotency: required
+  test_mode_behavior: suppress
+- operation_id: create_purchase_invoice
+  effect_kind: b1_create_purchase_invoice
+  channel: b1_api
+  idempotency: required
+  test_mode_behavior: suppress
+- operation_id: record_sale_payment
+  effect_kind: b1_record_sale_payment
+  channel: b1_api
+  idempotency: required
+  test_mode_behavior: suppress
+- operation_id: clients_create
+  effect_kind: b1_clients_create
+  channel: b1_api
+  idempotency: required
+  test_mode_behavior: suppress
+- operation_id: client_client_addresses_create
+  effect_kind: b1_client_client_addresses_create
+  channel: b1_api
+  idempotency: required
+  test_mode_behavior: suppress
+- operation_id: client_client_bank_accounts_create
+  effect_kind: b1_client_client_bank_accounts_create
+  channel: b1_api
+  idempotency: required
+  test_mode_behavior: suppress
+- operation_id: client_client_contacts_create
+  effect_kind: b1_client_client_contacts_create
+  channel: b1_api
+  idempotency: required
+  test_mode_behavior: suppress
+- operation_id: clients_update
+  effect_kind: b1_clients_update
+  channel: b1_api
+  idempotency: required
+  test_mode_behavior: suppress
+- operation_id: client_client_addresses_update
+  effect_kind: b1_client_client_addresses_update
+  channel: b1_api
+  idempotency: required
+  test_mode_behavior: suppress
+- operation_id: client_client_bank_accounts_update
+  effect_kind: b1_client_client_bank_accounts_update
+  channel: b1_api
+  idempotency: required
+  test_mode_behavior: suppress
+- operation_id: client_client_contacts_update
+  effect_kind: b1_client_client_contacts_update
+  channel: b1_api
+  idempotency: required
+  test_mode_behavior: suppress
+- operation_id: reference_book_measurement_units_create
+  effect_kind: b1_reference_book_measurement_units_create
+  channel: b1_api
+  idempotency: required
+  test_mode_behavior: suppress
+- operation_id: reference_book_items_create
+  effect_kind: b1_reference_book_items_create
+  channel: b1_api
+  idempotency: required
+  test_mode_behavior: suppress
+- operation_id: reference_book_item_groups_create
+  effect_kind: b1_reference_book_item_groups_create
+  channel: b1_api
+  idempotency: required
+  test_mode_behavior: suppress
+- operation_id: reference_book_measurement_units_update
+  effect_kind: b1_reference_book_measurement_units_update
+  channel: b1_api
+  idempotency: required
+  test_mode_behavior: suppress
+- operation_id: reference_book_items_update
+  effect_kind: b1_reference_book_items_update
+  channel: b1_api
+  idempotency: required
+  test_mode_behavior: suppress
+- operation_id: reference_book_item_groups_update
+  effect_kind: b1_reference_book_item_groups_update
+  channel: b1_api
+  idempotency: required
+  test_mode_behavior: suppress
+- operation_id: warehouse_purchases_create
+  effect_kind: b1_warehouse_purchases_create
+  channel: b1_api
+  idempotency: required
+  test_mode_behavior: suppress
+- operation_id: warehouse_purchase_items_create
+  effect_kind: b1_warehouse_purchase_items_create
+  channel: b1_api
+  idempotency: required
+  test_mode_behavior: suppress
+- operation_id: warehouse_sales_create
+  effect_kind: b1_warehouse_sales_create
+  channel: b1_api
+  idempotency: required
+  test_mode_behavior: suppress
+- operation_id: warehouse_sale_items_create
+  effect_kind: b1_warehouse_sale_items_create
+  channel: b1_api
+  idempotency: required
+  test_mode_behavior: suppress
+- operation_id: warehouse_sale_items_create_simple
+  effect_kind: b1_warehouse_sale_items_create_simple
+  channel: b1_api
+  idempotency: required
+  test_mode_behavior: suppress
+- operation_id: warehouse_purchases_update
+  effect_kind: b1_warehouse_purchases_update
+  channel: b1_api
+  idempotency: required
+  test_mode_behavior: suppress
+- operation_id: warehouse_purchase_items_update
+  effect_kind: b1_warehouse_purchase_items_update
+  channel: b1_api
+  idempotency: required
+  test_mode_behavior: suppress
+- operation_id: warehouse_sales_update
+  effect_kind: b1_warehouse_sales_update
+  channel: b1_api
+  idempotency: required
+  test_mode_behavior: suppress
+- operation_id: warehouse_sale_items_update
+  effect_kind: b1_warehouse_sale_items_update
+  channel: b1_api
+  idempotency: required
+  test_mode_behavior: suppress
+- operation_id: warehouse_sales_update_vat
+  effect_kind: b1_warehouse_sales_update_vat
+  channel: b1_api
+  idempotency: required
+  test_mode_behavior: suppress
+- operation_id: warehouse_purchase_files_create
+  effect_kind: b1_warehouse_purchase_files_create
+  channel: b1_api
+  idempotency: required
+  test_mode_behavior: suppress
+- operation_id: warehouse_sale_files_create
+  effect_kind: b1_warehouse_sale_files_create
+  channel: b1_api
+  idempotency: required
+  test_mode_behavior: suppress
+- operation_id: bank_transactions_create
+  effect_kind: b1_bank_transactions_create
+  channel: b1_api
+  idempotency: required
+  test_mode_behavior: suppress
+- operation_id: bank_transaction_entries_create
+  effect_kind: b1_bank_transaction_entries_create
+  channel: b1_api
+  idempotency: required
+  test_mode_behavior: suppress
+- operation_id: bank_sale_invoice_payment
+  effect_kind: b1_bank_sale_invoice_payment
+  channel: b1_api
+  idempotency: required
+  test_mode_behavior: suppress
+- operation_id: e_commerce_orders_create_sale
+  effect_kind: b1_e_commerce_orders_create_sale
+  channel: b1_api
+  idempotency: required
+  test_mode_behavior: suppress
+- operation_id: e_commerce_orders_create
+  effect_kind: b1_e_commerce_orders_create
+  channel: b1_api
+  idempotency: required
+  test_mode_behavior: suppress
+- operation_id: e_commerce_order_items_create
+  effect_kind: b1_e_commerce_order_items_create
+  channel: b1_api
+  idempotency: required
+  test_mode_behavior: suppress
+- operation_id: shop_orders_add
+  effect_kind: b1_shop_orders_add
+  channel: b1_api
+  idempotency: required
+  test_mode_behavior: suppress
+runtime:
+  contract_version: extension_host_v2
+  extension_contract_v2:
+    connection_types: contracts/connection_types.yaml
+    operation_manifest: contracts/operation_manifest.yaml
+    step_ui_manifest: contracts/step_ui_manifest.yaml
+    artifact_policies: contracts/artifact_policies.yaml
+entrypoint:
+  mode: subprocess
+  command:
+  - python3
+  - main.py
+  timeout_seconds: 600
+health:
+  command:
+  - python3
+  - health.py
+  timeout_seconds: 5
+ui_manifest: ui/ui_manifest.yaml
+action_manifest: ui/actions/actions.yaml
+python_requirements: []

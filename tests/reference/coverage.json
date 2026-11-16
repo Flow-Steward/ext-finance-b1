@@ -1,0 +1,5442 @@
+{
+ "source": {
+  "url": "https://site.pro/My-Accounting/doc/api/api_data.json",
+  "sha256": "8b8892c09f133a9ae2579ff0c93bb99e6950268960365a109a954ec4c72c47d4",
+  "api_name": "Site.pro Accounting API",
+  "api_version": "0.3.28",
+  "generated": "2026-11-16T11:19:56.889Z"
+ },
+ "endpoints": [
+  {
+   "path": "account/file-storage/upload",
+   "operation_id": "account_file_storage_upload",
+   "title": "Upload a file to a sale or purchase (file storage)",
+   "kind": "upload",
+   "release": "0.2.0",
+   "reason": "Planned for 0.2.0.",
+   "everyday_steps": []
+  },
+  {
+   "path": "bank/accounting-banks/create",
+   "operation_id": "bank_accounting_banks_create",
+   "title": "Create an accounting bank",
+   "kind": "create",
+   "release": "0.2.0",
+   "reason": "Planned for 0.2.0.",
+   "everyday_steps": []
+  },
+  {
+   "path": "bank/accounting-banks/delete",
+   "operation_id": "bank_accounting_banks_delete",
+   "title": "Delete accounting banks",
+   "kind": "delete",
+   "release": "after-live",
+   "reason": "Deletion: planned after a check against a live company.",
+   "everyday_steps": []
+  },
+  {
+   "path": "bank/accounting-banks/list",
+   "operation_id": "bank_accounting_banks_list",
+   "title": "List accounting banks",
+   "kind": "read",
+   "release": "0.1.0",
+   "reason": "Read: changes nothing in Site.pro Accounting.",
+   "everyday_steps": []
+  },
+  {
+   "path": "bank/accounting-banks/update",
+   "operation_id": "bank_accounting_banks_update",
+   "title": "Update an accounting bank",
+   "kind": "update",
+   "release": "0.2.0",
+   "reason": "Planned for 0.2.0.",
+   "everyday_steps": []
+  },
+  {
+   "path": "bank/sale-invoice/payment",
+   "operation_id": "bank_sale_invoice_payment",
+   "title": "Record a bank payment for a sale invoice",
+   "kind": "create",
+   "release": "0.1.0",
+   "reason": "Everyday write.",
+   "everyday_steps": [
+    "record_sale_payment"
+   ]
+  },
+  {
+   "path": "bank/transaction-entries/create",
+   "operation_id": "bank_transaction_entries_create",
+   "title": "Create a bank transaction entry",
+   "kind": "create",
+   "release": "0.1.0",
+   "reason": "Everyday write.",
+   "everyday_steps": []
+  },
+  {
+   "path": "bank/transaction-entries/delete",
+   "operation_id": "bank_transaction_entries_delete",
+   "title": "Delete bank transaction entries",
+   "kind": "delete",
+   "release": "after-live",
+   "reason": "Deletion: planned after a check against a live company.",
+   "everyday_steps": []
+  },
+  {
+   "path": "bank/transaction-entries/list",
+   "operation_id": "bank_transaction_entries_list",
+   "title": "List bank transaction entries",
+   "kind": "read",
+   "release": "0.1.0",
+   "reason": "Read: changes nothing in Site.pro Accounting.",
+   "everyday_steps": []
+  },
+  {
+   "path": "bank/transaction-entries/update",
+   "operation_id": "bank_transaction_entries_update",
+   "title": "Update a bank transaction entry",
+   "kind": "update",
+   "release": "0.2.0",
+   "reason": "Planned for 0.2.0.",
+   "everyday_steps": []
+  },
+  {
+   "path": "bank/transaction-files/create",
+   "operation_id": "bank_transaction_files_create",
+   "title": "Upload a bank transaction file",
+   "kind": "upload",
+   "release": "0.2.0",
+   "reason": "Planned for 0.2.0.",
+   "everyday_steps": []
+  },
+  {
+   "path": "bank/transaction-files/delete",
+   "operation_id": "bank_transaction_files_delete",
+   "title": "Delete bank transaction files",
+   "kind": "delete",
+   "release": "after-live",
+   "reason": "Deletion: planned after a check against a live company.",
+   "everyday_steps": []
+  },
+  {
+   "path": "bank/transaction-files/get",
+   "operation_id": "bank_transaction_files_get",
+   "title": "Get a bank transaction file",
+   "kind": "file",
+   "release": "0.1.0",
+   "reason": "Read: changes nothing in Site.pro Accounting.",
+   "everyday_steps": []
+  },
+  {
+   "path": "bank/transaction-files/list",
+   "operation_id": "bank_transaction_files_list",
+   "title": "List bank transaction files",
+   "kind": "read",
+   "release": "0.1.0",
+   "reason": "Read: changes nothing in Site.pro Accounting.",
+   "everyday_steps": []
+  },
+  {
+   "path": "bank/transactions/create",
+   "operation_id": "bank_transactions_create",
+   "title": "Create a bank transaction",
+   "kind": "create",
+   "release": "0.1.0",
+   "reason": "Everyday write.",
+   "everyday_steps": []
+  },
+  {
+   "path": "bank/transactions/delete",
+   "operation_id": "bank_transactions_delete",
+   "title": "Delete bank transactions",
+   "kind": "delete",
+   "release": "after-live",
+   "reason": "Deletion: planned after a check against a live company.",
+   "everyday_steps": []
+  },
+  {
+   "path": "bank/transactions/list",
+   "operation_id": "bank_transactions_list",
+   "title": "List bank transactions",
+   "kind": "read",
+   "release": "0.1.0",
+   "reason": "Read: changes nothing in Site.pro Accounting.",
+   "everyday_steps": [
+    "record_sale_payment"
+   ]
+  },
+  {
+   "path": "bank/transactions/update",
+   "operation_id": "bank_transactions_update",
+   "title": "Update a bank transaction",
+   "kind": "update",
+   "release": "0.2.0",
+   "reason": "Planned for 0.2.0.",
+   "everyday_steps": []
+  },
+  {
+   "path": "bi/correspondence-accounts-clients/list",
+   "operation_id": "bi_correspondence_accounts_clients_list",
+   "title": "List correspondence accounts clients",
+   "kind": "read",
+   "release": "0.1.0",
+   "reason": "Read: changes nothing in Site.pro Accounting.",
+   "everyday_steps": []
+  },
+  {
+   "path": "bi/correspondence-accounts/list",
+   "operation_id": "bi_correspondence_accounts_list",
+   "title": "List BI correspondence accounts",
+   "kind": "read",
+   "release": "0.1.0",
+   "reason": "Read: changes nothing in Site.pro Accounting.",
+   "everyday_steps": []
+  },
+  {
+   "path": "cash-flow/accounts/create",
+   "operation_id": "cash_flow_accounts_create",
+   "title": "Create an account",
+   "kind": "create",
+   "release": "0.2.0",
+   "reason": "Planned for 0.2.0.",
+   "everyday_steps": []
+  },
+  {
+   "path": "cash-flow/accounts/delete",
+   "operation_id": "cash_flow_accounts_delete",
+   "title": "Delete accounts",
+   "kind": "delete",
+   "release": "after-live",
+   "reason": "Deletion: planned after a check against a live company.",
+   "everyday_steps": []
+  },
+  {
+   "path": "cash-flow/accounts/list",
+   "operation_id": "cash_flow_accounts_list",
+   "title": "List accounts",
+   "kind": "read",
+   "release": "0.1.0",
+   "reason": "Read: changes nothing in Site.pro Accounting.",
+   "everyday_steps": []
+  },
+  {
+   "path": "cash-flow/accounts/update",
+   "operation_id": "cash_flow_accounts_update",
+   "title": "Update an account",
+   "kind": "update",
+   "release": "0.2.0",
+   "reason": "Planned for 0.2.0.",
+   "everyday_steps": []
+  },
+  {
+   "path": "cash-flow/cash-receipts-positions/create",
+   "operation_id": "cash_flow_cash_receipts_positions_create",
+   "title": "Create a cash receipts position",
+   "kind": "create",
+   "release": "0.2.0",
+   "reason": "Planned for 0.2.0.",
+   "everyday_steps": []
+  },
+  {
+   "path": "cash-flow/cash-receipts-positions/delete",
+   "operation_id": "cash_flow_cash_receipts_positions_delete",
+   "title": "Delete cash receipts positions",
+   "kind": "delete",
+   "release": "after-live",
+   "reason": "Deletion: planned after a check against a live company.",
+   "everyday_steps": []
+  },
+  {
+   "path": "cash-flow/cash-receipts-positions/list",
+   "operation_id": "cash_flow_cash_receipts_positions_list",
+   "title": "List cash receipts positions",
+   "kind": "read",
+   "release": "0.1.0",
+   "reason": "Read: changes nothing in Site.pro Accounting.",
+   "everyday_steps": []
+  },
+  {
+   "path": "cash-flow/cash-receipts-positions/update",
+   "operation_id": "cash_flow_cash_receipts_positions_update",
+   "title": "Update a cash receipts position",
+   "kind": "update",
+   "release": "0.2.0",
+   "reason": "Planned for 0.2.0.",
+   "everyday_steps": []
+  },
+  {
+   "path": "cash-flow/cash-receipts/create",
+   "operation_id": "cash_flow_cash_receipts_create",
+   "title": "Create a cash receipt",
+   "kind": "create",
+   "release": "0.2.0",
+   "reason": "Planned for 0.2.0.",
+   "everyday_steps": []
+  },
+  {
+   "path": "cash-flow/cash-receipts/delete",
+   "operation_id": "cash_flow_cash_receipts_delete",
+   "title": "Delete cash receipts",
+   "kind": "delete",
+   "release": "after-live",
+   "reason": "Deletion: planned after a check against a live company.",
+   "everyday_steps": []
+  },
+  {
+   "path": "cash-flow/cash-receipts/list",
+   "operation_id": "cash_flow_cash_receipts_list",
+   "title": "List cash receipts",
+   "kind": "read",
+   "release": "0.1.0",
+   "reason": "Read: changes nothing in Site.pro Accounting.",
+   "everyday_steps": []
+  },
+  {
+   "path": "cash-flow/cash-receipts/update",
+   "operation_id": "cash_flow_cash_receipts_update",
+   "title": "Update a cash receipt",
+   "kind": "update",
+   "release": "0.2.0",
+   "reason": "Planned for 0.2.0.",
+   "everyday_steps": []
+  },
+  {
+   "path": "cash-flow/responsible-individuals/create",
+   "operation_id": "cash_flow_responsible_individuals_create",
+   "title": "Create a responsible individual",
+   "kind": "create",
+   "release": "0.2.0",
+   "reason": "Planned for 0.2.0.",
+   "everyday_steps": []
+  },
+  {
+   "path": "cash-flow/responsible-individuals/delete",
+   "operation_id": "cash_flow_responsible_individuals_delete",
+   "title": "Delete responsible individuals",
+   "kind": "delete",
+   "release": "after-live",
+   "reason": "Deletion: planned after a check against a live company.",
+   "everyday_steps": []
+  },
+  {
+   "path": "cash-flow/responsible-individuals/list",
+   "operation_id": "cash_flow_responsible_individuals_list",
+   "title": "List responsible individuals",
+   "kind": "read",
+   "release": "0.1.0",
+   "reason": "Read: changes nothing in Site.pro Accounting.",
+   "everyday_steps": []
+  },
+  {
+   "path": "cash-flow/responsible-individuals/update",
+   "operation_id": "cash_flow_responsible_individuals_update",
+   "title": "Update a responsible individual",
+   "kind": "update",
+   "release": "0.2.0",
+   "reason": "Planned for 0.2.0.",
+   "everyday_steps": []
+  },
+  {
+   "path": "cash-flow/series/create",
+   "operation_id": "cash_flow_series_create",
+   "title": "Create a cash series",
+   "kind": "create",
+   "release": "0.2.0",
+   "reason": "Planned for 0.2.0.",
+   "everyday_steps": []
+  },
+  {
+   "path": "cash-flow/series/delete",
+   "operation_id": "cash_flow_series_delete",
+   "title": "Delete cash series",
+   "kind": "delete",
+   "release": "after-live",
+   "reason": "Deletion: planned after a check against a live company.",
+   "everyday_steps": []
+  },
+  {
+   "path": "cash-flow/series/list",
+   "operation_id": "cash_flow_series_list",
+   "title": "List cash series",
+   "kind": "read",
+   "release": "0.1.0",
+   "reason": "Read: changes nothing in Site.pro Accounting.",
+   "everyday_steps": []
+  },
+  {
+   "path": "cash-flow/series/update",
+   "operation_id": "cash_flow_series_update",
+   "title": "Update a cash series",
+   "kind": "update",
+   "release": "0.2.0",
+   "reason": "Planned for 0.2.0.",
+   "everyday_steps": []
+  },
+  {
+   "path": "cash-flow/transaction-entries/create",
+   "operation_id": "cash_flow_transaction_entries_create",
+   "title": "Create a cash transaction entry",
+   "kind": "create",
+   "release": "0.2.0",
+   "reason": "Planned for 0.2.0.",
+   "everyday_steps": []
+  },
+  {
+   "path": "cash-flow/transaction-entries/delete",
+   "operation_id": "cash_flow_transaction_entries_delete",
+   "title": "Delete cash transaction entries",
+   "kind": "delete",
+   "release": "after-live",
+   "reason": "Deletion: planned after a check against a live company.",
+   "everyday_steps": []
+  },
+  {
+   "path": "cash-flow/transaction-entries/list",
+   "operation_id": "cash_flow_transaction_entries_list",
+   "title": "List cash transaction entries",
+   "kind": "read",
+   "release": "0.1.0",
+   "reason": "Read: changes nothing in Site.pro Accounting.",
+   "everyday_steps": []
+  },
+  {
+   "path": "cash-flow/transaction-entries/update",
+   "operation_id": "cash_flow_transaction_entries_update",
+   "title": "Update a cash transaction entry",
+   "kind": "update",
+   "release": "0.2.0",
+   "reason": "Planned for 0.2.0.",
+   "everyday_steps": []
+  },
+  {
+   "path": "cash-flow/transaction-files/create",
+   "operation_id": "cash_flow_transaction_files_create",
+   "title": "Upload a cash transaction file",
+   "kind": "upload",
+   "release": "0.2.0",
+   "reason": "Planned for 0.2.0.",
+   "everyday_steps": []
+  },
+  {
+   "path": "cash-flow/transaction-files/delete",
+   "operation_id": "cash_flow_transaction_files_delete",
+   "title": "Delete cash transaction files",
+   "kind": "delete",
+   "release": "after-live",
+   "reason": "Deletion: planned after a check against a live company.",
+   "everyday_steps": []
+  },
+  {
+   "path": "cash-flow/transaction-files/get",
+   "operation_id": "cash_flow_transaction_files_get",
+   "title": "Get a cash transaction file",
+   "kind": "file",
+   "release": "0.1.0",
+   "reason": "Read: changes nothing in Site.pro Accounting.",
+   "everyday_steps": []
+  },
+  {
+   "path": "cash-flow/transaction-files/list",
+   "operation_id": "cash_flow_transaction_files_list",
+   "title": "List cash transaction files",
+   "kind": "read",
+   "release": "0.1.0",
+   "reason": "Read: changes nothing in Site.pro Accounting.",
+   "everyday_steps": []
+  },
+  {
+   "path": "cash-flow/transactions/create",
+   "operation_id": "cash_flow_transactions_create",
+   "title": "Create a cash transaction",
+   "kind": "create",
+   "release": "0.2.0",
+   "reason": "Planned for 0.2.0.",
+   "everyday_steps": []
+  },
+  {
+   "path": "cash-flow/transactions/delete",
+   "operation_id": "cash_flow_transactions_delete",
+   "title": "Delete cash transactions",
+   "kind": "delete",
+   "release": "after-live",
+   "reason": "Deletion: planned after a check against a live company.",
+   "everyday_steps": []
+  },
+  {
+   "path": "cash-flow/transactions/list",
+   "operation_id": "cash_flow_transactions_list",
+   "title": "List cash transactions",
+   "kind": "read",
+   "release": "0.1.0",
+   "reason": "Read: changes nothing in Site.pro Accounting.",
+   "everyday_steps": []
+  },
+  {
+   "path": "cash-flow/transactions/update",
+   "operation_id": "cash_flow_transactions_update",
+   "title": "Update a cash transaction",
+   "kind": "update",
+   "release": "0.2.0",
+   "reason": "Planned for 0.2.0.",
+   "everyday_steps": []
+  },
+  {
+   "path": "cash-register/sales/add",
+   "operation_id": "cash_register_sales_add",
+   "title": "Add a cash register sale",
+   "kind": "create",
+   "release": "0.2.0",
+   "reason": "Planned for 0.2.0.",
+   "everyday_steps": []
+  },
+  {
+   "path": "cash-register/sales/delete",
+   "operation_id": "cash_register_sales_delete",
+   "title": "Delete cash register sales",
+   "kind": "delete",
+   "release": "after-live",
+   "reason": "Deletion: planned after a check against a live company.",
+   "everyday_steps": []
+  },
+  {
+   "path": "cash-register/sales/list",
+   "operation_id": "cash_register_sales_list",
+   "title": "List cash register sales",
+   "kind": "read",
+   "release": "0.1.0",
+   "reason": "Read: changes nothing in Site.pro Accounting.",
+   "everyday_steps": []
+  },
+  {
+   "path": "client/client-addresses/create",
+   "operation_id": "client_client_addresses_create",
+   "title": "Create a client address",
+   "kind": "create",
+   "release": "0.1.0",
+   "reason": "Everyday write.",
+   "everyday_steps": []
+  },
+  {
+   "path": "client/client-addresses/delete",
+   "operation_id": "client_client_addresses_delete",
+   "title": "Delete client addresses",
+   "kind": "delete",
+   "release": "after-live",
+   "reason": "Deletion: planned after a check against a live company.",
+   "everyday_steps": []
+  },
+  {
+   "path": "client/client-addresses/list",
+   "operation_id": "client_client_addresses_list",
+   "title": "List client addresses",
+   "kind": "read",
+   "release": "0.1.0",
+   "reason": "Read: changes nothing in Site.pro Accounting.",
+   "everyday_steps": []
+  },
+  {
+   "path": "client/client-addresses/update",
+   "operation_id": "client_client_addresses_update",
+   "title": "Update a client address",
+   "kind": "update",
+   "release": "0.1.0",
+   "reason": "Everyday write.",
+   "everyday_steps": []
+  },
+  {
+   "path": "client/client-bank-accounts/create",
+   "operation_id": "client_client_bank_accounts_create",
+   "title": "Create a client bank account",
+   "kind": "create",
+   "release": "0.1.0",
+   "reason": "Everyday write.",
+   "everyday_steps": []
+  },
+  {
+   "path": "client/client-bank-accounts/delete",
+   "operation_id": "client_client_bank_accounts_delete",
+   "title": "Delete client bank accounts",
+   "kind": "delete",
+   "release": "after-live",
+   "reason": "Deletion: planned after a check against a live company.",
+   "everyday_steps": []
+  },
+  {
+   "path": "client/client-bank-accounts/list",
+   "operation_id": "client_client_bank_accounts_list",
+   "title": "List client bank accounts",
+   "kind": "read",
+   "release": "0.1.0",
+   "reason": "Read: changes nothing in Site.pro Accounting.",
+   "everyday_steps": []
+  },
+  {
+   "path": "client/client-bank-accounts/update",
+   "operation_id": "client_client_bank_accounts_update",
+   "title": "Update a client bank account",
+   "kind": "update",
+   "release": "0.1.0",
+   "reason": "Everyday write.",
+   "everyday_steps": []
+  },
+  {
+   "path": "client/client-contacts/create",
+   "operation_id": "client_client_contacts_create",
+   "title": "Create a client contact",
+   "kind": "create",
+   "release": "0.1.0",
+   "reason": "Everyday write.",
+   "everyday_steps": []
+  },
+  {
+   "path": "client/client-contacts/delete",
+   "operation_id": "client_client_contacts_delete",
+   "title": "Delete client contacts",
+   "kind": "delete",
+   "release": "after-live",
+   "reason": "Deletion: planned after a check against a live company.",
+   "everyday_steps": []
+  },
+  {
+   "path": "client/client-contacts/list",
+   "operation_id": "client_client_contacts_list",
+   "title": "List client contacts",
+   "kind": "read",
+   "release": "0.1.0",
+   "reason": "Read: changes nothing in Site.pro Accounting.",
+   "everyday_steps": []
+  },
+  {
+   "path": "client/client-contacts/update",
+   "operation_id": "client_client_contacts_update",
+   "title": "Update a client contact",
+   "kind": "update",
+   "release": "0.1.0",
+   "reason": "Everyday write.",
+   "everyday_steps": []
+  },
+  {
+   "path": "client/client-files/create",
+   "operation_id": "client_client_files_create",
+   "title": "Upload a client file",
+   "kind": "upload",
+   "release": "0.2.0",
+   "reason": "Planned for 0.2.0.",
+   "everyday_steps": []
+  },
+  {
+   "path": "client/client-files/delete",
+   "operation_id": "client_client_files_delete",
+   "title": "Delete client files",
+   "kind": "delete",
+   "release": "after-live",
+   "reason": "Deletion: planned after a check against a live company.",
+   "everyday_steps": []
+  },
+  {
+   "path": "client/client-files/get",
+   "operation_id": "client_client_files_get",
+   "title": "Get a client file",
+   "kind": "file",
+   "release": "0.1.0",
+   "reason": "Read: changes nothing in Site.pro Accounting.",
+   "everyday_steps": []
+  },
+  {
+   "path": "client/client-files/list",
+   "operation_id": "client_client_files_list",
+   "title": "List client files",
+   "kind": "read",
+   "release": "0.1.0",
+   "reason": "Read: changes nothing in Site.pro Accounting.",
+   "everyday_steps": []
+  },
+  {
+   "path": "client/client-requests/create",
+   "operation_id": "client_client_requests_create",
+   "title": "Create a client request",
+   "kind": "create",
+   "release": "0.2.0",
+   "reason": "Planned for 0.2.0.",
+   "everyday_steps": []
+  },
+  {
+   "path": "client/client-requests/delete",
+   "operation_id": "client_client_requests_delete",
+   "title": "Delete client requests",
+   "kind": "delete",
+   "release": "after-live",
+   "reason": "Deletion: planned after a check against a live company.",
+   "everyday_steps": []
+  },
+  {
+   "path": "client/client-requests/list",
+   "operation_id": "client_client_requests_list",
+   "title": "List client requests",
+   "kind": "read",
+   "release": "0.1.0",
+   "reason": "Read: changes nothing in Site.pro Accounting.",
+   "everyday_steps": []
+  },
+  {
+   "path": "client/client-requests/update",
+   "operation_id": "client_client_requests_update",
+   "title": "Update a client request",
+   "kind": "update",
+   "release": "0.2.0",
+   "reason": "Planned for 0.2.0.",
+   "everyday_steps": []
+  },
+  {
+   "path": "client/item-prices/list",
+   "operation_id": "client_item_prices_list",
+   "title": "List client item prices",
+   "kind": "read",
+   "release": "0.1.0",
+   "reason": "Read: changes nothing in Site.pro Accounting.",
+   "everyday_steps": []
+  },
+  {
+   "path": "client/sales/balance",
+   "operation_id": "client_sales_balance",
+   "title": "Get a client's sales balance",
+   "kind": "read",
+   "release": "0.1.0",
+   "reason": "Read: changes nothing in Site.pro Accounting.",
+   "everyday_steps": []
+  },
+  {
+   "path": "clients/create",
+   "operation_id": "clients_create",
+   "title": "Create a client",
+   "kind": "create",
+   "release": "0.1.0",
+   "reason": "Everyday write.",
+   "everyday_steps": [
+    "find_or_create_client"
+   ]
+  },
+  {
+   "path": "clients/delete",
+   "operation_id": "clients_delete",
+   "title": "Delete clients",
+   "kind": "delete",
+   "release": "after-live",
+   "reason": "Deletion: planned after a check against a live company.",
+   "everyday_steps": []
+  },
+  {
+   "path": "clients/list",
+   "operation_id": "clients_list",
+   "title": "List clients",
+   "kind": "read",
+   "release": "0.1.0",
+   "reason": "Read: changes nothing in Site.pro Accounting.",
+   "everyday_steps": [
+    "find_client",
+    "find_or_create_client"
+   ]
+  },
+  {
+   "path": "clients/update",
+   "operation_id": "clients_update",
+   "title": "Update a client",
+   "kind": "update",
+   "release": "0.1.0",
+   "reason": "Everyday write.",
+   "everyday_steps": []
+  },
+  {
+   "path": "declaration/generations/generate-ffdata",
+   "operation_id": "declaration_generations_generate_ffdata",
+   "title": "Generate a declaration file (FFData)",
+   "kind": "other",
+   "release": "after-live",
+   "reason": "Irreversible or wide action: planned after a live check.",
+   "everyday_steps": []
+  },
+  {
+   "path": "declaration/income-tax312-codes/list",
+   "operation_id": "declaration_income_tax312_codes_list",
+   "title": "List income tax312 codes",
+   "kind": "read",
+   "release": "0.1.0",
+   "reason": "Read: changes nothing in Site.pro Accounting.",
+   "everyday_steps": []
+  },
+  {
+   "path": "document/agreement-files/create",
+   "operation_id": "document_agreement_files_create",
+   "title": "Upload an agreement file",
+   "kind": "upload",
+   "release": "0.2.0",
+   "reason": "Planned for 0.2.0.",
+   "everyday_steps": []
+  },
+  {
+   "path": "document/agreement-files/delete",
+   "operation_id": "document_agreement_files_delete",
+   "title": "Delete agreement files",
+   "kind": "delete",
+   "release": "after-live",
+   "reason": "Deletion: planned after a check against a live company.",
+   "everyday_steps": []
+  },
+  {
+   "path": "document/agreement-files/get",
+   "operation_id": "document_agreement_files_get",
+   "title": "Get an agreement file",
+   "kind": "file",
+   "release": "0.1.0",
+   "reason": "Read: changes nothing in Site.pro Accounting.",
+   "everyday_steps": []
+  },
+  {
+   "path": "document/agreement-files/list",
+   "operation_id": "document_agreement_files_list",
+   "title": "List agreement files",
+   "kind": "read",
+   "release": "0.1.0",
+   "reason": "Read: changes nothing in Site.pro Accounting.",
+   "everyday_steps": []
+  },
+  {
+   "path": "document/agreement-items/create",
+   "operation_id": "document_agreement_items_create",
+   "title": "Create an agreement item",
+   "kind": "create",
+   "release": "0.2.0",
+   "reason": "Planned for 0.2.0.",
+   "everyday_steps": []
+  },
+  {
+   "path": "document/agreement-items/delete",
+   "operation_id": "document_agreement_items_delete",
+   "title": "Delete agreement items",
+   "kind": "delete",
+   "release": "after-live",
+   "reason": "Deletion: planned after a check against a live company.",
+   "everyday_steps": []
+  },
+  {
+   "path": "document/agreement-items/list",
+   "operation_id": "document_agreement_items_list",
+   "title": "List agreement items",
+   "kind": "read",
+   "release": "0.1.0",
+   "reason": "Read: changes nothing in Site.pro Accounting.",
+   "everyday_steps": []
+  },
+  {
+   "path": "document/agreement-items/update",
+   "operation_id": "document_agreement_items_update",
+   "title": "Update an agreement item",
+   "kind": "update",
+   "release": "0.2.0",
+   "reason": "Planned for 0.2.0.",
+   "everyday_steps": []
+  },
+  {
+   "path": "document/agreement-types/create",
+   "operation_id": "document_agreement_types_create",
+   "title": "Create an agreement type",
+   "kind": "create",
+   "release": "0.2.0",
+   "reason": "Planned for 0.2.0.",
+   "everyday_steps": []
+  },
+  {
+   "path": "document/agreement-types/list",
+   "operation_id": "document_agreement_types_list",
+   "title": "List agreement types",
+   "kind": "read",
+   "release": "0.1.0",
+   "reason": "Read: changes nothing in Site.pro Accounting.",
+   "everyday_steps": []
+  },
+  {
+   "path": "document/agreement-types/update",
+   "operation_id": "document_agreement_types_update",
+   "title": "Update an agreement type",
+   "kind": "update",
+   "release": "0.2.0",
+   "reason": "Planned for 0.2.0.",
+   "everyday_steps": []
+  },
+  {
+   "path": "document/agreements/create",
+   "operation_id": "document_agreements_create",
+   "title": "Create an agreement",
+   "kind": "create",
+   "release": "0.2.0",
+   "reason": "Planned for 0.2.0.",
+   "everyday_steps": []
+  },
+  {
+   "path": "document/agreements/list",
+   "operation_id": "document_agreements_list",
+   "title": "List agreements",
+   "kind": "read",
+   "release": "0.1.0",
+   "reason": "Read: changes nothing in Site.pro Accounting.",
+   "everyday_steps": []
+  },
+  {
+   "path": "document/agreements/update",
+   "operation_id": "document_agreements_update",
+   "title": "Update an agreement",
+   "kind": "update",
+   "release": "0.2.0",
+   "reason": "Planned for 0.2.0.",
+   "everyday_steps": []
+  },
+  {
+   "path": "document/certificate-of-incapacities/create",
+   "operation_id": "document_certificate_of_incapacities_create",
+   "title": "Create a certificate of incapacity",
+   "kind": "create",
+   "release": "0.2.0",
+   "reason": "Planned for 0.2.0.",
+   "everyday_steps": []
+  },
+  {
+   "path": "document/certificate-of-incapacities/delete",
+   "operation_id": "document_certificate_of_incapacities_delete",
+   "title": "Delete certificate of incapacities",
+   "kind": "delete",
+   "release": "after-live",
+   "reason": "Deletion: planned after a check against a live company.",
+   "everyday_steps": []
+  },
+  {
+   "path": "document/certificate-of-incapacities/list",
+   "operation_id": "document_certificate_of_incapacities_list",
+   "title": "List certificate of incapacities",
+   "kind": "read",
+   "release": "0.1.0",
+   "reason": "Read: changes nothing in Site.pro Accounting.",
+   "everyday_steps": []
+  },
+  {
+   "path": "document/certificate-of-incapacities/update",
+   "operation_id": "document_certificate_of_incapacities_update",
+   "title": "Update a certificate of incapacity",
+   "kind": "update",
+   "release": "0.2.0",
+   "reason": "Planned for 0.2.0.",
+   "everyday_steps": []
+  },
+  {
+   "path": "document/dismissal-orders/list",
+   "operation_id": "document_dismissal_orders_list",
+   "title": "List dismissal orders",
+   "kind": "read",
+   "release": "0.1.0",
+   "reason": "Read: changes nothing in Site.pro Accounting.",
+   "everyday_steps": []
+  },
+  {
+   "path": "document/insurance-files/create",
+   "operation_id": "document_insurance_files_create",
+   "title": "Upload an insurance file",
+   "kind": "upload",
+   "release": "0.2.0",
+   "reason": "Planned for 0.2.0.",
+   "everyday_steps": []
+  },
+  {
+   "path": "document/insurance-files/delete",
+   "operation_id": "document_insurance_files_delete",
+   "title": "Delete insurance files",
+   "kind": "delete",
+   "release": "after-live",
+   "reason": "Deletion: planned after a check against a live company.",
+   "everyday_steps": []
+  },
+  {
+   "path": "document/insurance-files/get",
+   "operation_id": "document_insurance_files_get",
+   "title": "Get an insurance file",
+   "kind": "file",
+   "release": "0.1.0",
+   "reason": "Read: changes nothing in Site.pro Accounting.",
+   "everyday_steps": []
+  },
+  {
+   "path": "document/insurance-files/list",
+   "operation_id": "document_insurance_files_list",
+   "title": "List insurance files",
+   "kind": "read",
+   "release": "0.1.0",
+   "reason": "Read: changes nothing in Site.pro Accounting.",
+   "everyday_steps": []
+  },
+  {
+   "path": "document/insurance-items/create",
+   "operation_id": "document_insurance_items_create",
+   "title": "Create an insurance item",
+   "kind": "create",
+   "release": "0.2.0",
+   "reason": "Planned for 0.2.0.",
+   "everyday_steps": []
+  },
+  {
+   "path": "document/insurance-items/delete",
+   "operation_id": "document_insurance_items_delete",
+   "title": "Delete insurance items",
+   "kind": "delete",
+   "release": "after-live",
+   "reason": "Deletion: planned after a check against a live company.",
+   "everyday_steps": []
+  },
+  {
+   "path": "document/insurance-items/list",
+   "operation_id": "document_insurance_items_list",
+   "title": "List insurance items",
+   "kind": "read",
+   "release": "0.1.0",
+   "reason": "Read: changes nothing in Site.pro Accounting.",
+   "everyday_steps": []
+  },
+  {
+   "path": "document/insurance-items/update",
+   "operation_id": "document_insurance_items_update",
+   "title": "Update an insurance item",
+   "kind": "update",
+   "release": "0.2.0",
+   "reason": "Planned for 0.2.0.",
+   "everyday_steps": []
+  },
+  {
+   "path": "document/insurance-types/create",
+   "operation_id": "document_insurance_types_create",
+   "title": "Create an insurance type",
+   "kind": "create",
+   "release": "0.2.0",
+   "reason": "Planned for 0.2.0.",
+   "everyday_steps": []
+  },
+  {
+   "path": "document/insurance-types/delete",
+   "operation_id": "document_insurance_types_delete",
+   "title": "Delete insurance types",
+   "kind": "delete",
+   "release": "after-live",
+   "reason": "Deletion: planned after a check against a live company.",
+   "everyday_steps": []
+  },
+  {
+   "path": "document/insurance-types/list",
+   "operation_id": "document_insurance_types_list",
+   "title": "List insurance types",
+   "kind": "read",
+   "release": "0.1.0",
+   "reason": "Read: changes nothing in Site.pro Accounting.",
+   "everyday_steps": []
+  },
+  {
+   "path": "document/insurance-types/update",
+   "operation_id": "document_insurance_types_update",
+   "title": "Update an insurance type",
+   "kind": "update",
+   "release": "0.2.0",
+   "reason": "Planned for 0.2.0.",
+   "everyday_steps": []
+  },
+  {
+   "path": "document/insurances/create",
+   "operation_id": "document_insurances_create",
+   "title": "Create an insurance",
+   "kind": "create",
+   "release": "0.2.0",
+   "reason": "Planned for 0.2.0.",
+   "everyday_steps": []
+  },
+  {
+   "path": "document/insurances/delete",
+   "operation_id": "document_insurances_delete",
+   "title": "Delete insurances",
+   "kind": "delete",
+   "release": "after-live",
+   "reason": "Deletion: planned after a check against a live company.",
+   "everyday_steps": []
+  },
+  {
+   "path": "document/insurances/list",
+   "operation_id": "document_insurances_list",
+   "title": "List insurances",
+   "kind": "read",
+   "release": "0.1.0",
+   "reason": "Read: changes nothing in Site.pro Accounting.",
+   "everyday_steps": []
+  },
+  {
+   "path": "document/insurances/update",
+   "operation_id": "document_insurances_update",
+   "title": "Update an insurance",
+   "kind": "update",
+   "release": "0.2.0",
+   "reason": "Planned for 0.2.0.",
+   "everyday_steps": []
+  },
+  {
+   "path": "document/leave-accumulated-days/delete",
+   "operation_id": "document_leave_accumulated_days_delete",
+   "title": "Delete leave accumulated days",
+   "kind": "delete",
+   "release": "after-live",
+   "reason": "Deletion: planned after a check against a live company.",
+   "everyday_steps": []
+  },
+  {
+   "path": "document/leave-accumulated-days/list",
+   "operation_id": "document_leave_accumulated_days_list",
+   "title": "List leave accumulated days",
+   "kind": "read",
+   "release": "0.1.0",
+   "reason": "Read: changes nothing in Site.pro Accounting.",
+   "everyday_steps": []
+  },
+  {
+   "path": "document/leave-accumulated-days/update",
+   "operation_id": "document_leave_accumulated_days_update",
+   "title": "Update a leave accumulated day",
+   "kind": "update",
+   "release": "0.2.0",
+   "reason": "Planned for 0.2.0.",
+   "everyday_steps": []
+  },
+  {
+   "path": "document/leave-orders/list",
+   "operation_id": "document_leave_orders_list",
+   "title": "List leave orders",
+   "kind": "read",
+   "release": "0.1.0",
+   "reason": "Read: changes nothing in Site.pro Accounting.",
+   "everyday_steps": []
+  },
+  {
+   "path": "document/order-files/create",
+   "operation_id": "document_order_files_create",
+   "title": "Upload an order file",
+   "kind": "upload",
+   "release": "0.2.0",
+   "reason": "Planned for 0.2.0.",
+   "everyday_steps": []
+  },
+  {
+   "path": "document/order-files/delete",
+   "operation_id": "document_order_files_delete",
+   "title": "Delete order files",
+   "kind": "delete",
+   "release": "after-live",
+   "reason": "Deletion: planned after a check against a live company.",
+   "everyday_steps": []
+  },
+  {
+   "path": "document/order-files/get",
+   "operation_id": "document_order_files_get",
+   "title": "Get an order file",
+   "kind": "file",
+   "release": "0.1.0",
+   "reason": "Read: changes nothing in Site.pro Accounting.",
+   "everyday_steps": []
+  },
+  {
+   "path": "document/order-files/list",
+   "operation_id": "document_order_files_list",
+   "title": "List order files",
+   "kind": "read",
+   "release": "0.1.0",
+   "reason": "Read: changes nothing in Site.pro Accounting.",
+   "everyday_steps": []
+  },
+  {
+   "path": "document/secondment-orders/list",
+   "operation_id": "document_secondment_orders_list",
+   "title": "List secondment orders",
+   "kind": "read",
+   "release": "0.1.0",
+   "reason": "Read: changes nothing in Site.pro Accounting.",
+   "everyday_steps": []
+  },
+  {
+   "path": "e-commerce/items/stock",
+   "operation_id": "e_commerce_items_stock",
+   "title": "Get e-commerce item stock",
+   "kind": "read",
+   "release": "0.1.0",
+   "reason": "Read: changes nothing in Site.pro Accounting.",
+   "everyday_steps": []
+  },
+  {
+   "path": "e-commerce/order-items/create",
+   "operation_id": "e_commerce_order_items_create",
+   "title": "Create an order item",
+   "kind": "create",
+   "release": "0.1.0",
+   "reason": "Everyday write.",
+   "everyday_steps": []
+  },
+  {
+   "path": "e-commerce/orders/create",
+   "operation_id": "e_commerce_orders_create",
+   "title": "Create an order",
+   "kind": "create",
+   "release": "0.1.0",
+   "reason": "Everyday write.",
+   "everyday_steps": []
+  },
+  {
+   "path": "e-commerce/orders/create-sale",
+   "operation_id": "e_commerce_orders_create_sale",
+   "title": "Create a sale from an e-commerce order",
+   "kind": "create",
+   "release": "0.1.0",
+   "reason": "Everyday write.",
+   "everyday_steps": []
+  },
+  {
+   "path": "e-commerce/orders/create-write-off",
+   "operation_id": "e_commerce_orders_create_write_off",
+   "title": "Create a write-off from an e-commerce order",
+   "kind": "other",
+   "release": "after-live",
+   "reason": "Irreversible or wide action: planned after a live check.",
+   "everyday_steps": []
+  },
+  {
+   "path": "e-commerce/orders/delete",
+   "operation_id": "e_commerce_orders_delete",
+   "title": "Delete orders",
+   "kind": "delete",
+   "release": "after-live",
+   "reason": "Deletion: planned after a check against a live company.",
+   "everyday_steps": []
+  },
+  {
+   "path": "e-commerce/orders/list",
+   "operation_id": "e_commerce_orders_list",
+   "title": "List orders",
+   "kind": "read",
+   "release": "0.1.0",
+   "reason": "Read: changes nothing in Site.pro Accounting.",
+   "everyday_steps": []
+  },
+  {
+   "path": "general-ledger-cards/cards/create",
+   "operation_id": "general_ledger_cards_cards_create",
+   "title": "Create a card",
+   "kind": "create",
+   "release": "0.2.0",
+   "reason": "Planned for 0.2.0.",
+   "everyday_steps": []
+  },
+  {
+   "path": "general-ledger-cards/cards/delete",
+   "operation_id": "general_ledger_cards_cards_delete",
+   "title": "Delete cards",
+   "kind": "delete",
+   "release": "after-live",
+   "reason": "Deletion: planned after a check against a live company.",
+   "everyday_steps": []
+  },
+  {
+   "path": "general-ledger-cards/cards/list",
+   "operation_id": "general_ledger_cards_cards_list",
+   "title": "List cards",
+   "kind": "read",
+   "release": "0.1.0",
+   "reason": "Read: changes nothing in Site.pro Accounting.",
+   "everyday_steps": []
+  },
+  {
+   "path": "general-ledger-cards/cards/update",
+   "operation_id": "general_ledger_cards_cards_update",
+   "title": "Update a card",
+   "kind": "update",
+   "release": "0.2.0",
+   "reason": "Planned for 0.2.0.",
+   "everyday_steps": []
+  },
+  {
+   "path": "general-ledger-cards/items/create",
+   "operation_id": "general_ledger_cards_items_create",
+   "title": "Create a general ledger card item",
+   "kind": "create",
+   "release": "0.2.0",
+   "reason": "Planned for 0.2.0.",
+   "everyday_steps": []
+  },
+  {
+   "path": "general-ledger-cards/items/delete",
+   "operation_id": "general_ledger_cards_items_delete",
+   "title": "Delete general ledger card items",
+   "kind": "delete",
+   "release": "after-live",
+   "reason": "Deletion: planned after a check against a live company.",
+   "everyday_steps": []
+  },
+  {
+   "path": "general-ledger-cards/items/history-list",
+   "operation_id": "general_ledger_cards_items_history_list",
+   "title": "List the history of general ledger card items",
+   "kind": "read",
+   "release": "0.1.0",
+   "reason": "Read: changes nothing in Site.pro Accounting.",
+   "everyday_steps": []
+  },
+  {
+   "path": "general-ledger-cards/items/list",
+   "operation_id": "general_ledger_cards_items_list",
+   "title": "List general ledger card items",
+   "kind": "read",
+   "release": "0.1.0",
+   "reason": "Read: changes nothing in Site.pro Accounting.",
+   "everyday_steps": []
+  },
+  {
+   "path": "general-ledger-cards/items/update",
+   "operation_id": "general_ledger_cards_items_update",
+   "title": "Update a general ledger card item",
+   "kind": "update",
+   "release": "0.2.0",
+   "reason": "Planned for 0.2.0.",
+   "everyday_steps": []
+  },
+  {
+   "path": "general-ledger/card-files/create",
+   "operation_id": "general_ledger_card_files_create",
+   "title": "Upload a card file",
+   "kind": "upload",
+   "release": "0.2.0",
+   "reason": "Planned for 0.2.0.",
+   "everyday_steps": []
+  },
+  {
+   "path": "general-ledger/card-files/delete",
+   "operation_id": "general_ledger_card_files_delete",
+   "title": "Delete card files",
+   "kind": "delete",
+   "release": "after-live",
+   "reason": "Deletion: planned after a check against a live company.",
+   "everyday_steps": []
+  },
+  {
+   "path": "general-ledger/card-files/get",
+   "operation_id": "general_ledger_card_files_get",
+   "title": "Get a card file",
+   "kind": "file",
+   "release": "0.1.0",
+   "reason": "Read: changes nothing in Site.pro Accounting.",
+   "everyday_steps": []
+  },
+  {
+   "path": "general-ledger/card-files/list",
+   "operation_id": "general_ledger_card_files_list",
+   "title": "List card files",
+   "kind": "read",
+   "release": "0.1.0",
+   "reason": "Read: changes nothing in Site.pro Accounting.",
+   "everyday_steps": []
+  },
+  {
+   "path": "general-ledger/financial-accountability-article-entries/delete",
+   "operation_id": "general_ledger_financial_accountability_article_entries_delete",
+   "title": "Delete financial accountability article entries",
+   "kind": "delete",
+   "release": "after-live",
+   "reason": "Deletion: planned after a check against a live company.",
+   "everyday_steps": []
+  },
+  {
+   "path": "general-ledger/financial-accountability-article-entries/list",
+   "operation_id": "general_ledger_financial_accountability_article_entries_list",
+   "title": "List financial accountability article entries",
+   "kind": "read",
+   "release": "0.1.0",
+   "reason": "Read: changes nothing in Site.pro Accounting.",
+   "everyday_steps": []
+  },
+  {
+   "path": "general-ledger/financial-accountability-articles/link",
+   "operation_id": "general_ledger_financial_accountability_articles_link",
+   "title": "Link a financial accountability article",
+   "kind": "other",
+   "release": "after-live",
+   "reason": "Irreversible or wide action: planned after a live check.",
+   "everyday_steps": []
+  },
+  {
+   "path": "general-ledger/financial-accountability-articles/list",
+   "operation_id": "general_ledger_financial_accountability_articles_list",
+   "title": "List financial accountability articles",
+   "kind": "read",
+   "release": "0.1.0",
+   "reason": "Read: changes nothing in Site.pro Accounting.",
+   "everyday_steps": []
+  },
+  {
+   "path": "general-ledger/financial-accountability-linked-correspondence-accounts/list",
+   "operation_id": "general_ledger_financial_accountability_linked_correspondence_accounts_list",
+   "title": "List financial accountability linked correspondence accounts",
+   "kind": "read",
+   "release": "0.1.0",
+   "reason": "Read: changes nothing in Site.pro Accounting.",
+   "everyday_steps": []
+  },
+  {
+   "path": "general-ledger/financial-accountability-unlinked-correspondence-accounts/list",
+   "operation_id": "general_ledger_financial_accountability_unlinked_correspondence_accounts_list",
+   "title": "List financial accountability unlinked correspondence accounts",
+   "kind": "read",
+   "release": "0.1.0",
+   "reason": "Read: changes nothing in Site.pro Accounting.",
+   "everyday_steps": []
+  },
+  {
+   "path": "general-ledger/general-journal-files/create",
+   "operation_id": "general_ledger_general_journal_files_create",
+   "title": "Upload a general journal file",
+   "kind": "upload",
+   "release": "0.2.0",
+   "reason": "Planned for 0.2.0.",
+   "everyday_steps": []
+  },
+  {
+   "path": "general-ledger/general-journal-files/delete",
+   "operation_id": "general_ledger_general_journal_files_delete",
+   "title": "Delete general journal files",
+   "kind": "delete",
+   "release": "after-live",
+   "reason": "Deletion: planned after a check against a live company.",
+   "everyday_steps": []
+  },
+  {
+   "path": "general-ledger/general-journal-files/get",
+   "operation_id": "general_ledger_general_journal_files_get",
+   "title": "Get a general journal file",
+   "kind": "file",
+   "release": "0.1.0",
+   "reason": "Read: changes nothing in Site.pro Accounting.",
+   "everyday_steps": []
+  },
+  {
+   "path": "general-ledger/general-journal-files/list",
+   "operation_id": "general_ledger_general_journal_files_list",
+   "title": "List general journal files",
+   "kind": "read",
+   "release": "0.1.0",
+   "reason": "Read: changes nothing in Site.pro Accounting.",
+   "everyday_steps": []
+  },
+  {
+   "path": "general-ledger/settlements/delete",
+   "operation_id": "general_ledger_settlements_delete",
+   "title": "Delete settlements",
+   "kind": "delete",
+   "release": "after-live",
+   "reason": "Deletion: planned after a check against a live company.",
+   "everyday_steps": []
+  },
+  {
+   "path": "general-ledger/settlements/list",
+   "operation_id": "general_ledger_settlements_list",
+   "title": "List settlements",
+   "kind": "read",
+   "release": "0.1.0",
+   "reason": "Read: changes nothing in Site.pro Accounting.",
+   "everyday_steps": []
+  },
+  {
+   "path": "general-ledger/settlements/settle",
+   "operation_id": "general_ledger_settlements_settle",
+   "title": "Settle general ledger rows",
+   "kind": "other",
+   "release": "after-live",
+   "reason": "Irreversible or wide action: planned after a live check.",
+   "everyday_steps": []
+  },
+  {
+   "path": "long-term-asset/depreciations/list",
+   "operation_id": "long_term_asset_depreciations_list",
+   "title": "List depreciations",
+   "kind": "read",
+   "release": "0.1.0",
+   "reason": "Read: changes nothing in Site.pro Accounting.",
+   "everyday_steps": []
+  },
+  {
+   "path": "long-term-asset/long-term-asset-files/create",
+   "operation_id": "long_term_asset_long_term_asset_files_create",
+   "title": "Upload a long term asset file",
+   "kind": "upload",
+   "release": "0.2.0",
+   "reason": "Planned for 0.2.0.",
+   "everyday_steps": []
+  },
+  {
+   "path": "long-term-asset/long-term-asset-files/delete",
+   "operation_id": "long_term_asset_long_term_asset_files_delete",
+   "title": "Delete long term asset files",
+   "kind": "delete",
+   "release": "after-live",
+   "reason": "Deletion: planned after a check against a live company.",
+   "everyday_steps": []
+  },
+  {
+   "path": "long-term-asset/long-term-asset-files/get",
+   "operation_id": "long_term_asset_long_term_asset_files_get",
+   "title": "Get a long term asset file",
+   "kind": "file",
+   "release": "0.1.0",
+   "reason": "Read: changes nothing in Site.pro Accounting.",
+   "everyday_steps": []
+  },
+  {
+   "path": "long-term-asset/long-term-asset-files/list",
+   "operation_id": "long_term_asset_long_term_asset_files_list",
+   "title": "List long term asset files",
+   "kind": "read",
+   "release": "0.1.0",
+   "reason": "Read: changes nothing in Site.pro Accounting.",
+   "everyday_steps": []
+  },
+  {
+   "path": "long-term-asset/long-term-assets/list",
+   "operation_id": "long_term_asset_long_term_assets_list",
+   "title": "List long term assets",
+   "kind": "read",
+   "release": "0.1.0",
+   "reason": "Read: changes nothing in Site.pro Accounting.",
+   "everyday_steps": []
+  },
+  {
+   "path": "long-term-asset/modernization-items/list",
+   "operation_id": "long_term_asset_modernization_items_list",
+   "title": "List modernization items",
+   "kind": "read",
+   "release": "0.1.0",
+   "reason": "Read: changes nothing in Site.pro Accounting.",
+   "everyday_steps": []
+  },
+  {
+   "path": "long-term-asset/modernizations/list",
+   "operation_id": "long_term_asset_modernizations_list",
+   "title": "List modernizations",
+   "kind": "read",
+   "release": "0.1.0",
+   "reason": "Read: changes nothing in Site.pro Accounting.",
+   "everyday_steps": []
+  },
+  {
+   "path": "personnel/cv-files/create",
+   "operation_id": "personnel_cv_files_create",
+   "title": "Upload a cv file",
+   "kind": "upload",
+   "release": "0.2.0",
+   "reason": "Planned for 0.2.0.",
+   "everyday_steps": []
+  },
+  {
+   "path": "personnel/cv-files/delete",
+   "operation_id": "personnel_cv_files_delete",
+   "title": "Delete cv files",
+   "kind": "delete",
+   "release": "after-live",
+   "reason": "Deletion: planned after a check against a live company.",
+   "everyday_steps": []
+  },
+  {
+   "path": "personnel/cv-files/get",
+   "operation_id": "personnel_cv_files_get",
+   "title": "Get a cv file",
+   "kind": "file",
+   "release": "0.1.0",
+   "reason": "Read: changes nothing in Site.pro Accounting.",
+   "everyday_steps": []
+  },
+  {
+   "path": "personnel/cv-files/list",
+   "operation_id": "personnel_cv_files_list",
+   "title": "List cv files",
+   "kind": "read",
+   "release": "0.1.0",
+   "reason": "Read: changes nothing in Site.pro Accounting.",
+   "everyday_steps": []
+  },
+  {
+   "path": "personnel/cv-levels/create",
+   "operation_id": "personnel_cv_levels_create",
+   "title": "Create a cv level",
+   "kind": "create",
+   "release": "0.2.0",
+   "reason": "Planned for 0.2.0.",
+   "everyday_steps": []
+  },
+  {
+   "path": "personnel/cv-levels/delete",
+   "operation_id": "personnel_cv_levels_delete",
+   "title": "Delete cv levels",
+   "kind": "delete",
+   "release": "after-live",
+   "reason": "Deletion: planned after a check against a live company.",
+   "everyday_steps": []
+  },
+  {
+   "path": "personnel/cv-levels/list",
+   "operation_id": "personnel_cv_levels_list",
+   "title": "List cv levels",
+   "kind": "read",
+   "release": "0.1.0",
+   "reason": "Read: changes nothing in Site.pro Accounting.",
+   "everyday_steps": []
+  },
+  {
+   "path": "personnel/cv-levels/update",
+   "operation_id": "personnel_cv_levels_update",
+   "title": "Update a cv level",
+   "kind": "update",
+   "release": "0.2.0",
+   "reason": "Planned for 0.2.0.",
+   "everyday_steps": []
+  },
+  {
+   "path": "personnel/cvs/create",
+   "operation_id": "personnel_cvs_create",
+   "title": "Create a cv",
+   "kind": "create",
+   "release": "0.2.0",
+   "reason": "Planned for 0.2.0.",
+   "everyday_steps": []
+  },
+  {
+   "path": "personnel/cvs/delete",
+   "operation_id": "personnel_cvs_delete",
+   "title": "Delete cvs",
+   "kind": "delete",
+   "release": "after-live",
+   "reason": "Deletion: planned after a check against a live company.",
+   "everyday_steps": []
+  },
+  {
+   "path": "personnel/cvs/list",
+   "operation_id": "personnel_cvs_list",
+   "title": "List cvs",
+   "kind": "read",
+   "release": "0.1.0",
+   "reason": "Read: changes nothing in Site.pro Accounting.",
+   "everyday_steps": []
+  },
+  {
+   "path": "personnel/cvs/update",
+   "operation_id": "personnel_cvs_update",
+   "title": "Update a cv",
+   "kind": "update",
+   "release": "0.2.0",
+   "reason": "Planned for 0.2.0.",
+   "everyday_steps": []
+  },
+  {
+   "path": "personnel/employee-agreement-available-leave-days/create",
+   "operation_id": "personnel_employee_agreement_available_leave_days_create",
+   "title": "Create an employee agreement available leave day",
+   "kind": "create",
+   "release": "0.2.0",
+   "reason": "Planned for 0.2.0.",
+   "everyday_steps": []
+  },
+  {
+   "path": "personnel/employee-agreement-available-leave-days/delete",
+   "operation_id": "personnel_employee_agreement_available_leave_days_delete",
+   "title": "Delete employee agreement available leave days",
+   "kind": "delete",
+   "release": "after-live",
+   "reason": "Deletion: planned after a check against a live company.",
+   "everyday_steps": []
+  },
+  {
+   "path": "personnel/employee-agreement-available-leave-days/list",
+   "operation_id": "personnel_employee_agreement_available_leave_days_list",
+   "title": "List employee agreement available leave days",
+   "kind": "read",
+   "release": "0.1.0",
+   "reason": "Read: changes nothing in Site.pro Accounting.",
+   "everyday_steps": []
+  },
+  {
+   "path": "personnel/employee-agreement-available-leave-days/update",
+   "operation_id": "personnel_employee_agreement_available_leave_days_update",
+   "title": "Update an employee agreement available leave day",
+   "kind": "update",
+   "release": "0.2.0",
+   "reason": "Planned for 0.2.0.",
+   "everyday_steps": []
+  },
+  {
+   "path": "personnel/employee-agreements/create",
+   "operation_id": "personnel_employee_agreements_create",
+   "title": "Create an employee agreement",
+   "kind": "create",
+   "release": "0.2.0",
+   "reason": "Planned for 0.2.0.",
+   "everyday_steps": []
+  },
+  {
+   "path": "personnel/employee-agreements/delete",
+   "operation_id": "personnel_employee_agreements_delete",
+   "title": "Delete employee agreements",
+   "kind": "delete",
+   "release": "after-live",
+   "reason": "Deletion: planned after a check against a live company.",
+   "everyday_steps": []
+  },
+  {
+   "path": "personnel/employee-agreements/list",
+   "operation_id": "personnel_employee_agreements_list",
+   "title": "List employee agreements",
+   "kind": "read",
+   "release": "0.1.0",
+   "reason": "Read: changes nothing in Site.pro Accounting.",
+   "everyday_steps": []
+  },
+  {
+   "path": "personnel/employee-agreements/update",
+   "operation_id": "personnel_employee_agreements_update",
+   "title": "Update an employee agreement",
+   "kind": "update",
+   "release": "0.2.0",
+   "reason": "Planned for 0.2.0.",
+   "everyday_steps": []
+  },
+  {
+   "path": "personnel/employee-attachments/create",
+   "operation_id": "personnel_employee_attachments_create",
+   "title": "Upload an employee attachment",
+   "kind": "upload",
+   "release": "0.2.0",
+   "reason": "Planned for 0.2.0.",
+   "everyday_steps": []
+  },
+  {
+   "path": "personnel/employee-attachments/delete",
+   "operation_id": "personnel_employee_attachments_delete",
+   "title": "Delete employee attachments",
+   "kind": "delete",
+   "release": "after-live",
+   "reason": "Deletion: planned after a check against a live company.",
+   "everyday_steps": []
+  },
+  {
+   "path": "personnel/employee-attachments/get",
+   "operation_id": "personnel_employee_attachments_get",
+   "title": "Get an employee attachment",
+   "kind": "file",
+   "release": "0.1.0",
+   "reason": "Read: changes nothing in Site.pro Accounting.",
+   "everyday_steps": []
+  },
+  {
+   "path": "personnel/employee-attachments/list",
+   "operation_id": "personnel_employee_attachments_list",
+   "title": "List employee attachments",
+   "kind": "read",
+   "release": "0.1.0",
+   "reason": "Read: changes nothing in Site.pro Accounting.",
+   "everyday_steps": []
+  },
+  {
+   "path": "personnel/employee-educations/create",
+   "operation_id": "personnel_employee_educations_create",
+   "title": "Create an employee education",
+   "kind": "create",
+   "release": "0.2.0",
+   "reason": "Planned for 0.2.0.",
+   "everyday_steps": []
+  },
+  {
+   "path": "personnel/employee-educations/delete",
+   "operation_id": "personnel_employee_educations_delete",
+   "title": "Delete employee educations",
+   "kind": "delete",
+   "release": "after-live",
+   "reason": "Deletion: planned after a check against a live company.",
+   "everyday_steps": []
+  },
+  {
+   "path": "personnel/employee-educations/list",
+   "operation_id": "personnel_employee_educations_list",
+   "title": "List employee educations",
+   "kind": "read",
+   "release": "0.1.0",
+   "reason": "Read: changes nothing in Site.pro Accounting.",
+   "everyday_steps": []
+  },
+  {
+   "path": "personnel/employee-educations/update",
+   "operation_id": "personnel_employee_educations_update",
+   "title": "Update an employee education",
+   "kind": "update",
+   "release": "0.2.0",
+   "reason": "Planned for 0.2.0.",
+   "everyday_steps": []
+  },
+  {
+   "path": "personnel/employee-files/create",
+   "operation_id": "personnel_employee_files_create",
+   "title": "Upload an employee file",
+   "kind": "upload",
+   "release": "0.2.0",
+   "reason": "Planned for 0.2.0.",
+   "everyday_steps": []
+  },
+  {
+   "path": "personnel/employee-files/delete",
+   "operation_id": "personnel_employee_files_delete",
+   "title": "Delete employee files",
+   "kind": "delete",
+   "release": "after-live",
+   "reason": "Deletion: planned after a check against a live company.",
+   "everyday_steps": []
+  },
+  {
+   "path": "personnel/employee-files/get",
+   "operation_id": "personnel_employee_files_get",
+   "title": "Get an employee file",
+   "kind": "file",
+   "release": "0.1.0",
+   "reason": "Read: changes nothing in Site.pro Accounting.",
+   "everyday_steps": []
+  },
+  {
+   "path": "personnel/employee-files/list",
+   "operation_id": "personnel_employee_files_list",
+   "title": "List employee files",
+   "kind": "read",
+   "release": "0.1.0",
+   "reason": "Read: changes nothing in Site.pro Accounting.",
+   "everyday_steps": []
+  },
+  {
+   "path": "personnel/employee-passport-files/create",
+   "operation_id": "personnel_employee_passport_files_create",
+   "title": "Upload an employee passport file",
+   "kind": "upload",
+   "release": "0.2.0",
+   "reason": "Planned for 0.2.0.",
+   "everyday_steps": []
+  },
+  {
+   "path": "personnel/employee-passport-files/delete",
+   "operation_id": "personnel_employee_passport_files_delete",
+   "title": "Delete employee passport files",
+   "kind": "delete",
+   "release": "after-live",
+   "reason": "Deletion: planned after a check against a live company.",
+   "everyday_steps": []
+  },
+  {
+   "path": "personnel/employee-passport-files/get",
+   "operation_id": "personnel_employee_passport_files_get",
+   "title": "Get an employee passport file",
+   "kind": "file",
+   "release": "0.1.0",
+   "reason": "Read: changes nothing in Site.pro Accounting.",
+   "everyday_steps": []
+  },
+  {
+   "path": "personnel/employee-passport-files/list",
+   "operation_id": "personnel_employee_passport_files_list",
+   "title": "List employee passport files",
+   "kind": "read",
+   "release": "0.1.0",
+   "reason": "Read: changes nothing in Site.pro Accounting.",
+   "everyday_steps": []
+  },
+  {
+   "path": "personnel/employee-social-insurances/create",
+   "operation_id": "personnel_employee_social_insurances_create",
+   "title": "Create an employee social insurance",
+   "kind": "create",
+   "release": "0.2.0",
+   "reason": "Planned for 0.2.0.",
+   "everyday_steps": []
+  },
+  {
+   "path": "personnel/employee-social-insurances/delete",
+   "operation_id": "personnel_employee_social_insurances_delete",
+   "title": "Delete employee social insurances",
+   "kind": "delete",
+   "release": "after-live",
+   "reason": "Deletion: planned after a check against a live company.",
+   "everyday_steps": []
+  },
+  {
+   "path": "personnel/employee-social-insurances/list",
+   "operation_id": "personnel_employee_social_insurances_list",
+   "title": "List employee social insurances",
+   "kind": "read",
+   "release": "0.1.0",
+   "reason": "Read: changes nothing in Site.pro Accounting.",
+   "everyday_steps": []
+  },
+  {
+   "path": "personnel/employee-social-insurances/update",
+   "operation_id": "personnel_employee_social_insurances_update",
+   "title": "Update an employee social insurance",
+   "kind": "update",
+   "release": "0.2.0",
+   "reason": "Planned for 0.2.0.",
+   "everyday_steps": []
+  },
+  {
+   "path": "personnel/employees/create",
+   "operation_id": "personnel_employees_create",
+   "title": "Create an employee",
+   "kind": "create",
+   "release": "0.2.0",
+   "reason": "Planned for 0.2.0.",
+   "everyday_steps": []
+  },
+  {
+   "path": "personnel/employees/delete",
+   "operation_id": "personnel_employees_delete",
+   "title": "Delete employees",
+   "kind": "delete",
+   "release": "after-live",
+   "reason": "Deletion: planned after a check against a live company.",
+   "everyday_steps": []
+  },
+  {
+   "path": "personnel/employees/list",
+   "operation_id": "personnel_employees_list",
+   "title": "List employees",
+   "kind": "read",
+   "release": "0.1.0",
+   "reason": "Read: changes nothing in Site.pro Accounting.",
+   "everyday_steps": []
+  },
+  {
+   "path": "personnel/employees/update",
+   "operation_id": "personnel_employees_update",
+   "title": "Update an employee",
+   "kind": "update",
+   "release": "0.2.0",
+   "reason": "Planned for 0.2.0.",
+   "everyday_steps": []
+  },
+  {
+   "path": "personnel/groups/create",
+   "operation_id": "personnel_groups_create",
+   "title": "Create a group",
+   "kind": "create",
+   "release": "0.2.0",
+   "reason": "Planned for 0.2.0.",
+   "everyday_steps": []
+  },
+  {
+   "path": "personnel/groups/delete",
+   "operation_id": "personnel_groups_delete",
+   "title": "Delete groups",
+   "kind": "delete",
+   "release": "after-live",
+   "reason": "Deletion: planned after a check against a live company.",
+   "everyday_steps": []
+  },
+  {
+   "path": "personnel/groups/list",
+   "operation_id": "personnel_groups_list",
+   "title": "List groups",
+   "kind": "read",
+   "release": "0.1.0",
+   "reason": "Read: changes nothing in Site.pro Accounting.",
+   "everyday_steps": []
+  },
+  {
+   "path": "personnel/groups/update",
+   "operation_id": "personnel_groups_update",
+   "title": "Update a group",
+   "kind": "update",
+   "release": "0.2.0",
+   "reason": "Planned for 0.2.0.",
+   "everyday_steps": []
+  },
+  {
+   "path": "personnel/issue-institutions/create",
+   "operation_id": "personnel_issue_institutions_create",
+   "title": "Create an issue institution",
+   "kind": "create",
+   "release": "0.2.0",
+   "reason": "Planned for 0.2.0.",
+   "everyday_steps": []
+  },
+  {
+   "path": "personnel/issue-institutions/delete",
+   "operation_id": "personnel_issue_institutions_delete",
+   "title": "Delete issue institutions",
+   "kind": "delete",
+   "release": "after-live",
+   "reason": "Deletion: planned after a check against a live company.",
+   "everyday_steps": []
+  },
+  {
+   "path": "personnel/issue-institutions/list",
+   "operation_id": "personnel_issue_institutions_list",
+   "title": "List issue institutions",
+   "kind": "read",
+   "release": "0.1.0",
+   "reason": "Read: changes nothing in Site.pro Accounting.",
+   "everyday_steps": []
+  },
+  {
+   "path": "personnel/issue-institutions/update",
+   "operation_id": "personnel_issue_institutions_update",
+   "title": "Update an issue institution",
+   "kind": "update",
+   "release": "0.2.0",
+   "reason": "Planned for 0.2.0.",
+   "everyday_steps": []
+  },
+  {
+   "path": "personnel/nationalities/create",
+   "operation_id": "personnel_nationalities_create",
+   "title": "Create a nationality",
+   "kind": "create",
+   "release": "0.2.0",
+   "reason": "Planned for 0.2.0.",
+   "everyday_steps": []
+  },
+  {
+   "path": "personnel/nationalities/delete",
+   "operation_id": "personnel_nationalities_delete",
+   "title": "Delete nationalities",
+   "kind": "delete",
+   "release": "after-live",
+   "reason": "Deletion: planned after a check against a live company.",
+   "everyday_steps": []
+  },
+  {
+   "path": "personnel/nationalities/list",
+   "operation_id": "personnel_nationalities_list",
+   "title": "List nationalities",
+   "kind": "read",
+   "release": "0.1.0",
+   "reason": "Read: changes nothing in Site.pro Accounting.",
+   "everyday_steps": []
+  },
+  {
+   "path": "personnel/nationalities/update",
+   "operation_id": "personnel_nationalities_update",
+   "title": "Update a nationality",
+   "kind": "update",
+   "release": "0.2.0",
+   "reason": "Planned for 0.2.0.",
+   "everyday_steps": []
+  },
+  {
+   "path": "personnel/position-instruction-files/create",
+   "operation_id": "personnel_position_instruction_files_create",
+   "title": "Upload a position instruction file",
+   "kind": "upload",
+   "release": "0.2.0",
+   "reason": "Planned for 0.2.0.",
+   "everyday_steps": []
+  },
+  {
+   "path": "personnel/position-instruction-files/delete",
+   "operation_id": "personnel_position_instruction_files_delete",
+   "title": "Delete position instruction files",
+   "kind": "delete",
+   "release": "after-live",
+   "reason": "Deletion: planned after a check against a live company.",
+   "everyday_steps": []
+  },
+  {
+   "path": "personnel/position-instruction-files/get",
+   "operation_id": "personnel_position_instruction_files_get",
+   "title": "Get a position instruction file",
+   "kind": "file",
+   "release": "0.1.0",
+   "reason": "Read: changes nothing in Site.pro Accounting.",
+   "everyday_steps": []
+  },
+  {
+   "path": "personnel/position-instruction-files/list",
+   "operation_id": "personnel_position_instruction_files_list",
+   "title": "List position instruction files",
+   "kind": "read",
+   "release": "0.1.0",
+   "reason": "Read: changes nothing in Site.pro Accounting.",
+   "everyday_steps": []
+  },
+  {
+   "path": "personnel/position-translations/create",
+   "operation_id": "personnel_position_translations_create",
+   "title": "Create a position translation",
+   "kind": "create",
+   "release": "0.2.0",
+   "reason": "Planned for 0.2.0.",
+   "everyday_steps": []
+  },
+  {
+   "path": "personnel/position-translations/delete",
+   "operation_id": "personnel_position_translations_delete",
+   "title": "Delete position translations",
+   "kind": "delete",
+   "release": "after-live",
+   "reason": "Deletion: planned after a check against a live company.",
+   "everyday_steps": []
+  },
+  {
+   "path": "personnel/position-translations/list",
+   "operation_id": "personnel_position_translations_list",
+   "title": "List position translations",
+   "kind": "read",
+   "release": "0.1.0",
+   "reason": "Read: changes nothing in Site.pro Accounting.",
+   "everyday_steps": []
+  },
+  {
+   "path": "personnel/position-translations/update",
+   "operation_id": "personnel_position_translations_update",
+   "title": "Update a position translation",
+   "kind": "update",
+   "release": "0.2.0",
+   "reason": "Planned for 0.2.0.",
+   "everyday_steps": []
+  },
+  {
+   "path": "personnel/positions/create",
+   "operation_id": "personnel_positions_create",
+   "title": "Create a position",
+   "kind": "create",
+   "release": "0.2.0",
+   "reason": "Planned for 0.2.0.",
+   "everyday_steps": []
+  },
+  {
+   "path": "personnel/positions/delete",
+   "operation_id": "personnel_positions_delete",
+   "title": "Delete positions",
+   "kind": "delete",
+   "release": "after-live",
+   "reason": "Deletion: planned after a check against a live company.",
+   "everyday_steps": []
+  },
+  {
+   "path": "personnel/positions/list",
+   "operation_id": "personnel_positions_list",
+   "title": "List positions",
+   "kind": "read",
+   "release": "0.1.0",
+   "reason": "Read: changes nothing in Site.pro Accounting.",
+   "everyday_steps": []
+  },
+  {
+   "path": "personnel/positions/update",
+   "operation_id": "personnel_positions_update",
+   "title": "Update a position",
+   "kind": "update",
+   "release": "0.2.0",
+   "reason": "Planned for 0.2.0.",
+   "everyday_steps": []
+  },
+  {
+   "path": "personnel/professions/create",
+   "operation_id": "personnel_professions_create",
+   "title": "Create a profession",
+   "kind": "create",
+   "release": "0.2.0",
+   "reason": "Planned for 0.2.0.",
+   "everyday_steps": []
+  },
+  {
+   "path": "personnel/professions/delete",
+   "operation_id": "personnel_professions_delete",
+   "title": "Delete professions",
+   "kind": "delete",
+   "release": "after-live",
+   "reason": "Deletion: planned after a check against a live company.",
+   "everyday_steps": []
+  },
+  {
+   "path": "personnel/professions/list",
+   "operation_id": "personnel_professions_list",
+   "title": "List professions",
+   "kind": "read",
+   "release": "0.1.0",
+   "reason": "Read: changes nothing in Site.pro Accounting.",
+   "everyday_steps": []
+  },
+  {
+   "path": "personnel/professions/update",
+   "operation_id": "personnel_professions_update",
+   "title": "Update a profession",
+   "kind": "update",
+   "release": "0.2.0",
+   "reason": "Planned for 0.2.0.",
+   "everyday_steps": []
+  },
+  {
+   "path": "personnel/qualifications/create",
+   "operation_id": "personnel_qualifications_create",
+   "title": "Create a qualification",
+   "kind": "create",
+   "release": "0.2.0",
+   "reason": "Planned for 0.2.0.",
+   "everyday_steps": []
+  },
+  {
+   "path": "personnel/qualifications/delete",
+   "operation_id": "personnel_qualifications_delete",
+   "title": "Delete qualifications",
+   "kind": "delete",
+   "release": "after-live",
+   "reason": "Deletion: planned after a check against a live company.",
+   "everyday_steps": []
+  },
+  {
+   "path": "personnel/qualifications/list",
+   "operation_id": "personnel_qualifications_list",
+   "title": "List qualifications",
+   "kind": "read",
+   "release": "0.1.0",
+   "reason": "Read: changes nothing in Site.pro Accounting.",
+   "everyday_steps": []
+  },
+  {
+   "path": "personnel/qualifications/update",
+   "operation_id": "personnel_qualifications_update",
+   "title": "Update a qualification",
+   "kind": "update",
+   "release": "0.2.0",
+   "reason": "Planned for 0.2.0.",
+   "everyday_steps": []
+  },
+  {
+   "path": "personnel/tax-exempt-incomes/create",
+   "operation_id": "personnel_tax_exempt_incomes_create",
+   "title": "Create a tax exempt income",
+   "kind": "create",
+   "release": "0.2.0",
+   "reason": "Planned for 0.2.0.",
+   "everyday_steps": []
+  },
+  {
+   "path": "personnel/tax-exempt-incomes/delete",
+   "operation_id": "personnel_tax_exempt_incomes_delete",
+   "title": "Delete tax exempt incomes",
+   "kind": "delete",
+   "release": "after-live",
+   "reason": "Deletion: planned after a check against a live company.",
+   "everyday_steps": []
+  },
+  {
+   "path": "personnel/tax-exempt-incomes/list",
+   "operation_id": "personnel_tax_exempt_incomes_list",
+   "title": "List tax exempt incomes",
+   "kind": "read",
+   "release": "0.1.0",
+   "reason": "Read: changes nothing in Site.pro Accounting.",
+   "everyday_steps": []
+  },
+  {
+   "path": "personnel/tax-exempt-incomes/update",
+   "operation_id": "personnel_tax_exempt_incomes_update",
+   "title": "Update a tax exempt income",
+   "kind": "update",
+   "release": "0.2.0",
+   "reason": "Planned for 0.2.0.",
+   "everyday_steps": []
+  },
+  {
+   "path": "production/bundle-debundle-double/list",
+   "operation_id": "production_bundle_debundle_double_list",
+   "title": "List bundle debundle double",
+   "kind": "read",
+   "release": "0.1.0",
+   "reason": "Read: changes nothing in Site.pro Accounting.",
+   "everyday_steps": []
+  },
+  {
+   "path": "production/bundle-debundle-product-items/create",
+   "operation_id": "production_bundle_debundle_product_items_create",
+   "title": "Create a bundle debundle product item",
+   "kind": "create",
+   "release": "0.2.0",
+   "reason": "Planned for 0.2.0.",
+   "everyday_steps": []
+  },
+  {
+   "path": "production/bundle-debundle-product-items/delete",
+   "operation_id": "production_bundle_debundle_product_items_delete",
+   "title": "Delete bundle debundle product items",
+   "kind": "delete",
+   "release": "after-live",
+   "reason": "Deletion: planned after a check against a live company.",
+   "everyday_steps": []
+  },
+  {
+   "path": "production/bundle-debundle-product-items/list",
+   "operation_id": "production_bundle_debundle_product_items_list",
+   "title": "List bundle debundle product items",
+   "kind": "read",
+   "release": "0.1.0",
+   "reason": "Read: changes nothing in Site.pro Accounting.",
+   "everyday_steps": []
+  },
+  {
+   "path": "production/bundle-debundle-product-resources/create",
+   "operation_id": "production_bundle_debundle_product_resources_create",
+   "title": "Create a bundle debundle product resource",
+   "kind": "create",
+   "release": "0.2.0",
+   "reason": "Planned for 0.2.0.",
+   "everyday_steps": []
+  },
+  {
+   "path": "production/bundle-debundle-product-resources/delete",
+   "operation_id": "production_bundle_debundle_product_resources_delete",
+   "title": "Delete bundle debundle product resources",
+   "kind": "delete",
+   "release": "after-live",
+   "reason": "Deletion: planned after a check against a live company.",
+   "everyday_steps": []
+  },
+  {
+   "path": "production/bundle-debundle-product-resources/list",
+   "operation_id": "production_bundle_debundle_product_resources_list",
+   "title": "List bundle debundle product resources",
+   "kind": "read",
+   "release": "0.1.0",
+   "reason": "Read: changes nothing in Site.pro Accounting.",
+   "everyday_steps": []
+  },
+  {
+   "path": "production/bundle-debundle-products/delete",
+   "operation_id": "production_bundle_debundle_products_delete",
+   "title": "Delete bundle debundle products",
+   "kind": "delete",
+   "release": "after-live",
+   "reason": "Deletion: planned after a check against a live company.",
+   "everyday_steps": []
+  },
+  {
+   "path": "production/bundle-debundle-products/list",
+   "operation_id": "production_bundle_debundle_products_list",
+   "title": "List bundle debundle products",
+   "kind": "read",
+   "release": "0.1.0",
+   "reason": "Read: changes nothing in Site.pro Accounting.",
+   "everyday_steps": []
+  },
+  {
+   "path": "production/bundle-debundle/create",
+   "operation_id": "production_bundle_debundle_create",
+   "title": "Create a bundle debundle",
+   "kind": "create",
+   "release": "0.2.0",
+   "reason": "Planned for 0.2.0.",
+   "everyday_steps": []
+  },
+  {
+   "path": "production/bundle-debundle/delete",
+   "operation_id": "production_bundle_debundle_delete",
+   "title": "Delete bundle debundle",
+   "kind": "delete",
+   "release": "after-live",
+   "reason": "Deletion: planned after a check against a live company.",
+   "everyday_steps": []
+  },
+  {
+   "path": "production/bundle-debundle/list",
+   "operation_id": "production_bundle_debundle_list",
+   "title": "List bundle debundle",
+   "kind": "read",
+   "release": "0.1.0",
+   "reason": "Read: changes nothing in Site.pro Accounting.",
+   "everyday_steps": []
+  },
+  {
+   "path": "production/bundle-debundle/update",
+   "operation_id": "production_bundle_debundle_update",
+   "title": "Update a bundle debundle",
+   "kind": "update",
+   "release": "0.2.0",
+   "reason": "Planned for 0.2.0.",
+   "everyday_steps": []
+  },
+  {
+   "path": "production/from-tech-card-double-entry/list",
+   "operation_id": "production_from_tech_card_double_entry_list",
+   "title": "List from tech card double entry",
+   "kind": "read",
+   "release": "0.1.0",
+   "reason": "Read: changes nothing in Site.pro Accounting.",
+   "everyday_steps": []
+  },
+  {
+   "path": "production/from-tech-card-products/create",
+   "operation_id": "production_from_tech_card_products_create",
+   "title": "Create a from tech card product",
+   "kind": "create",
+   "release": "0.2.0",
+   "reason": "Planned for 0.2.0.",
+   "everyday_steps": []
+  },
+  {
+   "path": "production/from-tech-card-products/delete",
+   "operation_id": "production_from_tech_card_products_delete",
+   "title": "Delete from tech card products",
+   "kind": "delete",
+   "release": "after-live",
+   "reason": "Deletion: planned after a check against a live company.",
+   "everyday_steps": []
+  },
+  {
+   "path": "production/from-tech-card-products/list",
+   "operation_id": "production_from_tech_card_products_list",
+   "title": "List from tech card products",
+   "kind": "read",
+   "release": "0.1.0",
+   "reason": "Read: changes nothing in Site.pro Accounting.",
+   "everyday_steps": []
+  },
+  {
+   "path": "production/from-tech-card-products/update",
+   "operation_id": "production_from_tech_card_products_update",
+   "title": "Update a from tech card product",
+   "kind": "update",
+   "release": "0.2.0",
+   "reason": "Planned for 0.2.0.",
+   "everyday_steps": []
+  },
+  {
+   "path": "production/from-tech-card-resources/list",
+   "operation_id": "production_from_tech_card_resources_list",
+   "title": "List from tech card resources",
+   "kind": "read",
+   "release": "0.1.0",
+   "reason": "Read: changes nothing in Site.pro Accounting.",
+   "everyday_steps": []
+  },
+  {
+   "path": "production/from-tech-cards/create",
+   "operation_id": "production_from_tech_cards_create",
+   "title": "Create a from tech card",
+   "kind": "create",
+   "release": "0.2.0",
+   "reason": "Planned for 0.2.0.",
+   "everyday_steps": []
+  },
+  {
+   "path": "production/from-tech-cards/delete",
+   "operation_id": "production_from_tech_cards_delete",
+   "title": "Delete from tech cards",
+   "kind": "delete",
+   "release": "after-live",
+   "reason": "Deletion: planned after a check against a live company.",
+   "everyday_steps": []
+  },
+  {
+   "path": "production/from-tech-cards/list",
+   "operation_id": "production_from_tech_cards_list",
+   "title": "List from tech cards",
+   "kind": "read",
+   "release": "0.1.0",
+   "reason": "Read: changes nothing in Site.pro Accounting.",
+   "everyday_steps": []
+  },
+  {
+   "path": "production/from-tech-cards/update",
+   "operation_id": "production_from_tech_cards_update",
+   "title": "Update a from tech card",
+   "kind": "update",
+   "release": "0.2.0",
+   "reason": "Planned for 0.2.0.",
+   "everyday_steps": []
+  },
+  {
+   "path": "production/tech-card-components/create",
+   "operation_id": "production_tech_card_components_create",
+   "title": "Create a tech card component",
+   "kind": "create",
+   "release": "0.2.0",
+   "reason": "Planned for 0.2.0.",
+   "everyday_steps": []
+  },
+  {
+   "path": "production/tech-card-components/delete",
+   "operation_id": "production_tech_card_components_delete",
+   "title": "Delete tech card components",
+   "kind": "delete",
+   "release": "after-live",
+   "reason": "Deletion: planned after a check against a live company.",
+   "everyday_steps": []
+  },
+  {
+   "path": "production/tech-card-components/list",
+   "operation_id": "production_tech_card_components_list",
+   "title": "List tech card components",
+   "kind": "read",
+   "release": "0.1.0",
+   "reason": "Read: changes nothing in Site.pro Accounting.",
+   "everyday_steps": []
+  },
+  {
+   "path": "production/tech-card-components/update",
+   "operation_id": "production_tech_card_components_update",
+   "title": "Update a tech card component",
+   "kind": "update",
+   "release": "0.2.0",
+   "reason": "Planned for 0.2.0.",
+   "everyday_steps": []
+  },
+  {
+   "path": "production/tech-cards/create",
+   "operation_id": "production_tech_cards_create",
+   "title": "Create a tech card",
+   "kind": "create",
+   "release": "0.2.0",
+   "reason": "Planned for 0.2.0.",
+   "everyday_steps": []
+  },
+  {
+   "path": "production/tech-cards/delete",
+   "operation_id": "production_tech_cards_delete",
+   "title": "Delete tech cards",
+   "kind": "delete",
+   "release": "after-live",
+   "reason": "Deletion: planned after a check against a live company.",
+   "everyday_steps": []
+  },
+  {
+   "path": "production/tech-cards/list",
+   "operation_id": "production_tech_cards_list",
+   "title": "List tech cards",
+   "kind": "read",
+   "release": "0.1.0",
+   "reason": "Read: changes nothing in Site.pro Accounting.",
+   "everyday_steps": []
+  },
+  {
+   "path": "production/tech-cards/update",
+   "operation_id": "production_tech_cards_update",
+   "title": "Update a tech card",
+   "kind": "update",
+   "release": "0.2.0",
+   "reason": "Planned for 0.2.0.",
+   "everyday_steps": []
+  },
+  {
+   "path": "reference-book/automobile-manufacturers/create",
+   "operation_id": "reference_book_automobile_manufacturers_create",
+   "title": "Create an automobile manufacturer",
+   "kind": "create",
+   "release": "0.2.0",
+   "reason": "Planned for 0.2.0.",
+   "everyday_steps": []
+  },
+  {
+   "path": "reference-book/automobile-manufacturers/delete",
+   "operation_id": "reference_book_automobile_manufacturers_delete",
+   "title": "Delete automobile manufacturers",
+   "kind": "delete",
+   "release": "after-live",
+   "reason": "Deletion: planned after a check against a live company.",
+   "everyday_steps": []
+  },
+  {
+   "path": "reference-book/automobile-manufacturers/list",
+   "operation_id": "reference_book_automobile_manufacturers_list",
+   "title": "List automobile manufacturers",
+   "kind": "read",
+   "release": "0.1.0",
+   "reason": "Read: changes nothing in Site.pro Accounting.",
+   "everyday_steps": []
+  },
+  {
+   "path": "reference-book/automobile-manufacturers/update",
+   "operation_id": "reference_book_automobile_manufacturers_update",
+   "title": "Update an automobile manufacturer",
+   "kind": "update",
+   "release": "0.2.0",
+   "reason": "Planned for 0.2.0.",
+   "everyday_steps": []
+  },
+  {
+   "path": "reference-book/automobiles/create",
+   "operation_id": "reference_book_automobiles_create",
+   "title": "Create an automobile",
+   "kind": "create",
+   "release": "0.2.0",
+   "reason": "Planned for 0.2.0.",
+   "everyday_steps": []
+  },
+  {
+   "path": "reference-book/automobiles/delete",
+   "operation_id": "reference_book_automobiles_delete",
+   "title": "Delete automobiles",
+   "kind": "delete",
+   "release": "after-live",
+   "reason": "Deletion: planned after a check against a live company.",
+   "everyday_steps": []
+  },
+  {
+   "path": "reference-book/automobiles/list",
+   "operation_id": "reference_book_automobiles_list",
+   "title": "List automobiles",
+   "kind": "read",
+   "release": "0.1.0",
+   "reason": "Read: changes nothing in Site.pro Accounting.",
+   "everyday_steps": []
+  },
+  {
+   "path": "reference-book/automobiles/update",
+   "operation_id": "reference_book_automobiles_update",
+   "title": "Update an automobile",
+   "kind": "update",
+   "release": "0.2.0",
+   "reason": "Planned for 0.2.0.",
+   "everyday_steps": []
+  },
+  {
+   "path": "reference-book/banks/create",
+   "operation_id": "reference_book_banks_create",
+   "title": "Create a bank",
+   "kind": "create",
+   "release": "0.2.0",
+   "reason": "Planned for 0.2.0.",
+   "everyday_steps": []
+  },
+  {
+   "path": "reference-book/banks/delete",
+   "operation_id": "reference_book_banks_delete",
+   "title": "Delete banks",
+   "kind": "delete",
+   "release": "after-live",
+   "reason": "Deletion: planned after a check against a live company.",
+   "everyday_steps": []
+  },
+  {
+   "path": "reference-book/banks/list",
+   "operation_id": "reference_book_banks_list",
+   "title": "List banks",
+   "kind": "read",
+   "release": "0.1.0",
+   "reason": "Read: changes nothing in Site.pro Accounting.",
+   "everyday_steps": []
+  },
+  {
+   "path": "reference-book/banks/update",
+   "operation_id": "reference_book_banks_update",
+   "title": "Update a bank",
+   "kind": "update",
+   "release": "0.2.0",
+   "reason": "Planned for 0.2.0.",
+   "everyday_steps": []
+  },
+  {
+   "path": "reference-book/cities/create",
+   "operation_id": "reference_book_cities_create",
+   "title": "Create a city",
+   "kind": "create",
+   "release": "0.2.0",
+   "reason": "Planned for 0.2.0.",
+   "everyday_steps": []
+  },
+  {
+   "path": "reference-book/cities/delete",
+   "operation_id": "reference_book_cities_delete",
+   "title": "Delete cities",
+   "kind": "delete",
+   "release": "after-live",
+   "reason": "Deletion: planned after a check against a live company.",
+   "everyday_steps": []
+  },
+  {
+   "path": "reference-book/cities/list",
+   "operation_id": "reference_book_cities_list",
+   "title": "List cities",
+   "kind": "read",
+   "release": "0.1.0",
+   "reason": "Read: changes nothing in Site.pro Accounting.",
+   "everyday_steps": []
+  },
+  {
+   "path": "reference-book/cities/update",
+   "operation_id": "reference_book_cities_update",
+   "title": "Update a city",
+   "kind": "update",
+   "release": "0.2.0",
+   "reason": "Planned for 0.2.0.",
+   "everyday_steps": []
+  },
+  {
+   "path": "reference-book/correspondence-accounts/create",
+   "operation_id": "reference_book_correspondence_accounts_create",
+   "title": "Create a correspondence account",
+   "kind": "create",
+   "release": "0.2.0",
+   "reason": "Planned for 0.2.0.",
+   "everyday_steps": []
+  },
+  {
+   "path": "reference-book/correspondence-accounts/delete",
+   "operation_id": "reference_book_correspondence_accounts_delete",
+   "title": "Delete correspondence accounts",
+   "kind": "delete",
+   "release": "after-live",
+   "reason": "Deletion: planned after a check against a live company.",
+   "everyday_steps": []
+  },
+  {
+   "path": "reference-book/correspondence-accounts/list",
+   "operation_id": "reference_book_correspondence_accounts_list",
+   "title": "List correspondence accounts",
+   "kind": "read",
+   "release": "0.1.0",
+   "reason": "Read: changes nothing in Site.pro Accounting.",
+   "everyday_steps": []
+  },
+  {
+   "path": "reference-book/correspondence-accounts/update",
+   "operation_id": "reference_book_correspondence_accounts_update",
+   "title": "Update a correspondence account",
+   "kind": "update",
+   "release": "0.2.0",
+   "reason": "Planned for 0.2.0.",
+   "everyday_steps": []
+  },
+  {
+   "path": "reference-book/correspondence-banks/create",
+   "operation_id": "reference_book_correspondence_banks_create",
+   "title": "Create a correspondence bank",
+   "kind": "create",
+   "release": "0.2.0",
+   "reason": "Planned for 0.2.0.",
+   "everyday_steps": []
+  },
+  {
+   "path": "reference-book/correspondence-banks/delete",
+   "operation_id": "reference_book_correspondence_banks_delete",
+   "title": "Delete correspondence banks",
+   "kind": "delete",
+   "release": "after-live",
+   "reason": "Deletion: planned after a check against a live company.",
+   "everyday_steps": []
+  },
+  {
+   "path": "reference-book/correspondence-banks/list",
+   "operation_id": "reference_book_correspondence_banks_list",
+   "title": "List correspondence banks",
+   "kind": "read",
+   "release": "0.1.0",
+   "reason": "Read: changes nothing in Site.pro Accounting.",
+   "everyday_steps": []
+  },
+  {
+   "path": "reference-book/correspondence-banks/update",
+   "operation_id": "reference_book_correspondence_banks_update",
+   "title": "Update a correspondence bank",
+   "kind": "update",
+   "release": "0.2.0",
+   "reason": "Planned for 0.2.0.",
+   "everyday_steps": []
+  },
+  {
+   "path": "reference-book/cost-center-groups/create",
+   "operation_id": "reference_book_cost_center_groups_create",
+   "title": "Create a cost center group",
+   "kind": "create",
+   "release": "0.2.0",
+   "reason": "Planned for 0.2.0.",
+   "everyday_steps": []
+  },
+  {
+   "path": "reference-book/cost-center-groups/delete",
+   "operation_id": "reference_book_cost_center_groups_delete",
+   "title": "Delete cost center groups",
+   "kind": "delete",
+   "release": "after-live",
+   "reason": "Deletion: planned after a check against a live company.",
+   "everyday_steps": []
+  },
+  {
+   "path": "reference-book/cost-center-groups/list",
+   "operation_id": "reference_book_cost_center_groups_list",
+   "title": "List cost center groups",
+   "kind": "read",
+   "release": "0.1.0",
+   "reason": "Read: changes nothing in Site.pro Accounting.",
+   "everyday_steps": []
+  },
+  {
+   "path": "reference-book/cost-center-groups/update",
+   "operation_id": "reference_book_cost_center_groups_update",
+   "title": "Update a cost center group",
+   "kind": "update",
+   "release": "0.2.0",
+   "reason": "Planned for 0.2.0.",
+   "everyday_steps": []
+  },
+  {
+   "path": "reference-book/cost-centers/create",
+   "operation_id": "reference_book_cost_centers_create",
+   "title": "Create a cost center",
+   "kind": "create",
+   "release": "0.2.0",
+   "reason": "Planned for 0.2.0.",
+   "everyday_steps": []
+  },
+  {
+   "path": "reference-book/cost-centers/delete",
+   "operation_id": "reference_book_cost_centers_delete",
+   "title": "Delete cost centers",
+   "kind": "delete",
+   "release": "after-live",
+   "reason": "Deletion: planned after a check against a live company.",
+   "everyday_steps": []
+  },
+  {
+   "path": "reference-book/cost-centers/list",
+   "operation_id": "reference_book_cost_centers_list",
+   "title": "List cost centers",
+   "kind": "read",
+   "release": "0.1.0",
+   "reason": "Read: changes nothing in Site.pro Accounting.",
+   "everyday_steps": []
+  },
+  {
+   "path": "reference-book/cost-centers/update",
+   "operation_id": "reference_book_cost_centers_update",
+   "title": "Update a cost center",
+   "kind": "update",
+   "release": "0.2.0",
+   "reason": "Planned for 0.2.0.",
+   "everyday_steps": []
+  },
+  {
+   "path": "reference-book/counties/create",
+   "operation_id": "reference_book_counties_create",
+   "title": "Create a county",
+   "kind": "create",
+   "release": "0.2.0",
+   "reason": "Planned for 0.2.0.",
+   "everyday_steps": []
+  },
+  {
+   "path": "reference-book/counties/delete",
+   "operation_id": "reference_book_counties_delete",
+   "title": "Delete counties",
+   "kind": "delete",
+   "release": "after-live",
+   "reason": "Deletion: planned after a check against a live company.",
+   "everyday_steps": []
+  },
+  {
+   "path": "reference-book/counties/list",
+   "operation_id": "reference_book_counties_list",
+   "title": "List counties",
+   "kind": "read",
+   "release": "0.1.0",
+   "reason": "Read: changes nothing in Site.pro Accounting.",
+   "everyday_steps": []
+  },
+  {
+   "path": "reference-book/counties/update",
+   "operation_id": "reference_book_counties_update",
+   "title": "Update a county",
+   "kind": "update",
+   "release": "0.2.0",
+   "reason": "Planned for 0.2.0.",
+   "everyday_steps": []
+  },
+  {
+   "path": "reference-book/countries/list",
+   "operation_id": "reference_book_countries_list",
+   "title": "List countries",
+   "kind": "read",
+   "release": "0.1.0",
+   "reason": "Read: changes nothing in Site.pro Accounting.",
+   "everyday_steps": []
+  },
+  {
+   "path": "reference-book/crm-groups/create",
+   "operation_id": "reference_book_crm_groups_create",
+   "title": "Create a crm group",
+   "kind": "create",
+   "release": "0.2.0",
+   "reason": "Planned for 0.2.0.",
+   "everyday_steps": []
+  },
+  {
+   "path": "reference-book/crm-groups/delete",
+   "operation_id": "reference_book_crm_groups_delete",
+   "title": "Delete crm groups",
+   "kind": "delete",
+   "release": "after-live",
+   "reason": "Deletion: planned after a check against a live company.",
+   "everyday_steps": []
+  },
+  {
+   "path": "reference-book/crm-groups/list",
+   "operation_id": "reference_book_crm_groups_list",
+   "title": "List crm groups",
+   "kind": "read",
+   "release": "0.1.0",
+   "reason": "Read: changes nothing in Site.pro Accounting.",
+   "everyday_steps": []
+  },
+  {
+   "path": "reference-book/crm-groups/update",
+   "operation_id": "reference_book_crm_groups_update",
+   "title": "Update a crm group",
+   "kind": "update",
+   "release": "0.2.0",
+   "reason": "Planned for 0.2.0.",
+   "everyday_steps": []
+  },
+  {
+   "path": "reference-book/crm-statuses/create",
+   "operation_id": "reference_book_crm_statuses_create",
+   "title": "Create a crm status",
+   "kind": "create",
+   "release": "0.2.0",
+   "reason": "Planned for 0.2.0.",
+   "everyday_steps": []
+  },
+  {
+   "path": "reference-book/crm-statuses/delete",
+   "operation_id": "reference_book_crm_statuses_delete",
+   "title": "Delete crm statuses",
+   "kind": "delete",
+   "release": "after-live",
+   "reason": "Deletion: planned after a check against a live company.",
+   "everyday_steps": []
+  },
+  {
+   "path": "reference-book/crm-statuses/list",
+   "operation_id": "reference_book_crm_statuses_list",
+   "title": "List crm statuses",
+   "kind": "read",
+   "release": "0.1.0",
+   "reason": "Read: changes nothing in Site.pro Accounting.",
+   "everyday_steps": []
+  },
+  {
+   "path": "reference-book/crm-statuses/update",
+   "operation_id": "reference_book_crm_statuses_update",
+   "title": "Update a crm status",
+   "kind": "update",
+   "release": "0.2.0",
+   "reason": "Planned for 0.2.0.",
+   "everyday_steps": []
+  },
+  {
+   "path": "reference-book/currencies/create",
+   "operation_id": "reference_book_currencies_create",
+   "title": "Create a currency",
+   "kind": "create",
+   "release": "0.2.0",
+   "reason": "Planned for 0.2.0.",
+   "everyday_steps": []
+  },
+  {
+   "path": "reference-book/currencies/delete",
+   "operation_id": "reference_book_currencies_delete",
+   "title": "Delete currencies",
+   "kind": "delete",
+   "release": "after-live",
+   "reason": "Deletion: planned after a check against a live company.",
+   "everyday_steps": []
+  },
+  {
+   "path": "reference-book/currencies/list",
+   "operation_id": "reference_book_currencies_list",
+   "title": "List currencies",
+   "kind": "read",
+   "release": "0.1.0",
+   "reason": "Read: changes nothing in Site.pro Accounting.",
+   "everyday_steps": [
+    "test_connection"
+   ]
+  },
+  {
+   "path": "reference-book/currencies/update",
+   "operation_id": "reference_book_currencies_update",
+   "title": "Update a currency",
+   "kind": "update",
+   "release": "0.2.0",
+   "reason": "Planned for 0.2.0.",
+   "everyday_steps": []
+  },
+  {
+   "path": "reference-book/currency-translations/create",
+   "operation_id": "reference_book_currency_translations_create",
+   "title": "Create a currency translation",
+   "kind": "create",
+   "release": "0.2.0",
+   "reason": "Planned for 0.2.0.",
+   "everyday_steps": []
+  },
+  {
+   "path": "reference-book/currency-translations/delete",
+   "operation_id": "reference_book_currency_translations_delete",
+   "title": "Delete currency translations",
+   "kind": "delete",
+   "release": "after-live",
+   "reason": "Deletion: planned after a check against a live company.",
+   "everyday_steps": []
+  },
+  {
+   "path": "reference-book/currency-translations/list",
+   "operation_id": "reference_book_currency_translations_list",
+   "title": "List currency translations",
+   "kind": "read",
+   "release": "0.1.0",
+   "reason": "Read: changes nothing in Site.pro Accounting.",
+   "everyday_steps": []
+  },
+  {
+   "path": "reference-book/currency-translations/update",
+   "operation_id": "reference_book_currency_translations_update",
+   "title": "Update a currency translation",
+   "kind": "update",
+   "release": "0.2.0",
+   "reason": "Planned for 0.2.0.",
+   "everyday_steps": []
+  },
+  {
+   "path": "reference-book/exchange-rates/create",
+   "operation_id": "reference_book_exchange_rates_create",
+   "title": "Create an exchange rate",
+   "kind": "create",
+   "release": "0.2.0",
+   "reason": "Planned for 0.2.0.",
+   "everyday_steps": []
+  },
+  {
+   "path": "reference-book/exchange-rates/delete",
+   "operation_id": "reference_book_exchange_rates_delete",
+   "title": "Delete exchange rates",
+   "kind": "delete",
+   "release": "after-live",
+   "reason": "Deletion: planned after a check against a live company.",
+   "everyday_steps": []
+  },
+  {
+   "path": "reference-book/exchange-rates/list",
+   "operation_id": "reference_book_exchange_rates_list",
+   "title": "List exchange rates",
+   "kind": "read",
+   "release": "0.1.0",
+   "reason": "Read: changes nothing in Site.pro Accounting.",
+   "everyday_steps": []
+  },
+  {
+   "path": "reference-book/exchange-rates/update",
+   "operation_id": "reference_book_exchange_rates_update",
+   "title": "Update an exchange rate",
+   "kind": "update",
+   "release": "0.2.0",
+   "reason": "Planned for 0.2.0.",
+   "everyday_steps": []
+  },
+  {
+   "path": "reference-book/fuel-cards/create",
+   "operation_id": "reference_book_fuel_cards_create",
+   "title": "Create a fuel card",
+   "kind": "create",
+   "release": "0.2.0",
+   "reason": "Planned for 0.2.0.",
+   "everyday_steps": []
+  },
+  {
+   "path": "reference-book/fuel-cards/delete",
+   "operation_id": "reference_book_fuel_cards_delete",
+   "title": "Delete fuel cards",
+   "kind": "delete",
+   "release": "after-live",
+   "reason": "Deletion: planned after a check against a live company.",
+   "everyday_steps": []
+  },
+  {
+   "path": "reference-book/fuel-cards/list",
+   "operation_id": "reference_book_fuel_cards_list",
+   "title": "List fuel cards",
+   "kind": "read",
+   "release": "0.1.0",
+   "reason": "Read: changes nothing in Site.pro Accounting.",
+   "everyday_steps": []
+  },
+  {
+   "path": "reference-book/fuel-cards/update",
+   "operation_id": "reference_book_fuel_cards_update",
+   "title": "Update a fuel card",
+   "kind": "update",
+   "release": "0.2.0",
+   "reason": "Planned for 0.2.0.",
+   "everyday_steps": []
+  },
+  {
+   "path": "reference-book/intrastat-codes/create",
+   "operation_id": "reference_book_intrastat_codes_create",
+   "title": "Create an intrastat code",
+   "kind": "create",
+   "release": "0.2.0",
+   "reason": "Planned for 0.2.0.",
+   "everyday_steps": []
+  },
+  {
+   "path": "reference-book/intrastat-codes/delete",
+   "operation_id": "reference_book_intrastat_codes_delete",
+   "title": "Delete intrastat codes",
+   "kind": "delete",
+   "release": "after-live",
+   "reason": "Deletion: planned after a check against a live company.",
+   "everyday_steps": []
+  },
+  {
+   "path": "reference-book/intrastat-codes/list",
+   "operation_id": "reference_book_intrastat_codes_list",
+   "title": "List intrastat codes",
+   "kind": "read",
+   "release": "0.1.0",
+   "reason": "Read: changes nothing in Site.pro Accounting.",
+   "everyday_steps": []
+  },
+  {
+   "path": "reference-book/intrastat-codes/update",
+   "operation_id": "reference_book_intrastat_codes_update",
+   "title": "Update an intrastat code",
+   "kind": "update",
+   "release": "0.2.0",
+   "reason": "Planned for 0.2.0.",
+   "everyday_steps": []
+  },
+  {
+   "path": "reference-book/intrastat-delivery-terms/create",
+   "operation_id": "reference_book_intrastat_delivery_terms_create",
+   "title": "Create an intrastat delivery term",
+   "kind": "create",
+   "release": "0.2.0",
+   "reason": "Planned for 0.2.0.",
+   "everyday_steps": []
+  },
+  {
+   "path": "reference-book/intrastat-delivery-terms/delete",
+   "operation_id": "reference_book_intrastat_delivery_terms_delete",
+   "title": "Delete intrastat delivery terms",
+   "kind": "delete",
+   "release": "after-live",
+   "reason": "Deletion: planned after a check against a live company.",
+   "everyday_steps": []
+  },
+  {
+   "path": "reference-book/intrastat-delivery-terms/list",
+   "operation_id": "reference_book_intrastat_delivery_terms_list",
+   "title": "List intrastat delivery terms",
+   "kind": "read",
+   "release": "0.1.0",
+   "reason": "Read: changes nothing in Site.pro Accounting.",
+   "everyday_steps": []
+  },
+  {
+   "path": "reference-book/intrastat-delivery-terms/update",
+   "operation_id": "reference_book_intrastat_delivery_terms_update",
+   "title": "Update an intrastat delivery term",
+   "kind": "update",
+   "release": "0.2.0",
+   "reason": "Planned for 0.2.0.",
+   "everyday_steps": []
+  },
+  {
+   "path": "reference-book/intrastat-transactions/create",
+   "operation_id": "reference_book_intrastat_transactions_create",
+   "title": "Create an intrastat transaction",
+   "kind": "create",
+   "release": "0.2.0",
+   "reason": "Planned for 0.2.0.",
+   "everyday_steps": []
+  },
+  {
+   "path": "reference-book/intrastat-transactions/delete",
+   "operation_id": "reference_book_intrastat_transactions_delete",
+   "title": "Delete intrastat transactions",
+   "kind": "delete",
+   "release": "after-live",
+   "reason": "Deletion: planned after a check against a live company.",
+   "everyday_steps": []
+  },
+  {
+   "path": "reference-book/intrastat-transactions/list",
+   "operation_id": "reference_book_intrastat_transactions_list",
+   "title": "List intrastat transactions",
+   "kind": "read",
+   "release": "0.1.0",
+   "reason": "Read: changes nothing in Site.pro Accounting.",
+   "everyday_steps": []
+  },
+  {
+   "path": "reference-book/intrastat-transactions/update",
+   "operation_id": "reference_book_intrastat_transactions_update",
+   "title": "Update an intrastat transaction",
+   "kind": "update",
+   "release": "0.2.0",
+   "reason": "Planned for 0.2.0.",
+   "everyday_steps": []
+  },
+  {
+   "path": "reference-book/intrastat-transports/create",
+   "operation_id": "reference_book_intrastat_transports_create",
+   "title": "Create an intrastat transport",
+   "kind": "create",
+   "release": "0.2.0",
+   "reason": "Planned for 0.2.0.",
+   "everyday_steps": []
+  },
+  {
+   "path": "reference-book/intrastat-transports/delete",
+   "operation_id": "reference_book_intrastat_transports_delete",
+   "title": "Delete intrastat transports",
+   "kind": "delete",
+   "release": "after-live",
+   "reason": "Deletion: planned after a check against a live company.",
+   "everyday_steps": []
+  },
+  {
+   "path": "reference-book/intrastat-transports/list",
+   "operation_id": "reference_book_intrastat_transports_list",
+   "title": "List intrastat transports",
+   "kind": "read",
+   "release": "0.1.0",
+   "reason": "Read: changes nothing in Site.pro Accounting.",
+   "everyday_steps": []
+  },
+  {
+   "path": "reference-book/intrastat-transports/update",
+   "operation_id": "reference_book_intrastat_transports_update",
+   "title": "Update an intrastat transport",
+   "kind": "update",
+   "release": "0.2.0",
+   "reason": "Planned for 0.2.0.",
+   "everyday_steps": []
+  },
+  {
+   "path": "reference-book/item-attributes/create",
+   "operation_id": "reference_book_item_attributes_create",
+   "title": "Create an item attribute",
+   "kind": "create",
+   "release": "0.2.0",
+   "reason": "Planned for 0.2.0.",
+   "everyday_steps": []
+  },
+  {
+   "path": "reference-book/item-attributes/delete",
+   "operation_id": "reference_book_item_attributes_delete",
+   "title": "Delete item attributes",
+   "kind": "delete",
+   "release": "after-live",
+   "reason": "Deletion: planned after a check against a live company.",
+   "everyday_steps": []
+  },
+  {
+   "path": "reference-book/item-attributes/list",
+   "operation_id": "reference_book_item_attributes_list",
+   "title": "List item attributes",
+   "kind": "read",
+   "release": "0.1.0",
+   "reason": "Read: changes nothing in Site.pro Accounting.",
+   "everyday_steps": []
+  },
+  {
+   "path": "reference-book/item-attributes/update",
+   "operation_id": "reference_book_item_attributes_update",
+   "title": "Update an item attribute",
+   "kind": "update",
+   "release": "0.2.0",
+   "reason": "Planned for 0.2.0.",
+   "everyday_steps": []
+  },
+  {
+   "path": "reference-book/item-files/create",
+   "operation_id": "reference_book_item_files_create",
+   "title": "Upload an item file",
+   "kind": "upload",
+   "release": "0.2.0",
+   "reason": "Planned for 0.2.0.",
+   "everyday_steps": []
+  },
+  {
+   "path": "reference-book/item-files/delete",
+   "operation_id": "reference_book_item_files_delete",
+   "title": "Delete item files",
+   "kind": "delete",
+   "release": "after-live",
+   "reason": "Deletion: planned after a check against a live company.",
+   "everyday_steps": []
+  },
+  {
+   "path": "reference-book/item-files/get",
+   "operation_id": "reference_book_item_files_get",
+   "title": "Get an item file",
+   "kind": "file",
+   "release": "0.1.0",
+   "reason": "Read: changes nothing in Site.pro Accounting.",
+   "everyday_steps": []
+  },
+  {
+   "path": "reference-book/item-files/list",
+   "operation_id": "reference_book_item_files_list",
+   "title": "List item files",
+   "kind": "read",
+   "release": "0.1.0",
+   "reason": "Read: changes nothing in Site.pro Accounting.",
+   "everyday_steps": []
+  },
+  {
+   "path": "reference-book/item-groups/create",
+   "operation_id": "reference_book_item_groups_create",
+   "title": "Create an item group",
+   "kind": "create",
+   "release": "0.1.0",
+   "reason": "Everyday write.",
+   "everyday_steps": []
+  },
+  {
+   "path": "reference-book/item-groups/delete",
+   "operation_id": "reference_book_item_groups_delete",
+   "title": "Delete item groups",
+   "kind": "delete",
+   "release": "after-live",
+   "reason": "Deletion: planned after a check against a live company.",
+   "everyday_steps": []
+  },
+  {
+   "path": "reference-book/item-groups/list",
+   "operation_id": "reference_book_item_groups_list",
+   "title": "List item groups",
+   "kind": "read",
+   "release": "0.1.0",
+   "reason": "Read: changes nothing in Site.pro Accounting.",
+   "everyday_steps": []
+  },
+  {
+   "path": "reference-book/item-groups/update",
+   "operation_id": "reference_book_item_groups_update",
+   "title": "Update an item group",
+   "kind": "update",
+   "release": "0.1.0",
+   "reason": "Everyday write.",
+   "everyday_steps": []
+  },
+  {
+   "path": "reference-book/item-suppliers/create",
+   "operation_id": "reference_book_item_suppliers_create",
+   "title": "Create an item supplier",
+   "kind": "create",
+   "release": "0.2.0",
+   "reason": "Planned for 0.2.0.",
+   "everyday_steps": []
+  },
+  {
+   "path": "reference-book/item-suppliers/delete",
+   "operation_id": "reference_book_item_suppliers_delete",
+   "title": "Delete item suppliers",
+   "kind": "delete",
+   "release": "after-live",
+   "reason": "Deletion: planned after a check against a live company.",
+   "everyday_steps": []
+  },
+  {
+   "path": "reference-book/item-suppliers/list",
+   "operation_id": "reference_book_item_suppliers_list",
+   "title": "List item suppliers",
+   "kind": "read",
+   "release": "0.1.0",
+   "reason": "Read: changes nothing in Site.pro Accounting.",
+   "everyday_steps": []
+  },
+  {
+   "path": "reference-book/item-suppliers/update",
+   "operation_id": "reference_book_item_suppliers_update",
+   "title": "Update an item supplier",
+   "kind": "update",
+   "release": "0.2.0",
+   "reason": "Planned for 0.2.0.",
+   "everyday_steps": []
+  },
+  {
+   "path": "reference-book/item-translations/create",
+   "operation_id": "reference_book_item_translations_create",
+   "title": "Create an item translation",
+   "kind": "create",
+   "release": "0.2.0",
+   "reason": "Planned for 0.2.0.",
+   "everyday_steps": []
+  },
+  {
+   "path": "reference-book/item-translations/delete",
+   "operation_id": "reference_book_item_translations_delete",
+   "title": "Delete item translations",
+   "kind": "delete",
+   "release": "after-live",
+   "reason": "Deletion: planned after a check against a live company.",
+   "everyday_steps": []
+  },
+  {
+   "path": "reference-book/item-translations/list",
+   "operation_id": "reference_book_item_translations_list",
+   "title": "List item translations",
+   "kind": "read",
+   "release": "0.1.0",
+   "reason": "Read: changes nothing in Site.pro Accounting.",
+   "everyday_steps": []
+  },
+  {
+   "path": "reference-book/item-translations/update",
+   "operation_id": "reference_book_item_translations_update",
+   "title": "Update an item translation",
+   "kind": "update",
+   "release": "0.2.0",
+   "reason": "Planned for 0.2.0.",
+   "everyday_steps": []
+  },
+  {
+   "path": "reference-book/items/create",
+   "operation_id": "reference_book_items_create",
+   "title": "Create an item",
+   "kind": "create",
+   "release": "0.1.0",
+   "reason": "Everyday write.",
+   "everyday_steps": [
+    "find_or_create_item"
+   ]
+  },
+  {
+   "path": "reference-book/items/delete",
+   "operation_id": "reference_book_items_delete",
+   "title": "Delete items",
+   "kind": "delete",
+   "release": "after-live",
+   "reason": "Deletion: planned after a check against a live company.",
+   "everyday_steps": []
+  },
+  {
+   "path": "reference-book/items/list",
+   "operation_id": "reference_book_items_list",
+   "title": "List items",
+   "kind": "read",
+   "release": "0.1.0",
+   "reason": "Read: changes nothing in Site.pro Accounting.",
+   "everyday_steps": [
+    "find_item",
+    "find_or_create_item"
+   ]
+  },
+  {
+   "path": "reference-book/items/update",
+   "operation_id": "reference_book_items_update",
+   "title": "Update an item",
+   "kind": "update",
+   "release": "0.1.0",
+   "reason": "Everyday write.",
+   "everyday_steps": []
+  },
+  {
+   "path": "reference-book/manufacturers/create",
+   "operation_id": "reference_book_manufacturers_create",
+   "title": "Create a manufacturer",
+   "kind": "create",
+   "release": "0.2.0",
+   "reason": "Planned for 0.2.0.",
+   "everyday_steps": []
+  },
+  {
+   "path": "reference-book/manufacturers/delete",
+   "operation_id": "reference_book_manufacturers_delete",
+   "title": "Delete manufacturers",
+   "kind": "delete",
+   "release": "after-live",
+   "reason": "Deletion: planned after a check against a live company.",
+   "everyday_steps": []
+  },
+  {
+   "path": "reference-book/manufacturers/list",
+   "operation_id": "reference_book_manufacturers_list",
+   "title": "List manufacturers",
+   "kind": "read",
+   "release": "0.1.0",
+   "reason": "Read: changes nothing in Site.pro Accounting.",
+   "everyday_steps": []
+  },
+  {
+   "path": "reference-book/manufacturers/update",
+   "operation_id": "reference_book_manufacturers_update",
+   "title": "Update a manufacturer",
+   "kind": "update",
+   "release": "0.2.0",
+   "reason": "Planned for 0.2.0.",
+   "everyday_steps": []
+  },
+  {
+   "path": "reference-book/measurement-unit-translations/create",
+   "operation_id": "reference_book_measurement_unit_translations_create",
+   "title": "Create a measurement unit translation",
+   "kind": "create",
+   "release": "0.2.0",
+   "reason": "Planned for 0.2.0.",
+   "everyday_steps": []
+  },
+  {
+   "path": "reference-book/measurement-unit-translations/delete",
+   "operation_id": "reference_book_measurement_unit_translations_delete",
+   "title": "Delete measurement unit translations",
+   "kind": "delete",
+   "release": "after-live",
+   "reason": "Deletion: planned after a check against a live company.",
+   "everyday_steps": []
+  },
+  {
+   "path": "reference-book/measurement-unit-translations/list",
+   "operation_id": "reference_book_measurement_unit_translations_list",
+   "title": "List measurement unit translations",
+   "kind": "read",
+   "release": "0.1.0",
+   "reason": "Read: changes nothing in Site.pro Accounting.",
+   "everyday_steps": []
+  },
+  {
+   "path": "reference-book/measurement-unit-translations/update",
+   "operation_id": "reference_book_measurement_unit_translations_update",
+   "title": "Update a measurement unit translation",
+   "kind": "update",
+   "release": "0.2.0",
+   "reason": "Planned for 0.2.0.",
+   "everyday_steps": []
+  },
+  {
+   "path": "reference-book/measurement-units/create",
+   "operation_id": "reference_book_measurement_units_create",
+   "title": "Create a measurement unit",
+   "kind": "create",
+   "release": "0.1.0",
+   "reason": "Everyday write.",
+   "everyday_steps": []
+  },
+  {
+   "path": "reference-book/measurement-units/delete",
+   "operation_id": "reference_book_measurement_units_delete",
+   "title": "Delete measurement units",
+   "kind": "delete",
+   "release": "after-live",
+   "reason": "Deletion: planned after a check against a live company.",
+   "everyday_steps": []
+  },
+  {
+   "path": "reference-book/measurement-units/list",
+   "operation_id": "reference_book_measurement_units_list",
+   "title": "List measurement units",
+   "kind": "read",
+   "release": "0.1.0",
+   "reason": "Read: changes nothing in Site.pro Accounting.",
+   "everyday_steps": []
+  },
+  {
+   "path": "reference-book/measurement-units/update",
+   "operation_id": "reference_book_measurement_units_update",
+   "title": "Update a measurement unit",
+   "kind": "update",
+   "release": "0.1.0",
+   "reason": "Everyday write.",
+   "everyday_steps": []
+  },
+  {
+   "path": "reference-book/operation-types/create",
+   "operation_id": "reference_book_operation_types_create",
+   "title": "Create an operation type",
+   "kind": "create",
+   "release": "0.2.0",
+   "reason": "Planned for 0.2.0.",
+   "everyday_steps": []
+  },
+  {
+   "path": "reference-book/operation-types/delete",
+   "operation_id": "reference_book_operation_types_delete",
+   "title": "Delete operation types",
+   "kind": "delete",
+   "release": "after-live",
+   "reason": "Deletion: planned after a check against a live company.",
+   "everyday_steps": []
+  },
+  {
+   "path": "reference-book/operation-types/list",
+   "operation_id": "reference_book_operation_types_list",
+   "title": "List operation types",
+   "kind": "read",
+   "release": "0.1.0",
+   "reason": "Read: changes nothing in Site.pro Accounting.",
+   "everyday_steps": []
+  },
+  {
+   "path": "reference-book/operation-types/update",
+   "operation_id": "reference_book_operation_types_update",
+   "title": "Update an operation type",
+   "kind": "update",
+   "release": "0.2.0",
+   "reason": "Planned for 0.2.0.",
+   "everyday_steps": []
+  },
+  {
+   "path": "reference-book/series/create",
+   "operation_id": "reference_book_series_create",
+   "title": "Create a series",
+   "kind": "create",
+   "release": "0.2.0",
+   "reason": "Planned for 0.2.0.",
+   "everyday_steps": []
+  },
+  {
+   "path": "reference-book/series/delete",
+   "operation_id": "reference_book_series_delete",
+   "title": "Delete series",
+   "kind": "delete",
+   "release": "after-live",
+   "reason": "Deletion: planned after a check against a live company.",
+   "everyday_steps": []
+  },
+  {
+   "path": "reference-book/series/list",
+   "operation_id": "reference_book_series_list",
+   "title": "List series",
+   "kind": "read",
+   "release": "0.1.0",
+   "reason": "Read: changes nothing in Site.pro Accounting.",
+   "everyday_steps": []
+  },
+  {
+   "path": "reference-book/series/update",
+   "operation_id": "reference_book_series_update",
+   "title": "Update a series",
+   "kind": "update",
+   "release": "0.2.0",
+   "reason": "Planned for 0.2.0.",
+   "everyday_steps": []
+  },
+  {
+   "path": "reference-book/statuses/create",
+   "operation_id": "reference_book_statuses_create",
+   "title": "Create a status",
+   "kind": "create",
+   "release": "0.2.0",
+   "reason": "Planned for 0.2.0.",
+   "everyday_steps": []
+  },
+  {
+   "path": "reference-book/statuses/delete",
+   "operation_id": "reference_book_statuses_delete",
+   "title": "Delete statuses",
+   "kind": "delete",
+   "release": "after-live",
+   "reason": "Deletion: planned after a check against a live company.",
+   "everyday_steps": []
+  },
+  {
+   "path": "reference-book/statuses/list",
+   "operation_id": "reference_book_statuses_list",
+   "title": "List statuses",
+   "kind": "read",
+   "release": "0.1.0",
+   "reason": "Read: changes nothing in Site.pro Accounting.",
+   "everyday_steps": []
+  },
+  {
+   "path": "reference-book/statuses/update",
+   "operation_id": "reference_book_statuses_update",
+   "title": "Update a status",
+   "kind": "update",
+   "release": "0.2.0",
+   "reason": "Planned for 0.2.0.",
+   "everyday_steps": []
+  },
+  {
+   "path": "reference-book/vat-classifications/create",
+   "operation_id": "reference_book_vat_classifications_create",
+   "title": "Create a vat classification",
+   "kind": "create",
+   "release": "0.2.0",
+   "reason": "Planned for 0.2.0.",
+   "everyday_steps": []
+  },
+  {
+   "path": "reference-book/vat-classifications/delete",
+   "operation_id": "reference_book_vat_classifications_delete",
+   "title": "Delete vat classifications",
+   "kind": "delete",
+   "release": "after-live",
+   "reason": "Deletion: planned after a check against a live company.",
+   "everyday_steps": []
+  },
+  {
+   "path": "reference-book/vat-classifications/list",
+   "operation_id": "reference_book_vat_classifications_list",
+   "title": "List vat classifications",
+   "kind": "read",
+   "release": "0.1.0",
+   "reason": "Read: changes nothing in Site.pro Accounting.",
+   "everyday_steps": []
+  },
+  {
+   "path": "reference-book/vat-classifications/update",
+   "operation_id": "reference_book_vat_classifications_update",
+   "title": "Update a vat classification",
+   "kind": "update",
+   "release": "0.2.0",
+   "reason": "Planned for 0.2.0.",
+   "everyday_steps": []
+  },
+  {
+   "path": "reference-book/vat-rates/create",
+   "operation_id": "reference_book_vat_rates_create",
+   "title": "Create a vat rate",
+   "kind": "create",
+   "release": "0.2.0",
+   "reason": "Planned for 0.2.0.",
+   "everyday_steps": []
+  },
+  {
+   "path": "reference-book/vat-rates/delete",
+   "operation_id": "reference_book_vat_rates_delete",
+   "title": "Delete vat rates",
+   "kind": "delete",
+   "release": "after-live",
+   "reason": "Deletion: planned after a check against a live company.",
+   "everyday_steps": []
+  },
+  {
+   "path": "reference-book/vat-rates/list",
+   "operation_id": "reference_book_vat_rates_list",
+   "title": "List vat rates",
+   "kind": "read",
+   "release": "0.1.0",
+   "reason": "Read: changes nothing in Site.pro Accounting.",
+   "everyday_steps": []
+  },
+  {
+   "path": "reference-book/vat-rates/update",
+   "operation_id": "reference_book_vat_rates_update",
+   "title": "Update a vat rate",
+   "kind": "update",
+   "release": "0.2.0",
+   "reason": "Planned for 0.2.0.",
+   "everyday_steps": []
+  },
+  {
+   "path": "reference-book/warehouses/create",
+   "operation_id": "reference_book_warehouses_create",
+   "title": "Create a warehouse",
+   "kind": "create",
+   "release": "0.2.0",
+   "reason": "Planned for 0.2.0.",
+   "everyday_steps": []
+  },
+  {
+   "path": "reference-book/warehouses/delete",
+   "operation_id": "reference_book_warehouses_delete",
+   "title": "Delete warehouses",
+   "kind": "delete",
+   "release": "after-live",
+   "reason": "Deletion: planned after a check against a live company.",
+   "everyday_steps": []
+  },
+  {
+   "path": "reference-book/warehouses/list",
+   "operation_id": "reference_book_warehouses_list",
+   "title": "List warehouses",
+   "kind": "read",
+   "release": "0.1.0",
+   "reason": "Read: changes nothing in Site.pro Accounting.",
+   "everyday_steps": []
+  },
+  {
+   "path": "reference-book/warehouses/update",
+   "operation_id": "reference_book_warehouses_update",
+   "title": "Update a warehouse",
+   "kind": "update",
+   "release": "0.2.0",
+   "reason": "Planned for 0.2.0.",
+   "everyday_steps": []
+  },
+  {
+   "path": "reports/balances/medium-large-businesses-balance",
+   "operation_id": "reports_balances_medium_large_businesses_balance",
+   "title": "Generate the balance (For medium and large businesses) report",
+   "kind": "report",
+   "release": "0.1.0",
+   "reason": "Read: changes nothing in Site.pro Accounting.",
+   "everyday_steps": []
+  },
+  {
+   "path": "reports/balances/medium-large-businesses-profit-and-loss",
+   "operation_id": "reports_balances_medium_large_businesses_profit_and_loss",
+   "title": "Generate the profit-and-loss statement (For medium and large businesses) report",
+   "kind": "report",
+   "release": "0.1.0",
+   "reason": "Read: changes nothing in Site.pro Accounting.",
+   "everyday_steps": []
+  },
+  {
+   "path": "reports/balances/small-businesses-balance",
+   "operation_id": "reports_balances_small_businesses_balance",
+   "title": "Generate the balance (For small businesses) report",
+   "kind": "report",
+   "release": "0.1.0",
+   "reason": "Read: changes nothing in Site.pro Accounting.",
+   "everyday_steps": []
+  },
+  {
+   "path": "reports/balances/small-businesses-profit-and-loss",
+   "operation_id": "reports_balances_small_businesses_profit_and_loss",
+   "title": "Generate the profit-and-loss statement (For small businesses) report",
+   "kind": "report",
+   "release": "0.1.0",
+   "reason": "Read: changes nothing in Site.pro Accounting.",
+   "everyday_steps": []
+  },
+  {
+   "path": "reports/balances/small-communities-balance",
+   "operation_id": "reports_balances_small_communities_balance",
+   "title": "Generate the balance (Small communities and legal entities with unlimited liabilities) report",
+   "kind": "report",
+   "release": "0.1.0",
+   "reason": "Read: changes nothing in Site.pro Accounting.",
+   "everyday_steps": []
+  },
+  {
+   "path": "reports/balances/small-communities-profit-and-loss",
+   "operation_id": "reports_balances_small_communities_profit_and_loss",
+   "title": "Generate the profit-and-loss statement (Small communities and legal entities with unlimited liabilities) report",
+   "kind": "report",
+   "release": "0.1.0",
+   "reason": "Read: changes nothing in Site.pro Accounting.",
+   "everyday_steps": []
+  },
+  {
+   "path": "reports/balances/very-small-businesses-balance",
+   "operation_id": "reports_balances_very_small_businesses_balance",
+   "title": "Generate the balance (Very small businesses) report",
+   "kind": "report",
+   "release": "0.1.0",
+   "reason": "Read: changes nothing in Site.pro Accounting.",
+   "everyday_steps": []
+  },
+  {
+   "path": "reports/balances/very-small-businesses-profit-and-loss",
+   "operation_id": "reports_balances_very_small_businesses_profit_and_loss",
+   "title": "Generate the profit-and-loss statement (Very small businesses) report",
+   "kind": "report",
+   "release": "0.1.0",
+   "reason": "Read: changes nothing in Site.pro Accounting.",
+   "everyday_steps": []
+  },
+  {
+   "path": "reports/general-ledger-advances/advance-reconciliation",
+   "operation_id": "reports_general_ledger_advances_advance_reconciliation",
+   "title": "Generate the advance reconciliation — for selected employee report",
+   "kind": "report",
+   "release": "0.1.0",
+   "reason": "Read: changes nothing in Site.pro Accounting.",
+   "everyday_steps": []
+  },
+  {
+   "path": "reports/general-ledger-cost-centers/cost-centers",
+   "operation_id": "reports_general_ledger_cost_centers_cost_centers",
+   "title": "Generate the cost centers report",
+   "kind": "report",
+   "release": "0.1.0",
+   "reason": "Read: changes nothing in Site.pro Accounting.",
+   "everyday_steps": []
+  },
+  {
+   "path": "reports/general-ledger-cost-centers/cost-centers-activity-by-general-ledger",
+   "operation_id": "reports_general_ledger_cost_centers_cost_centers_activity_by_general_ledger",
+   "title": "Generate the cost centers activity (by general ledger) report",
+   "kind": "report",
+   "release": "0.1.0",
+   "reason": "Read: changes nothing in Site.pro Accounting.",
+   "everyday_steps": []
+  },
+  {
+   "path": "reports/general-ledger-cost-centers/cost-centers-expenses-by-items",
+   "operation_id": "reports_general_ledger_cost_centers_cost_centers_expenses_by_items",
+   "title": "Generate the cost centers expenses (by items) report",
+   "kind": "report",
+   "release": "0.1.0",
+   "reason": "Read: changes nothing in Site.pro Accounting.",
+   "everyday_steps": []
+  },
+  {
+   "path": "reports/general-ledger-cost-centers/cost-centers-profit",
+   "operation_id": "reports_general_ledger_cost_centers_cost_centers_profit",
+   "title": "Generate the cost centers profit report",
+   "kind": "report",
+   "release": "0.1.0",
+   "reason": "Read: changes nothing in Site.pro Accounting.",
+   "everyday_steps": []
+  },
+  {
+   "path": "reports/general-ledger-cost-centers/cost-centers-profit-general-ledger-entries",
+   "operation_id": "reports_general_ledger_cost_centers_cost_centers_profit_general_ledger_entries",
+   "title": "Generate the cost Centers (Profit, General ledger entries) report",
+   "kind": "report",
+   "release": "0.1.0",
+   "reason": "Read: changes nothing in Site.pro Accounting.",
+   "everyday_steps": []
+  },
+  {
+   "path": "reports/general-ledger-cost-centers/profit-cost-centers-with-mapping",
+   "operation_id": "reports_general_ledger_cost_centers_profit_cost_centers_with_mapping",
+   "title": "Generate the cost centers (profit) (cost centers not specified in the entry are taken from the link in the corporate accounts) report",
+   "kind": "report",
+   "release": "0.1.0",
+   "reason": "Read: changes nothing in Site.pro Accounting.",
+   "everyday_steps": []
+  },
+  {
+   "path": "reports/general-ledger-debt-management/customer-liabilities",
+   "operation_id": "reports_general_ledger_debt_management_customer_liabilities",
+   "title": "Generate the customer liabilities (Sales/by employees) report",
+   "kind": "report",
+   "release": "0.1.0",
+   "reason": "Read: changes nothing in Site.pro Accounting.",
+   "everyday_steps": []
+  },
+  {
+   "path": "reports/general-ledger-debt-management/customer-liabilities-by-customer",
+   "operation_id": "reports_general_ledger_debt_management_customer_liabilities_by_customer",
+   "title": "Generate the customer liabilities (by customer) report",
+   "kind": "report",
+   "release": "0.1.0",
+   "reason": "Read: changes nothing in Site.pro Accounting.",
+   "everyday_steps": []
+  },
+  {
+   "path": "reports/general-ledger-debt-management/customers-liabilities-sales-date",
+   "operation_id": "reports_general_ledger_debt_management_customers_liabilities_sales_date",
+   "title": "Generate the customers Liabilities (Sales / Date) report",
+   "kind": "report",
+   "release": "0.1.0",
+   "reason": "Read: changes nothing in Site.pro Accounting.",
+   "everyday_steps": []
+  },
+  {
+   "path": "reports/general-ledger-debt-management/debts-and-liabilities-of-customers-suppliers",
+   "operation_id": "reports_general_ledger_debt_management_debts_and_liabilities_of_customers_suppliers",
+   "title": "Generate the debts and liabilities of customers / suppliers report",
+   "kind": "report",
+   "release": "0.1.0",
+   "reason": "Read: changes nothing in Site.pro Accounting.",
+   "everyday_steps": []
+  },
+  {
+   "path": "reports/general-ledger-debt-management/liabilities-to-customer-by-customer",
+   "operation_id": "reports_general_ledger_debt_management_liabilities_to_customer_by_customer",
+   "title": "Generate the liabilities to customer (by customer) report",
+   "kind": "report",
+   "release": "0.1.0",
+   "reason": "Read: changes nothing in Site.pro Accounting.",
+   "everyday_steps": []
+  },
+  {
+   "path": "reports/general-ledger-debt-management/liabilities-to-customers",
+   "operation_id": "reports_general_ledger_debt_management_liabilities_to_customers",
+   "title": "Generate the liabilities to customers (Purchases/by employees) report",
+   "kind": "report",
+   "release": "0.1.0",
+   "reason": "Read: changes nothing in Site.pro Accounting.",
+   "everyday_steps": []
+  },
+  {
+   "path": "reports/general-ledger-debt-management/liabilities-to-customers-purchases-date",
+   "operation_id": "reports_general_ledger_debt_management_liabilities_to_customers_purchases_date",
+   "title": "Generate the liabilities to customers (Purchases / Date) report",
+   "kind": "report",
+   "release": "0.1.0",
+   "reason": "Read: changes nothing in Site.pro Accounting.",
+   "everyday_steps": []
+  },
+  {
+   "path": "reports/general-ledger-document/document-control-general-register",
+   "operation_id": "reports_general_ledger_document_document_control_general_register",
+   "title": "Generate the document control (general register) report",
+   "kind": "report",
+   "release": "0.1.0",
+   "reason": "Read: changes nothing in Site.pro Accounting.",
+   "everyday_steps": []
+  },
+  {
+   "path": "reports/general-ledger-document/document-control-report",
+   "operation_id": "reports_general_ledger_document_document_control_report",
+   "title": "Generate the document control report",
+   "kind": "report",
+   "release": "0.1.0",
+   "reason": "Read: changes nothing in Site.pro Accounting.",
+   "everyday_steps": []
+  },
+  {
+   "path": "reports/general-ledger-document/mutual-payment-adjustment-summary",
+   "operation_id": "reports_general_ledger_document_mutual_payment_adjustment_summary",
+   "title": "Generate the mutual payment adjustment (summary) report",
+   "kind": "report",
+   "release": "0.1.0",
+   "reason": "Read: changes nothing in Site.pro Accounting.",
+   "everyday_steps": []
+  },
+  {
+   "path": "reports/general-ledger-document/mutual-settlement-adjustment-expanded",
+   "operation_id": "reports_general_ledger_document_mutual_settlement_adjustment_expanded",
+   "title": "Generate the mutual settlement adjustment (expanded) report",
+   "kind": "report",
+   "release": "0.1.0",
+   "reason": "Read: changes nothing in Site.pro Accounting.",
+   "everyday_steps": []
+  },
+  {
+   "path": "reports/general-ledger-general-ledger/debt-age-sheet",
+   "operation_id": "reports_general_ledger_general_ledger_debt_age_sheet",
+   "title": "Generate the debt age sheet report",
+   "kind": "report",
+   "release": "0.1.0",
+   "reason": "Read: changes nothing in Site.pro Accounting.",
+   "everyday_steps": []
+  },
+  {
+   "path": "reports/general-ledger-general-ledger/general-journal-entries",
+   "operation_id": "reports_general_ledger_general_ledger_general_journal_entries",
+   "title": "Generate the general journal entries report",
+   "kind": "report",
+   "release": "0.1.0",
+   "reason": "Read: changes nothing in Site.pro Accounting.",
+   "everyday_steps": []
+  },
+  {
+   "path": "reports/general-ledger-general-ledger/general-ledger-all-transactions",
+   "operation_id": "reports_general_ledger_general_ledger_general_ledger_all_transactions",
+   "title": "Generate the general ledger (all transactions) report",
+   "kind": "report",
+   "release": "0.1.0",
+   "reason": "Read: changes nothing in Site.pro Accounting.",
+   "everyday_steps": []
+  },
+  {
+   "path": "reports/general-ledger-general-ledger/general-ledger-full",
+   "operation_id": "reports_general_ledger_general_ledger_general_ledger_full",
+   "title": "Generate the general Ledger full report",
+   "kind": "report",
+   "release": "0.1.0",
+   "reason": "Read: changes nothing in Site.pro Accounting.",
+   "everyday_steps": []
+  },
+  {
+   "path": "reports/general-ledger-general-ledger/general-ledger-summary",
+   "operation_id": "reports_general_ledger_general_ledger_general_ledger_summary",
+   "title": "Generate the general Ledger (summary) report",
+   "kind": "report",
+   "release": "0.1.0",
+   "reason": "Read: changes nothing in Site.pro Accounting.",
+   "everyday_steps": []
+  },
+  {
+   "path": "reports/general-ledger-general-ledger/general-ledger-summary-all-accounts",
+   "operation_id": "reports_general_ledger_general_ledger_general_ledger_summary_all_accounts",
+   "title": "Generate the general Ledger (summary – all accounts) report",
+   "kind": "report",
+   "release": "0.1.0",
+   "reason": "Read: changes nothing in Site.pro Accounting.",
+   "everyday_steps": []
+  },
+  {
+   "path": "reports/general-ledger-general-ledger/general-ledger-summary-by-clients",
+   "operation_id": "reports_general_ledger_general_ledger_general_ledger_summary_by_clients",
+   "title": "Generate the general Ledger summary by clients report",
+   "kind": "report",
+   "release": "0.1.0",
+   "reason": "Read: changes nothing in Site.pro Accounting.",
+   "everyday_steps": []
+  },
+  {
+   "path": "reports/general-ledger-general-ledger/general-ledger-summary-by-month",
+   "operation_id": "reports_general_ledger_general_ledger_general_ledger_summary_by_month",
+   "title": "Generate the general Ledger summary by month report",
+   "kind": "report",
+   "release": "0.1.0",
+   "reason": "Read: changes nothing in Site.pro Accounting.",
+   "everyday_steps": []
+  },
+  {
+   "path": "reports/general-ledger-general-ledger/general-ledger-summary-clients-until",
+   "operation_id": "reports_general_ledger_general_ledger_general_ledger_summary_clients_until",
+   "title": "Generate the general Ledger summary clients (until) report",
+   "kind": "report",
+   "release": "0.1.0",
+   "reason": "Read: changes nothing in Site.pro Accounting.",
+   "everyday_steps": []
+  },
+  {
+   "path": "reports/general-ledger-general-ledger/general-register-list",
+   "operation_id": "reports_general_ledger_general_ledger_general_register_list",
+   "title": "Generate the general register list report",
+   "kind": "report",
+   "release": "0.1.0",
+   "reason": "Read: changes nothing in Site.pro Accounting.",
+   "everyday_steps": []
+  },
+  {
+   "path": "reports/general-ledger-general-ledger/income-expenses-by-month",
+   "operation_id": "reports_general_ledger_general_ledger_income_expenses_by_month",
+   "title": "Generate the income / expenses by month report",
+   "kind": "report",
+   "release": "0.1.0",
+   "reason": "Read: changes nothing in Site.pro Accounting.",
+   "everyday_steps": []
+  },
+  {
+   "path": "reports/general-ledger-general-ledger/trial-balance",
+   "operation_id": "reports_general_ledger_general_ledger_trial_balance",
+   "title": "Generate the trial balance report",
+   "kind": "report",
+   "release": "0.1.0",
+   "reason": "Read: changes nothing in Site.pro Accounting.",
+   "everyday_steps": []
+  },
+  {
+   "path": "reports/general-ledger-turnover-ref-book/turnover-statement-extended",
+   "operation_id": "reports_general_ledger_turnover_ref_book_turnover_statement_extended",
+   "title": "Generate the turnover statement extended report",
+   "kind": "report",
+   "release": "0.1.0",
+   "reason": "Read: changes nothing in Site.pro Accounting.",
+   "everyday_steps": []
+  },
+  {
+   "path": "reports/general-ledger-turnover-ref-book/turnover-statement-monetary",
+   "operation_id": "reports_general_ledger_turnover_ref_book_turnover_statement_monetary",
+   "title": "Generate the turnover statement monetary report",
+   "kind": "report",
+   "release": "0.1.0",
+   "reason": "Read: changes nothing in Site.pro Accounting.",
+   "everyday_steps": []
+  },
+  {
+   "path": "reports/general-ledger-turnover-ref-book/turnover-statement-summary",
+   "operation_id": "reports_general_ledger_turnover_ref_book_turnover_statement_summary",
+   "title": "Generate the turnover statement summary report",
+   "kind": "report",
+   "release": "0.1.0",
+   "reason": "Read: changes nothing in Site.pro Accounting.",
+   "everyday_steps": []
+  },
+  {
+   "path": "reports/general-ledger-turnover-ref-book/turnover-statement-total",
+   "operation_id": "reports_general_ledger_turnover_ref_book_turnover_statement_total",
+   "title": "Generate the turnover statement total report",
+   "kind": "report",
+   "release": "0.1.0",
+   "reason": "Read: changes nothing in Site.pro Accounting.",
+   "everyday_steps": []
+  },
+  {
+   "path": "reports/general-ledger-turnover/debit-credit-turnover",
+   "operation_id": "reports_general_ledger_turnover_debit_credit_turnover",
+   "title": "Generate the debit / credit turnover report",
+   "kind": "report",
+   "release": "0.1.0",
+   "reason": "Read: changes nothing in Site.pro Accounting.",
+   "everyday_steps": []
+  },
+  {
+   "path": "reports/general-ledger-turnover/turnover-extpanded",
+   "operation_id": "reports_general_ledger_turnover_turnover_extpanded",
+   "title": "Generate the turnover (extpanded) report",
+   "kind": "report",
+   "release": "0.1.0",
+   "reason": "Read: changes nothing in Site.pro Accounting.",
+   "everyday_steps": []
+  },
+  {
+   "path": "reports/general-ledger-turnover/turnover-summary",
+   "operation_id": "reports_general_ledger_turnover_turnover_summary",
+   "title": "Generate the turnover (summary) report",
+   "kind": "report",
+   "release": "0.1.0",
+   "reason": "Read: changes nothing in Site.pro Accounting.",
+   "everyday_steps": []
+  },
+  {
+   "path": "reports/general-ledger-turnover/turnover-summary-with-the-overall-accounts",
+   "operation_id": "reports_general_ledger_turnover_turnover_summary_with_the_overall_accounts",
+   "title": "Generate the turnover (summary) with the overall accounts report",
+   "kind": "report",
+   "release": "0.1.0",
+   "reason": "Read: changes nothing in Site.pro Accounting.",
+   "everyday_steps": []
+  },
+  {
+   "path": "reports/general-ledger-turnover/turnover-with-balance",
+   "operation_id": "reports_general_ledger_turnover_turnover_with_balance",
+   "title": "Generate the turnover with balance for period start and end report",
+   "kind": "report",
+   "release": "0.1.0",
+   "reason": "Read: changes nothing in Site.pro Accounting.",
+   "everyday_steps": []
+  },
+  {
+   "path": "reports/general-ledger-write-off/representation-expense-write-off-act",
+   "operation_id": "reports_general_ledger_write_off_representation_expense_write_off_act",
+   "title": "Generate the representation expense write-off act report",
+   "kind": "report",
+   "release": "0.1.0",
+   "reason": "Read: changes nothing in Site.pro Accounting.",
+   "everyday_steps": []
+  },
+  {
+   "path": "reports/general-ledger-write-off/write-off-act-linked-to-purchase-documents",
+   "operation_id": "reports_general_ledger_write_off_write_off_act_linked_to_purchase_documents",
+   "title": "Generate the write-off act (linked to purchase documents) report",
+   "kind": "report",
+   "release": "0.1.0",
+   "reason": "Read: changes nothing in Site.pro Accounting.",
+   "everyday_steps": []
+  },
+  {
+   "path": "reports/get",
+   "operation_id": "reports_get",
+   "title": "Get a generated report file",
+   "kind": "report_get",
+   "release": "0.1.0",
+   "reason": "Read: changes nothing in Site.pro Accounting.",
+   "everyday_steps": [
+    "get_report"
+   ]
+  },
+  {
+   "path": "reports/inventory-documents/purchase-documents",
+   "operation_id": "reports_inventory_documents_purchase_documents",
+   "title": "Generate the purchase documents report",
+   "kind": "report",
+   "release": "0.1.0",
+   "reason": "Read: changes nothing in Site.pro Accounting.",
+   "everyday_steps": []
+  },
+  {
+   "path": "reports/inventory-documents/sales-documents",
+   "operation_id": "reports_inventory_documents_sales_documents",
+   "title": "Generate the sales documents report",
+   "kind": "report",
+   "release": "0.1.0",
+   "reason": "Read: changes nothing in Site.pro Accounting.",
+   "everyday_steps": []
+  },
+  {
+   "path": "reports/inventory-intrastat/export",
+   "operation_id": "reports_inventory_intrastat_export",
+   "title": "Generate the intrastat export report",
+   "kind": "report",
+   "release": "0.1.0",
+   "reason": "Read: changes nothing in Site.pro Accounting.",
+   "everyday_steps": []
+  },
+  {
+   "path": "reports/inventory-intrastat/export-according-to-documents",
+   "operation_id": "reports_inventory_intrastat_export_according_to_documents",
+   "title": "Generate the intrastat export (according to documents) report",
+   "kind": "report",
+   "release": "0.1.0",
+   "reason": "Read: changes nothing in Site.pro Accounting.",
+   "everyday_steps": []
+  },
+  {
+   "path": "reports/inventory-intrastat/import",
+   "operation_id": "reports_inventory_intrastat_import",
+   "title": "Generate the intrastat import report",
+   "kind": "report",
+   "release": "0.1.0",
+   "reason": "Read: changes nothing in Site.pro Accounting.",
+   "everyday_steps": []
+  },
+  {
+   "path": "reports/inventory-intrastat/import-according-to-documents",
+   "operation_id": "reports_inventory_intrastat_import_according_to_documents",
+   "title": "Generate the intrastat import (according to documents) report",
+   "kind": "report",
+   "release": "0.1.0",
+   "reason": "Read: changes nothing in Site.pro Accounting.",
+   "everyday_steps": []
+  },
+  {
+   "path": "reports/inventory-inventory/inventory-aging",
+   "operation_id": "reports_inventory_inventory_inventory_aging",
+   "title": "Generate the inventory aging report",
+   "kind": "report",
+   "release": "0.1.0",
+   "reason": "Read: changes nothing in Site.pro Accounting.",
+   "everyday_steps": []
+  },
+  {
+   "path": "reports/inventory-inventory/inventory-balance-as-of-date",
+   "operation_id": "reports_inventory_inventory_inventory_balance_as_of_date",
+   "title": "Generate the inventory balance as of date report",
+   "kind": "report",
+   "release": "0.1.0",
+   "reason": "Read: changes nothing in Site.pro Accounting.",
+   "everyday_steps": []
+  },
+  {
+   "path": "reports/inventory-inventory/inventory-shortage",
+   "operation_id": "reports_inventory_inventory_inventory_shortage",
+   "title": "Generate the inventory shortage report",
+   "kind": "report",
+   "release": "0.1.0",
+   "reason": "Read: changes nothing in Site.pro Accounting.",
+   "everyday_steps": []
+  },
+  {
+   "path": "reports/inventory-inventory/stock-balances-and-their-sale-after-the-date",
+   "operation_id": "reports_inventory_inventory_stock_balances_and_their_sale_after_the_date",
+   "title": "Generate the stock balances and their sale after the date report",
+   "kind": "report",
+   "release": "0.1.0",
+   "reason": "Read: changes nothing in Site.pro Accounting.",
+   "everyday_steps": []
+  },
+  {
+   "path": "reports/inventory-inventory/stock-for-the-period",
+   "operation_id": "reports_inventory_inventory_stock_for_the_period",
+   "title": "Generate the stock for the period report",
+   "kind": "report",
+   "release": "0.1.0",
+   "reason": "Read: changes nothing in Site.pro Accounting.",
+   "everyday_steps": []
+  },
+  {
+   "path": "reports/inventory-item-movement/item-movement",
+   "operation_id": "reports_inventory_item_movement_item_movement",
+   "title": "Generate the item movement report",
+   "kind": "report",
+   "release": "0.1.0",
+   "reason": "Read: changes nothing in Site.pro Accounting.",
+   "everyday_steps": []
+  },
+  {
+   "path": "reports/inventory-loan-centers/quick-credits",
+   "operation_id": "reports_inventory_loan_centers_quick_credits",
+   "title": "Generate the quick credits report",
+   "kind": "report",
+   "release": "0.1.0",
+   "reason": "Read: changes nothing in Site.pro Accounting.",
+   "everyday_steps": []
+  },
+  {
+   "path": "reports/inventory-purchases/eu-purchases-by-vat-rate",
+   "operation_id": "reports_inventory_purchases_eu_purchases_by_vat_rate",
+   "title": "Generate the EU purchases by VAT rate report",
+   "kind": "report",
+   "release": "0.1.0",
+   "reason": "Read: changes nothing in Site.pro Accounting.",
+   "everyday_steps": []
+  },
+  {
+   "path": "reports/inventory-purchases/purchases-by-vat",
+   "operation_id": "reports_inventory_purchases_purchases_by_vat",
+   "title": "Generate the purchases by VAT report",
+   "kind": "report",
+   "release": "0.1.0",
+   "reason": "Read: changes nothing in Site.pro Accounting.",
+   "everyday_steps": []
+  },
+  {
+   "path": "reports/inventory-purchases/purchases-extended",
+   "operation_id": "reports_inventory_purchases_purchases_extended",
+   "title": "Generate the purchases extended report",
+   "kind": "report",
+   "release": "0.1.0",
+   "reason": "Read: changes nothing in Site.pro Accounting.",
+   "everyday_steps": []
+  },
+  {
+   "path": "reports/inventory-purchases/purchases-full",
+   "operation_id": "reports_inventory_purchases_purchases_full",
+   "title": "Generate the purchases are full report",
+   "kind": "report",
+   "release": "0.1.0",
+   "reason": "Read: changes nothing in Site.pro Accounting.",
+   "everyday_steps": []
+  },
+  {
+   "path": "reports/inventory-sales-cash-register/sales-through-cash-register",
+   "operation_id": "reports_inventory_sales_cash_register_sales_through_cash_register",
+   "title": "Generate the sales through cash register report",
+   "kind": "report",
+   "release": "0.1.0",
+   "reason": "Read: changes nothing in Site.pro Accounting.",
+   "everyday_steps": []
+  },
+  {
+   "path": "reports/inventory-sales-ecommerce/online-sales",
+   "operation_id": "reports_inventory_sales_ecommerce_online_sales",
+   "title": "Generate the online sales report",
+   "kind": "report",
+   "release": "0.1.0",
+   "reason": "Read: changes nothing in Site.pro Accounting.",
+   "everyday_steps": []
+  },
+  {
+   "path": "reports/inventory-sales/calculation-of-vat-art-102",
+   "operation_id": "reports_inventory_sales_calculation_of_vat_art_102",
+   "title": "Generate the calculation of VAT on margin sales (Art. 102.2 of the VAT) report",
+   "kind": "report",
+   "release": "0.1.0",
+   "reason": "Read: changes nothing in Site.pro Accounting.",
+   "everyday_steps": []
+  },
+  {
+   "path": "reports/inventory-sales/calculation-of-vat-art-92",
+   "operation_id": "reports_inventory_sales_calculation_of_vat_art_92",
+   "title": "Generate the calculation of VAT on margin sales (Art. 92 of the VAT) report",
+   "kind": "report",
+   "release": "0.1.0",
+   "reason": "Read: changes nothing in Site.pro Accounting.",
+   "everyday_steps": []
+  },
+  {
+   "path": "reports/inventory-sales/managerial-report",
+   "operation_id": "reports_inventory_sales_managerial_report",
+   "title": "Generate the managerial report",
+   "kind": "report",
+   "release": "0.1.0",
+   "reason": "Read: changes nothing in Site.pro Accounting.",
+   "everyday_steps": []
+  },
+  {
+   "path": "reports/inventory-sales/realisation-by-buyer",
+   "operation_id": "reports_inventory_sales_realisation_by_buyer",
+   "title": "Generate the realisation by buyer report",
+   "kind": "report",
+   "release": "0.1.0",
+   "reason": "Read: changes nothing in Site.pro Accounting.",
+   "everyday_steps": []
+  },
+  {
+   "path": "reports/inventory-sales/realisation-expanded",
+   "operation_id": "reports_inventory_sales_realisation_expanded",
+   "title": "Generate the realisation expanded report",
+   "kind": "report",
+   "release": "0.1.0",
+   "reason": "Read: changes nothing in Site.pro Accounting.",
+   "everyday_steps": []
+  },
+  {
+   "path": "reports/inventory-sales/realisation-full-with-all-attributes",
+   "operation_id": "reports_inventory_sales_realisation_full_with_all_attributes",
+   "title": "Generate the realisation full (with all attributes of the goods) report",
+   "kind": "report",
+   "release": "0.1.0",
+   "reason": "Read: changes nothing in Site.pro Accounting.",
+   "everyday_steps": []
+  },
+  {
+   "path": "reports/inventory-sales/realisation-full-with-item-attribute",
+   "operation_id": "reports_inventory_sales_realisation_full_with_item_attribute",
+   "title": "Generate the realisation full with item attribute report",
+   "kind": "report",
+   "release": "0.1.0",
+   "reason": "Read: changes nothing in Site.pro Accounting.",
+   "everyday_steps": []
+  },
+  {
+   "path": "reports/inventory-sales/realisation-summary",
+   "operation_id": "reports_inventory_sales_realisation_summary",
+   "title": "Generate the realisation summary report",
+   "kind": "report",
+   "release": "0.1.0",
+   "reason": "Read: changes nothing in Site.pro Accounting.",
+   "everyday_steps": []
+  },
+  {
+   "path": "reports/inventory-sales/realization-extended-detailed",
+   "operation_id": "reports_inventory_sales_realization_extended_detailed",
+   "title": "Generate the realization extended (detailed) report",
+   "kind": "report",
+   "release": "0.1.0",
+   "reason": "Read: changes nothing in Site.pro Accounting.",
+   "everyday_steps": []
+  },
+  {
+   "path": "reports/inventory-sales/sales-by-vat",
+   "operation_id": "reports_inventory_sales_sales_by_vat",
+   "title": "Generate the sales by VAT report",
+   "kind": "report",
+   "release": "0.1.0",
+   "reason": "Read: changes nothing in Site.pro Accounting.",
+   "everyday_steps": []
+  },
+  {
+   "path": "reports/inventory-sales/sales-line-items",
+   "operation_id": "reports_inventory_sales_sales_line_items",
+   "title": "Generate the sales line items report",
+   "kind": "report",
+   "release": "0.1.0",
+   "reason": "Read: changes nothing in Site.pro Accounting.",
+   "everyday_steps": []
+  },
+  {
+   "path": "reports/others/oss-report",
+   "operation_id": "reports_others_oss_report",
+   "title": "Generate the OSS report",
+   "kind": "report",
+   "release": "0.1.0",
+   "reason": "Read: changes nothing in Site.pro Accounting.",
+   "everyday_steps": []
+  },
+  {
+   "path": "reports/others/secondment-report",
+   "operation_id": "reports_others_secondment_report",
+   "title": "Generate the secondment report",
+   "kind": "report",
+   "release": "0.1.0",
+   "reason": "Read: changes nothing in Site.pro Accounting.",
+   "everyday_steps": []
+  },
+  {
+   "path": "salary/departments/create",
+   "operation_id": "salary_departments_create",
+   "title": "Create a department",
+   "kind": "create",
+   "release": "after-live",
+   "reason": "Salary: planned after a check against a live company.",
+   "everyday_steps": []
+  },
+  {
+   "path": "salary/departments/delete",
+   "operation_id": "salary_departments_delete",
+   "title": "Delete departments",
+   "kind": "delete",
+   "release": "after-live",
+   "reason": "Deletion: planned after a check against a live company.",
+   "everyday_steps": []
+  },
+  {
+   "path": "salary/departments/list",
+   "operation_id": "salary_departments_list",
+   "title": "List departments",
+   "kind": "read",
+   "release": "0.1.0",
+   "reason": "Read: changes nothing in Site.pro Accounting.",
+   "everyday_steps": []
+  },
+  {
+   "path": "salary/departments/update",
+   "operation_id": "salary_departments_update",
+   "title": "Update a department",
+   "kind": "update",
+   "release": "after-live",
+   "reason": "Salary: planned after a check against a live company.",
+   "everyday_steps": []
+  },
+  {
+   "path": "salary/parameters/create",
+   "operation_id": "salary_parameters_create",
+   "title": "Create a parameter",
+   "kind": "create",
+   "release": "after-live",
+   "reason": "Salary: planned after a check against a live company.",
+   "everyday_steps": []
+  },
+  {
+   "path": "salary/parameters/delete",
+   "operation_id": "salary_parameters_delete",
+   "title": "Delete parameters",
+   "kind": "delete",
+   "release": "after-live",
+   "reason": "Deletion: planned after a check against a live company.",
+   "everyday_steps": []
+  },
+  {
+   "path": "salary/parameters/list",
+   "operation_id": "salary_parameters_list",
+   "title": "List parameters",
+   "kind": "read",
+   "release": "0.1.0",
+   "reason": "Read: changes nothing in Site.pro Accounting.",
+   "everyday_steps": []
+  },
+  {
+   "path": "salary/parameters/update",
+   "operation_id": "salary_parameters_update",
+   "title": "Update a parameter",
+   "kind": "update",
+   "release": "after-live",
+   "reason": "Salary: planned after a check against a live company.",
+   "everyday_steps": []
+  },
+  {
+   "path": "salary/payroll-employee-additions/create",
+   "operation_id": "salary_payroll_employee_additions_create",
+   "title": "Create a payroll employee addition",
+   "kind": "create",
+   "release": "after-live",
+   "reason": "Salary: planned after a check against a live company.",
+   "everyday_steps": []
+  },
+  {
+   "path": "salary/payroll-employee-additions/delete",
+   "operation_id": "salary_payroll_employee_additions_delete",
+   "title": "Delete payroll employee additions",
+   "kind": "delete",
+   "release": "after-live",
+   "reason": "Deletion: planned after a check against a live company.",
+   "everyday_steps": []
+  },
+  {
+   "path": "salary/payroll-employee-additions/list",
+   "operation_id": "salary_payroll_employee_additions_list",
+   "title": "List payroll employee additions",
+   "kind": "read",
+   "release": "0.1.0",
+   "reason": "Read: changes nothing in Site.pro Accounting.",
+   "everyday_steps": []
+  },
+  {
+   "path": "salary/payroll-employee-additions/update",
+   "operation_id": "salary_payroll_employee_additions_update",
+   "title": "Update a payroll employee addition",
+   "kind": "update",
+   "release": "after-live",
+   "reason": "Salary: planned after a check against a live company.",
+   "everyday_steps": []
+  },
+  {
+   "path": "salary/payroll-employee-deductions/create",
+   "operation_id": "salary_payroll_employee_deductions_create",
+   "title": "Create a payroll employee deduction",
+   "kind": "create",
+   "release": "after-live",
+   "reason": "Salary: planned after a check against a live company.",
+   "everyday_steps": []
+  },
+  {
+   "path": "salary/payroll-employee-deductions/delete",
+   "operation_id": "salary_payroll_employee_deductions_delete",
+   "title": "Delete payroll employee deductions",
+   "kind": "delete",
+   "release": "after-live",
+   "reason": "Deletion: planned after a check against a live company.",
+   "everyday_steps": []
+  },
+  {
+   "path": "salary/payroll-employee-deductions/list",
+   "operation_id": "salary_payroll_employee_deductions_list",
+   "title": "List payroll employee deductions",
+   "kind": "read",
+   "release": "0.1.0",
+   "reason": "Read: changes nothing in Site.pro Accounting.",
+   "everyday_steps": []
+  },
+  {
+   "path": "salary/payroll-employee-deductions/update",
+   "operation_id": "salary_payroll_employee_deductions_update",
+   "title": "Update a payroll employee deduction",
+   "kind": "update",
+   "release": "after-live",
+   "reason": "Salary: planned after a check against a live company.",
+   "everyday_steps": []
+  },
+  {
+   "path": "salary/payroll-employees/create",
+   "operation_id": "salary_payroll_employees_create",
+   "title": "Create a payroll employee",
+   "kind": "create",
+   "release": "after-live",
+   "reason": "Salary: planned after a check against a live company.",
+   "everyday_steps": []
+  },
+  {
+   "path": "salary/payroll-employees/delete",
+   "operation_id": "salary_payroll_employees_delete",
+   "title": "Delete payroll employees",
+   "kind": "delete",
+   "release": "after-live",
+   "reason": "Deletion: planned after a check against a live company.",
+   "everyday_steps": []
+  },
+  {
+   "path": "salary/payroll-employees/list",
+   "operation_id": "salary_payroll_employees_list",
+   "title": "List payroll employees",
+   "kind": "read",
+   "release": "0.1.0",
+   "reason": "Read: changes nothing in Site.pro Accounting.",
+   "everyday_steps": []
+  },
+  {
+   "path": "salary/payroll-employees/update",
+   "operation_id": "salary_payroll_employees_update",
+   "title": "Update a payroll employee",
+   "kind": "update",
+   "release": "after-live",
+   "reason": "Salary: planned after a check against a live company.",
+   "everyday_steps": []
+  },
+  {
+   "path": "salary/payrolls/create",
+   "operation_id": "salary_payrolls_create",
+   "title": "Create a payroll",
+   "kind": "create",
+   "release": "after-live",
+   "reason": "Salary: planned after a check against a live company.",
+   "everyday_steps": []
+  },
+  {
+   "path": "salary/payrolls/delete",
+   "operation_id": "salary_payrolls_delete",
+   "title": "Delete payrolls",
+   "kind": "delete",
+   "release": "after-live",
+   "reason": "Deletion: planned after a check against a live company.",
+   "everyday_steps": []
+  },
+  {
+   "path": "salary/payrolls/list",
+   "operation_id": "salary_payrolls_list",
+   "title": "List payrolls",
+   "kind": "read",
+   "release": "0.1.0",
+   "reason": "Read: changes nothing in Site.pro Accounting.",
+   "everyday_steps": []
+  },
+  {
+   "path": "salary/payrolls/update",
+   "operation_id": "salary_payrolls_update",
+   "title": "Update a payroll",
+   "kind": "update",
+   "release": "after-live",
+   "reason": "Salary: planned after a check against a live company.",
+   "everyday_steps": []
+  },
+  {
+   "path": "salary/work-graph-shifts/create",
+   "operation_id": "salary_work_graph_shifts_create",
+   "title": "Create a work graph shift",
+   "kind": "create",
+   "release": "after-live",
+   "reason": "Salary: planned after a check against a live company.",
+   "everyday_steps": []
+  },
+  {
+   "path": "salary/work-graph-shifts/delete",
+   "operation_id": "salary_work_graph_shifts_delete",
+   "title": "Delete work graph shifts",
+   "kind": "delete",
+   "release": "after-live",
+   "reason": "Deletion: planned after a check against a live company.",
+   "everyday_steps": []
+  },
+  {
+   "path": "salary/work-graph-shifts/list",
+   "operation_id": "salary_work_graph_shifts_list",
+   "title": "List work graph shifts",
+   "kind": "read",
+   "release": "0.1.0",
+   "reason": "Read: changes nothing in Site.pro Accounting.",
+   "everyday_steps": []
+  },
+  {
+   "path": "salary/work-graph-shifts/update",
+   "operation_id": "salary_work_graph_shifts_update",
+   "title": "Update a work graph shift",
+   "kind": "update",
+   "release": "after-live",
+   "reason": "Salary: planned after a check against a live company.",
+   "everyday_steps": []
+  },
+  {
+   "path": "shop/delivery-acceptance-acts/get",
+   "operation_id": "shop_delivery_acceptance_acts_get",
+   "title": "Get a shop delivery-acceptance act",
+   "kind": "file",
+   "release": "0.1.0",
+   "reason": "Read: changes nothing in Site.pro Accounting.",
+   "everyday_steps": []
+  },
+  {
+   "path": "shop/invoices/get",
+   "operation_id": "shop_invoices_get",
+   "title": "Get a shop invoice PDF",
+   "kind": "file",
+   "release": "0.1.0",
+   "reason": "Read: changes nothing in Site.pro Accounting.",
+   "everyday_steps": []
+  },
+  {
+   "path": "shop/invoices/get-upd",
+   "operation_id": "shop_invoices_get_upd",
+   "title": "Get a shop UPD invoice PDF",
+   "kind": "file",
+   "release": "0.1.0",
+   "reason": "Read: changes nothing in Site.pro Accounting.",
+   "everyday_steps": []
+  },
+  {
+   "path": "shop/orders/add",
+   "operation_id": "shop_orders_add",
+   "title": "Add a shop order",
+   "kind": "create",
+   "release": "0.1.0",
+   "reason": "Everyday write.",
+   "everyday_steps": []
+  },
+  {
+   "path": "shop/products/get",
+   "operation_id": "shop_products_get",
+   "title": "Get a shop product file",
+   "kind": "file",
+   "release": "0.1.0",
+   "reason": "Read: changes nothing in Site.pro Accounting.",
+   "everyday_steps": []
+  },
+  {
+   "path": "shop/products/list",
+   "operation_id": "shop_products_list",
+   "title": "List products",
+   "kind": "read",
+   "release": "0.1.0",
+   "reason": "Read: changes nothing in Site.pro Accounting.",
+   "everyday_steps": []
+  },
+  {
+   "path": "trace/modules/list",
+   "operation_id": "trace_modules_list",
+   "title": "List modules",
+   "kind": "read",
+   "release": "0.1.0",
+   "reason": "Read: changes nothing in Site.pro Accounting.",
+   "everyday_steps": []
+  },
+  {
+   "path": "trace/traces/list",
+   "operation_id": "trace_traces_list",
+   "title": "List traces",
+   "kind": "read",
+   "release": "0.1.0",
+   "reason": "Read: changes nothing in Site.pro Accounting.",
+   "everyday_steps": []
+  },
+  {
+   "path": "warehouse/assets/list",
+   "operation_id": "warehouse_assets_list",
+   "title": "List assets",
+   "kind": "read",
+   "release": "0.1.0",
+   "reason": "Read: changes nothing in Site.pro Accounting.",
+   "everyday_steps": []
+  },
+  {
+   "path": "warehouse/cash-register-sales/receipt-create",
+   "operation_id": "warehouse_cash_register_sales_receipt_create",
+   "title": "Create a sale from a cash register receipt",
+   "kind": "create",
+   "release": "0.2.0",
+   "reason": "Planned for 0.2.0.",
+   "everyday_steps": []
+  },
+  {
+   "path": "warehouse/delivery-acceptance-acts/get-sale",
+   "operation_id": "warehouse_delivery_acceptance_acts_get_sale",
+   "title": "Get a sale's delivery-acceptance act PDF",
+   "kind": "file",
+   "release": "0.1.0",
+   "reason": "Read: changes nothing in Site.pro Accounting.",
+   "everyday_steps": []
+  },
+  {
+   "path": "warehouse/internal-movements/confirm",
+   "operation_id": "warehouse_internal_movements_confirm",
+   "title": "Confirm internal movements",
+   "kind": "other",
+   "release": "after-live",
+   "reason": "Irreversible or wide action: planned after a live check.",
+   "everyday_steps": []
+  },
+  {
+   "path": "warehouse/invoices/get-sale",
+   "operation_id": "warehouse_invoices_get_sale",
+   "title": "Get a sale invoice file",
+   "kind": "file",
+   "release": "0.1.0",
+   "reason": "Read: changes nothing in Site.pro Accounting.",
+   "everyday_steps": []
+  },
+  {
+   "path": "warehouse/invoices/get-upd",
+   "operation_id": "warehouse_invoices_get_upd",
+   "title": "Get a sale's UPD file",
+   "kind": "file",
+   "release": "0.1.0",
+   "reason": "Read: changes nothing in Site.pro Accounting.",
+   "everyday_steps": []
+  },
+  {
+   "path": "warehouse/long-term-asset-groups/create",
+   "operation_id": "warehouse_long_term_asset_groups_create",
+   "title": "Create a long term asset group",
+   "kind": "create",
+   "release": "0.2.0",
+   "reason": "Planned for 0.2.0.",
+   "everyday_steps": []
+  },
+  {
+   "path": "warehouse/long-term-asset-groups/delete",
+   "operation_id": "warehouse_long_term_asset_groups_delete",
+   "title": "Delete long term asset groups",
+   "kind": "delete",
+   "release": "after-live",
+   "reason": "Deletion: planned after a check against a live company.",
+   "everyday_steps": []
+  },
+  {
+   "path": "warehouse/long-term-asset-groups/list",
+   "operation_id": "warehouse_long_term_asset_groups_list",
+   "title": "List long term asset groups",
+   "kind": "read",
+   "release": "0.1.0",
+   "reason": "Read: changes nothing in Site.pro Accounting.",
+   "everyday_steps": []
+  },
+  {
+   "path": "warehouse/long-term-asset-groups/update",
+   "operation_id": "warehouse_long_term_asset_groups_update",
+   "title": "Update a long term asset group",
+   "kind": "update",
+   "release": "0.2.0",
+   "reason": "Planned for 0.2.0.",
+   "everyday_steps": []
+  },
+  {
+   "path": "warehouse/note-files/create",
+   "operation_id": "warehouse_note_files_create",
+   "title": "Upload a note file",
+   "kind": "upload",
+   "release": "0.2.0",
+   "reason": "Planned for 0.2.0.",
+   "everyday_steps": []
+  },
+  {
+   "path": "warehouse/note-files/delete",
+   "operation_id": "warehouse_note_files_delete",
+   "title": "Delete note files",
+   "kind": "delete",
+   "release": "after-live",
+   "reason": "Deletion: planned after a check against a live company.",
+   "everyday_steps": []
+  },
+  {
+   "path": "warehouse/note-files/get",
+   "operation_id": "warehouse_note_files_get",
+   "title": "Get a note file",
+   "kind": "file",
+   "release": "0.1.0",
+   "reason": "Read: changes nothing in Site.pro Accounting.",
+   "everyday_steps": []
+  },
+  {
+   "path": "warehouse/note-files/list",
+   "operation_id": "warehouse_note_files_list",
+   "title": "List note files",
+   "kind": "read",
+   "release": "0.1.0",
+   "reason": "Read: changes nothing in Site.pro Accounting.",
+   "everyday_steps": []
+  },
+  {
+   "path": "warehouse/purchase-files/create",
+   "operation_id": "warehouse_purchase_files_create",
+   "title": "Upload a purchase file",
+   "kind": "upload",
+   "release": "0.1.0",
+   "reason": "Everyday write.",
+   "everyday_steps": []
+  },
+  {
+   "path": "warehouse/purchase-files/delete",
+   "operation_id": "warehouse_purchase_files_delete",
+   "title": "Delete purchase files",
+   "kind": "delete",
+   "release": "after-live",
+   "reason": "Deletion: planned after a check against a live company.",
+   "everyday_steps": []
+  },
+  {
+   "path": "warehouse/purchase-files/get",
+   "operation_id": "warehouse_purchase_files_get",
+   "title": "Get a purchase file",
+   "kind": "file",
+   "release": "0.1.0",
+   "reason": "Read: changes nothing in Site.pro Accounting.",
+   "everyday_steps": []
+  },
+  {
+   "path": "warehouse/purchase-files/list",
+   "operation_id": "warehouse_purchase_files_list",
+   "title": "List purchase files",
+   "kind": "read",
+   "release": "0.1.0",
+   "reason": "Read: changes nothing in Site.pro Accounting.",
+   "everyday_steps": []
+  },
+  {
+   "path": "warehouse/purchase-items/create",
+   "operation_id": "warehouse_purchase_items_create",
+   "title": "Create a purchase item",
+   "kind": "create",
+   "release": "0.1.0",
+   "reason": "Everyday write.",
+   "everyday_steps": [
+    "create_purchase_invoice"
+   ]
+  },
+  {
+   "path": "warehouse/purchase-items/delete",
+   "operation_id": "warehouse_purchase_items_delete",
+   "title": "Delete purchase items",
+   "kind": "delete",
+   "release": "after-live",
+   "reason": "Deletion: planned after a check against a live company.",
+   "everyday_steps": []
+  },
+  {
+   "path": "warehouse/purchase-items/list",
+   "operation_id": "warehouse_purchase_items_list",
+   "title": "List purchase items",
+   "kind": "read",
+   "release": "0.1.0",
+   "reason": "Read: changes nothing in Site.pro Accounting.",
+   "everyday_steps": []
+  },
+  {
+   "path": "warehouse/purchase-items/update",
+   "operation_id": "warehouse_purchase_items_update",
+   "title": "Update a purchase item",
+   "kind": "update",
+   "release": "0.1.0",
+   "reason": "Everyday write.",
+   "everyday_steps": []
+  },
+  {
+   "path": "warehouse/purchase-overhead-costs-from-general-journals/create",
+   "operation_id": "warehouse_purchase_overhead_costs_from_general_journals_create",
+   "title": "Create a purchase overhead costs from general journal",
+   "kind": "create",
+   "release": "0.2.0",
+   "reason": "Planned for 0.2.0.",
+   "everyday_steps": []
+  },
+  {
+   "path": "warehouse/purchase-overhead-costs-from-general-journals/delete",
+   "operation_id": "warehouse_purchase_overhead_costs_from_general_journals_delete",
+   "title": "Delete purchase overhead costs from general journals",
+   "kind": "delete",
+   "release": "after-live",
+   "reason": "Deletion: planned after a check against a live company.",
+   "everyday_steps": []
+  },
+  {
+   "path": "warehouse/purchase-overhead-costs-from-general-journals/list",
+   "operation_id": "warehouse_purchase_overhead_costs_from_general_journals_list",
+   "title": "List purchase overhead costs from general journals",
+   "kind": "read",
+   "release": "0.1.0",
+   "reason": "Read: changes nothing in Site.pro Accounting.",
+   "everyday_steps": []
+  },
+  {
+   "path": "warehouse/purchase-overhead-costs-from-general-journals/update",
+   "operation_id": "warehouse_purchase_overhead_costs_from_general_journals_update",
+   "title": "Update a purchase overhead costs from general journal",
+   "kind": "update",
+   "release": "0.2.0",
+   "reason": "Planned for 0.2.0.",
+   "everyday_steps": []
+  },
+  {
+   "path": "warehouse/purchase-overhead-costs-from-purchases/create",
+   "operation_id": "warehouse_purchase_overhead_costs_from_purchases_create",
+   "title": "Create a purchase overhead costs from purchase",
+   "kind": "create",
+   "release": "0.2.0",
+   "reason": "Planned for 0.2.0.",
+   "everyday_steps": []
+  },
+  {
+   "path": "warehouse/purchase-overhead-costs-from-purchases/delete",
+   "operation_id": "warehouse_purchase_overhead_costs_from_purchases_delete",
+   "title": "Delete purchase overhead costs from purchases",
+   "kind": "delete",
+   "release": "after-live",
+   "reason": "Deletion: planned after a check against a live company.",
+   "everyday_steps": []
+  },
+  {
+   "path": "warehouse/purchase-overhead-costs-from-purchases/list",
+   "operation_id": "warehouse_purchase_overhead_costs_from_purchases_list",
+   "title": "List purchase overhead costs from purchases",
+   "kind": "read",
+   "release": "0.1.0",
+   "reason": "Read: changes nothing in Site.pro Accounting.",
+   "everyday_steps": []
+  },
+  {
+   "path": "warehouse/purchase-overhead-costs-from-purchases/update",
+   "operation_id": "warehouse_purchase_overhead_costs_from_purchases_update",
+   "title": "Update a purchase overhead costs from purchase",
+   "kind": "update",
+   "release": "0.2.0",
+   "reason": "Planned for 0.2.0.",
+   "everyday_steps": []
+  },
+  {
+   "path": "warehouse/purchases/calculate-overhead-costs",
+   "operation_id": "warehouse_purchases_calculate_overhead_costs",
+   "title": "Calculate a purchase's overhead costs",
+   "kind": "other",
+   "release": "after-live",
+   "reason": "Irreversible or wide action: planned after a live check.",
+   "everyday_steps": []
+  },
+  {
+   "path": "warehouse/purchases/create",
+   "operation_id": "warehouse_purchases_create",
+   "title": "Create a purchase",
+   "kind": "create",
+   "release": "0.1.0",
+   "reason": "Everyday write.",
+   "everyday_steps": [
+    "create_purchase_invoice"
+   ]
+  },
+  {
+   "path": "warehouse/purchases/delete",
+   "operation_id": "warehouse_purchases_delete",
+   "title": "Delete purchases",
+   "kind": "delete",
+   "release": "after-live",
+   "reason": "Deletion: planned after a check against a live company.",
+   "everyday_steps": []
+  },
+  {
+   "path": "warehouse/purchases/list",
+   "operation_id": "warehouse_purchases_list",
+   "title": "List purchases",
+   "kind": "read",
+   "release": "0.1.0",
+   "reason": "Read: changes nothing in Site.pro Accounting.",
+   "everyday_steps": [
+    "create_purchase_invoice"
+   ]
+  },
+  {
+   "path": "warehouse/purchases/reset-overhead-costs",
+   "operation_id": "warehouse_purchases_reset_overhead_costs",
+   "title": "Reset a purchase's overhead costs",
+   "kind": "other",
+   "release": "after-live",
+   "reason": "Irreversible or wide action: planned after a live check.",
+   "everyday_steps": []
+  },
+  {
+   "path": "warehouse/purchases/update",
+   "operation_id": "warehouse_purchases_update",
+   "title": "Update a purchase",
+   "kind": "update",
+   "release": "0.1.0",
+   "reason": "Everyday write.",
+   "everyday_steps": []
+  },
+  {
+   "path": "warehouse/sale-files/create",
+   "operation_id": "warehouse_sale_files_create",
+   "title": "Upload a sale file",
+   "kind": "upload",
+   "release": "0.1.0",
+   "reason": "Everyday write.",
+   "everyday_steps": []
+  },
+  {
+   "path": "warehouse/sale-files/delete",
+   "operation_id": "warehouse_sale_files_delete",
+   "title": "Delete sale files",
+   "kind": "delete",
+   "release": "after-live",
+   "reason": "Deletion: planned after a check against a live company.",
+   "everyday_steps": []
+  },
+  {
+   "path": "warehouse/sale-files/get",
+   "operation_id": "warehouse_sale_files_get",
+   "title": "Get a sale file",
+   "kind": "file",
+   "release": "0.1.0",
+   "reason": "Read: changes nothing in Site.pro Accounting.",
+   "everyday_steps": []
+  },
+  {
+   "path": "warehouse/sale-files/list",
+   "operation_id": "warehouse_sale_files_list",
+   "title": "List sale files",
+   "kind": "read",
+   "release": "0.1.0",
+   "reason": "Read: changes nothing in Site.pro Accounting.",
+   "everyday_steps": []
+  },
+  {
+   "path": "warehouse/sale-items/create",
+   "operation_id": "warehouse_sale_items_create",
+   "title": "Create a sale item",
+   "kind": "create",
+   "release": "0.1.0",
+   "reason": "Everyday write.",
+   "everyday_steps": []
+  },
+  {
+   "path": "warehouse/sale-items/create-simple",
+   "operation_id": "warehouse_sale_items_create_simple",
+   "title": "Create a sale item (simple, FIFO write-off)",
+   "kind": "create",
+   "release": "0.1.0",
+   "reason": "Everyday write.",
+   "everyday_steps": [
+    "create_sales_invoice"
+   ]
+  },
+  {
+   "path": "warehouse/sale-items/delete",
+   "operation_id": "warehouse_sale_items_delete",
+   "title": "Delete sale items",
+   "kind": "delete",
+   "release": "after-live",
+   "reason": "Deletion: planned after a check against a live company.",
+   "everyday_steps": []
+  },
+  {
+   "path": "warehouse/sale-items/list",
+   "operation_id": "warehouse_sale_items_list",
+   "title": "List sale items",
+   "kind": "read",
+   "release": "0.1.0",
+   "reason": "Read: changes nothing in Site.pro Accounting.",
+   "everyday_steps": []
+  },
+  {
+   "path": "warehouse/sale-items/update",
+   "operation_id": "warehouse_sale_items_update",
+   "title": "Update a sale item",
+   "kind": "update",
+   "release": "0.1.0",
+   "reason": "Everyday write.",
+   "everyday_steps": []
+  },
+  {
+   "path": "warehouse/sale-reports/generate",
+   "operation_id": "warehouse_sale_reports_generate",
+   "title": "Generate a sale report file",
+   "kind": "other",
+   "release": "0.2.0",
+   "reason": "Planned for 0.2.0.",
+   "everyday_steps": []
+  },
+  {
+   "path": "warehouse/sales/create",
+   "operation_id": "warehouse_sales_create",
+   "title": "Create a sale",
+   "kind": "create",
+   "release": "0.1.0",
+   "reason": "Everyday write.",
+   "everyday_steps": [
+    "create_sales_invoice"
+   ]
+  },
+  {
+   "path": "warehouse/sales/delete",
+   "operation_id": "warehouse_sales_delete",
+   "title": "Delete warehouse sales",
+   "kind": "delete",
+   "release": "after-live",
+   "reason": "Deletion: planned after a check against a live company.",
+   "everyday_steps": []
+  },
+  {
+   "path": "warehouse/sales/list",
+   "operation_id": "warehouse_sales_list",
+   "title": "List warehouse sales",
+   "kind": "read",
+   "release": "0.1.0",
+   "reason": "Read: changes nothing in Site.pro Accounting.",
+   "everyday_steps": [
+    "create_sales_invoice",
+    "find_sale"
+   ]
+  },
+  {
+   "path": "warehouse/sales/update",
+   "operation_id": "warehouse_sales_update",
+   "title": "Update a sale",
+   "kind": "update",
+   "release": "0.1.0",
+   "reason": "Everyday write.",
+   "everyday_steps": []
+  },
+  {
+   "path": "warehouse/sales/update-vat",
+   "operation_id": "warehouse_sales_update_vat",
+   "title": "Update a sale's VAT amount",
+   "kind": "update",
+   "release": "0.1.0",
+   "reason": "Everyday write.",
+   "everyday_steps": []
+  },
+  {
+   "path": "warehouse/stock-taking-items/create",
+   "operation_id": "warehouse_stock_taking_items_create",
+   "title": "Create a stock taking item",
+   "kind": "create",
+   "release": "0.2.0",
+   "reason": "Planned for 0.2.0.",
+   "everyday_steps": []
+  },
+  {
+   "path": "warehouse/stock-taking-items/delete",
+   "operation_id": "warehouse_stock_taking_items_delete",
+   "title": "Delete stock taking items",
+   "kind": "delete",
+   "release": "after-live",
+   "reason": "Deletion: planned after a check against a live company.",
+   "everyday_steps": []
+  },
+  {
+   "path": "warehouse/stock-taking-items/list",
+   "operation_id": "warehouse_stock_taking_items_list",
+   "title": "List stock taking items",
+   "kind": "read",
+   "release": "0.1.0",
+   "reason": "Read: changes nothing in Site.pro Accounting.",
+   "everyday_steps": []
+  },
+  {
+   "path": "warehouse/stock-taking-items/list-by-barcode",
+   "operation_id": "warehouse_stock_taking_items_list_by_barcode",
+   "title": "List stock-taking items by barcode",
+   "kind": "read",
+   "release": "0.1.0",
+   "reason": "Read: changes nothing in Site.pro Accounting.",
+   "everyday_steps": []
+  },
+  {
+   "path": "warehouse/stock-taking-items/set-actual-quantity",
+   "operation_id": "warehouse_stock_taking_items_set_actual_quantity",
+   "title": "Set a stock-taking item's actual quantity",
+   "kind": "other",
+   "release": "after-live",
+   "reason": "Irreversible or wide action: planned after a live check.",
+   "everyday_steps": []
+  },
+  {
+   "path": "warehouse/stock-taking-items/update",
+   "operation_id": "warehouse_stock_taking_items_update",
+   "title": "Update a stock taking item",
+   "kind": "update",
+   "release": "0.2.0",
+   "reason": "Planned for 0.2.0.",
+   "everyday_steps": []
+  },
+  {
+   "path": "warehouse/stock-taking/create",
+   "operation_id": "warehouse_stock_taking_create",
+   "title": "Create a stock taking",
+   "kind": "create",
+   "release": "0.2.0",
+   "reason": "Planned for 0.2.0.",
+   "everyday_steps": []
+  },
+  {
+   "path": "warehouse/stock-taking/delete",
+   "operation_id": "warehouse_stock_taking_delete",
+   "title": "Delete stock taking",
+   "kind": "delete",
+   "release": "after-live",
+   "reason": "Deletion: planned after a check against a live company.",
+   "everyday_steps": []
+  },
+  {
+   "path": "warehouse/stock-taking/generate",
+   "operation_id": "warehouse_stock_taking_generate",
+   "title": "Generate stock-taking items",
+   "kind": "other",
+   "release": "after-live",
+   "reason": "Irreversible or wide action: planned after a live check.",
+   "everyday_steps": []
+  },
+  {
+   "path": "warehouse/stock-taking/list",
+   "operation_id": "warehouse_stock_taking_list",
+   "title": "List stock taking",
+   "kind": "read",
+   "release": "0.1.0",
+   "reason": "Read: changes nothing in Site.pro Accounting.",
+   "everyday_steps": []
+  },
+  {
+   "path": "warehouse/stock-taking/update",
+   "operation_id": "warehouse_stock_taking_update",
+   "title": "Update a stock taking",
+   "kind": "update",
+   "release": "0.2.0",
+   "reason": "Planned for 0.2.0.",
+   "everyday_steps": []
+  },
+  {
+   "path": "warehouse/stock/list",
+   "operation_id": "warehouse_stock_list",
+   "title": "List stock",
+   "kind": "read",
+   "release": "0.1.0",
+   "reason": "Read: changes nothing in Site.pro Accounting.",
+   "everyday_steps": []
+  },
+  {
+   "path": "warehouse/temp-files/add-purchase",
+   "operation_id": "warehouse_temp_files_add_purchase",
+   "title": "Upload a purchase document to file storage",
+   "kind": "create",
+   "release": "0.2.0",
+   "reason": "Planned for 0.2.0.",
+   "everyday_steps": []
+  },
+  {
+   "path": "warehouse/temp-files/add-sale",
+   "operation_id": "warehouse_temp_files_add_sale",
+   "title": "Upload a sale document to file storage",
+   "kind": "create",
+   "release": "0.2.0",
+   "reason": "Planned for 0.2.0.",
+   "everyday_steps": []
+  },
+  {
+   "path": "warehouse/temp-files/get-recognized-data",
+   "operation_id": "warehouse_temp_files_get_recognized_data",
+   "title": "Get recognized data of a stored file",
+   "kind": "read",
+   "release": "0.1.0",
+   "reason": "Read: changes nothing in Site.pro Accounting.",
+   "everyday_steps": []
+  }
+ ]
+}

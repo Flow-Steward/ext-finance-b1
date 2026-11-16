@@ -1,0 +1,44 @@
+page_id: connection
+title: Connection
+description: Add and test the B1 (Site.pro Accounting) company of a project.
+components:
+  - component_id: b1_connections
+    type: connection_form
+    title: B1 companies
+    description: Add one connection per company and API key, then test it. The key is stored encrypted and never shown again.
+    data:
+      connection_kind: extension
+      connection_type: b1
+      config_fields: [label]
+      secret_fields: [api_key]
+      test_action: test_connection
+    defaults:
+      label: ''
+    fields:
+      - path: label
+        widget: text
+        label: Label
+        placeholder: UAB X
+      - path: api_key
+        widget: secret
+        label: API key
+        required: true
+        help: From Settings → Integrations in Site.pro Accounting (see Setup Guide).
+    ui_schema:
+      actions:
+        test_label: Test connection
+  - component_id: connection_credentials
+    type: markdown
+    title: Where the key comes from
+    body: |
+      1. In Site.pro Accounting open **Settings → Integrations → API simplified** and create the key (see **Setup Guide**).
+      2. Paste it above and press **Test connection**.
+
+      The steps always connect to `https://site.pro/My-Accounting/api`; there is no address to set.
+
+      **If the test fails:**
+
+      - **Authentication failed (401)** — the key is missing or wrong: copy it again.
+      - **Authentication failed (403)** — the key is frozen, or the integration package is not active.
+
+      A read-only key passes the test but cannot write: the writing steps then fail with 403.
