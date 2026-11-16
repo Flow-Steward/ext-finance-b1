@@ -8,17 +8,19 @@ version: 0.1.0
 release_stage: active
 billing_mode: free
 display_name: B1 (Site.pro Accounting)
-description: 'Connect workflows to B1 (Site.pro Accounting), the Lithuanian online accounting
-  software, through its API. Everyday steps find or create clients and items, create sales and
-  purchase invoices with their lines, record payments for sales checked for repeats and generate
-  reports; amounts are taken as plain decimals and converted where the API expects them multiplied.
+description: 'Connect workflows to B1 (Site.pro Accounting), the Lithuanian online
+  accounting software, through its API. Everyday steps find or create clients and
+  items, create sales and purchase invoices with their lines, record payments for
+  sales checked for repeats and generate reports; amounts are taken as plain decimals
+  and converted where the API expects them multiplied.
 
 
-  Read steps cover the whole documented API: clients, items and reference data, sales, purchases
-  and stock, bank and cash, documents, general ledger, personnel, salary, production, long-term
-  assets and e-commerce orders, with cursor or page paging and filters, plus invoice and document
-  files and every report. Writes cover everyday sales, purchases, clients, items, payments and
-  shop orders. Each connection is one company, reached with its API key.'
+  Read steps cover the whole documented API: clients, items and reference data, sales,
+  purchases and stock, bank and cash, documents, general ledger, personnel, salary,
+  production, long-term assets and e-commerce orders, with cursor or page paging and
+  filters, plus invoice and document files and every report. Writes cover everyday
+  sales, purchases, clients, items, payments and shop orders. Each connection is one
+  company, reached with its API key.'
 vendor:
   name: Flow Steward
   support_url: https://github.com/Flow-Steward/ext-finance-b1/issues
@@ -33,14 +35,15 @@ listing:
   - invoices
   - inventory
   - payments
-  summary: Read and write B1 (Site.pro Accounting) clients, items, sales, purchases, payments,
-    stock and reports.
+  summary: Read and write B1 (Site.pro Accounting) clients, items, sales, purchases,
+    payments, stock and reports.
   categories:
   - finance
   - inventory
   - sales
-  setup_summary: Create an API key under Settings → Integrations → API simplified in Site.pro
-    Accounting, add it to a project connection and run the connection test.
+  setup_summary: "Create an API key under Settings \u2192 Integrations \u2192 API\
+    \ simplified in Site.pro Accounting, add it to a project connection and run the\
+    \ connection test."
 features:
 - tool
 - action
@@ -56,8 +59,8 @@ machine_auth:
   - artifact:write
 account_scope:
   scope_type: project
-  description: Each B1 (Site.pro Accounting) company and API key is a project connection. A
-    project may hold several, for example one per company.
+  description: Each B1 (Site.pro Accounting) company and API key is a project connection.
+    A project may hold several, for example one per company.
 egress:
   hosts:
   - site.pro
