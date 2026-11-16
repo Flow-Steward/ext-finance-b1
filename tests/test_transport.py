@@ -223,6 +223,6 @@ def test_decimals_travel_exactly() -> None:
 
 
 def test_unknown_operations_are_refused() -> None:
-    response = run(FakeB1(), "warehouse_sales_delete", {"ids": [1]})
+    response = run(FakeB1(), "warehouse_sales_purge", {"ids": [1]})
     assert response["error_code"] == "unsupported_operation"
     assert response["definitely_no_external_effect"] is True

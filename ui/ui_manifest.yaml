@@ -1,8 +1,15 @@
-version: "1"
+version: '1'
 pages:
-  - ref: pages/setup-guide.yaml
-  - ref: pages/connection.yaml
-  - ref: pages/b1-api.yaml
-  - ref: pages/coverage.yaml
-  - ref: pages/changelog.yaml
-  - ref: pages/support.yaml
+- ref: pages/setup-guide.yaml
+- ref: pages/connection.yaml
+- ref: pages/b1-api.yaml
+- ref: pages/b1-api-clients-items.yaml
+- ref: pages/b1-api-sales-purchases.yaml
+- ref: pages/b1-api-money.yaml
+- ref: pages/b1-api-ledger.yaml
+- ref: pages/b1-api-reports.yaml
+- ref: pages/b1-api-assets.yaml
+- ref: pages/b1-api-staff.yaml
+- ref: pages/coverage.yaml
+- ref: pages/changelog.yaml
+- ref: pages/support.yaml

@@ -65,27 +65,27 @@ def test_reports_are_generated_and_their_file_got() -> None:
             assert row["title"].startswith("Generate the ") and row["title"].endswith(" report")
 
 
-def test_releases() -> None:
-    by = collections.Counter((r["release"], r["kind"]) for r in ROWS)
-    released = [r for r in ROWS if r["release"] == "0.1.0"]
-    assert len(released) == 287
-    # Every read, file download and report ships now.
+def test_every_endpoint_is_a_step_of_this_release() -> None:
+    by = collections.Counter((r["kind"], r["danger"]) for r in ROWS)
+    assert all(r["release"] == "0.1.0" and r["reason"] for r in ROWS)
+    assert by[("delete", "delete")] == 117
+    assert sum(n for (k, d), n in by.items() if d == "irreversible") == 23
+    for row in ROWS:
+        if row["kind"] == "delete":
+            assert row["danger"] == "delete", row["path"]
+        if row["path"].startswith("salary/") and row["kind"] in plan.WRITE_KINDS - {"delete"}:
+            assert row["danger"] == "irreversible", row["path"]
+    for path in plan.IRREVERSIBLE_ACTIONS:
+        row = next(r for r in ROWS if r["path"] == path)
+        assert row["danger"] == "irreversible" and row["kind"] in {"action", "action_file"}
+    # Not confirmed to be a read: generate-ffdata is a write with an effect.
+    ffdata = next(r for r in ROWS if r["path"] == "declaration/generations/generate-ffdata")
+    assert ffdata["kind"] == "action_file"
     for row in ROWS:
         if row["kind"] in {"read", "file", "report", "report_get"}:
-            assert row["release"] == "0.1.0", row["path"]
-    # Deletions, salary writes and irreversible actions only after a live check.
-    assert by[("after-live", "delete")] == 117
-    for row in ROWS:
-        if row["kind"] == "delete" or (
-            row["path"].startswith("salary/") and row["kind"] not in {"read", "file"}
-        ):
-            assert row["release"] == "after-live", row["path"]
-    for path in plan.AFTER_LIVE_ACTIONS:
-        assert next(r for r in ROWS if r["path"] == path)["release"] == "after-live", path
-    # The everyday writes, and only those, ship among the writes.
-    writes = {r["path"] for r in released if r["kind"] in {"create", "update", "upload"}}
-    assert writes == set(plan.EVERYDAY_WRITES)
-    assert all(r["reason"] for r in ROWS)
+            assert row["danger"] == "" and row["objects"] == "", row["path"]
+    writes = {r["path"] for r in ROWS if r["kind"] in plan.WRITE_KINDS}
+    assert set(plan.EVERYDAY_WRITES) <= writes and len(writes) == 346
 
 
 def test_known_ids_of_later_releases_are_fixed_now() -> None:

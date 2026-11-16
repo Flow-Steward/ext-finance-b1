@@ -1,7 +1,7 @@
-"""Every documented endpoint: its step id, its title and when it ships.
+"""Every documented endpoint: its step id, title, kind, danger and object count.
 
-The rules hold for all 600 endpoints — released or not — so the identifiers of later
-releases are fixed now and cannot drift when the documentation changes:
+The rules hold for all 600 endpoints, each of them a step, so the identifiers are
+fixed by rule and cannot drift when the documentation changes:
 
 * operation_id: the path, ``/`` and ``-`` written as ``_``
   (``client/client-addresses/create`` → ``client_client_addresses_create``);
@@ -9,8 +9,14 @@ releases are fixed now and cannot drift when the documentation changes:
   update), plural for lists and deletions (which take several ids); reports are
   "Generate the … report"; ``TITLES`` names the endpoints the rule does not fit, and
   ``QUALIFIERS`` tells apart objects of the same name in different groups;
-* release: ``0.1.0`` (this release), ``0.2.0`` (planned), ``after-live`` (planned
-  after a check against a live company), each with the reason.
+* release: every endpoint is a step of 0.1.0; the reason says what kind of step;
+* danger: deletions and the irreversible accounting actions (salary records,
+  declarations, settlements, confirmations, overhead costs, stock-taking, write-offs,
+  article links) are marked, so their steps take only explicit ids, say what they
+  change in the accounting and come last in their group;
+* objects: whether a write changes exactly ``one`` object (a refusal then means nothing
+  was saved), ``several`` (a refusal says nothing about how far it got) or one object
+  per given id (``by_ids``: one id → one, more → several).
 """
 
 from __future__ import annotations
@@ -23,7 +29,7 @@ from typing import Any
 
 HERE = Path(__file__).resolve().parent
 
-#: Writes in 0.1.0: what everyday sales, purchases, clients, items and payments need.
+#: The writes everyday sales, purchases, clients, items and payments need.
 EVERYDAY_WRITES = frozenset(
     {
         "clients/create",
@@ -61,8 +67,8 @@ EVERYDAY_WRITES = frozenset(
         "shop/orders/add",
     }
 )
-#: Irreversible or wide-reaching actions: only after a check against a live company.
-AFTER_LIVE_ACTIONS = frozenset(
+#: Irreversible or wide-reaching accounting actions: explicit ids, a plain warning.
+IRREVERSIBLE_ACTIONS = frozenset(
     {
         "declaration/generations/generate-ffdata",
         "general-ledger/settlements/settle",
@@ -75,8 +81,69 @@ AFTER_LIVE_ACTIONS = frozenset(
         "general-ledger/financial-accountability-articles/link",
     }
 )
-#: Reads that do something besides reading: planned, not in 0.1.0.
+#: Not a create, update or delete, yet sent as a write: it makes something on the
+#: server (a generated file) and is not confirmed to be harmless.
 READ_LIKE_WRITES = frozenset({"warehouse/sale-reports/generate"})
+#: Writes that answer with a file (the declaration file is generated and returned).
+FILE_ANSWER_ACTIONS = frozenset({"declaration/generations/generate-ffdata"})
+#: Writes whose parameters name one object but which change several: documents with
+#: their lines, allocations across a purchase's items, generated stock-taking lines.
+SEVERAL_OBJECTS = frozenset(
+    {
+        "shop/orders/add",
+        "e-commerce/orders/create",
+        "e-commerce/orders/create-sale",
+        "e-commerce/orders/create-write-off",
+        "cash-register/sales/add",
+        "warehouse/purchases/calculate-overhead-costs",
+        "warehouse/purchases/reset-overhead-costs",
+        "warehouse/stock-taking/generate",
+    }
+)
+#: What each irreversible action changes in the accounting (one sentence each).
+ACCOUNTING_EFFECTS: dict[str, str] = {
+    "declaration/generations/generate-ffdata": (
+        "Generates the declaration from the company's accounting data for the period; "
+        "Site.pro Accounting may record the generation, and the step cannot undo it."
+    ),
+    "general-ledger/settlements/settle": (
+        "Settles the given open general ledger rows against each other, so they no longer "
+        "show as open; the step cannot undo it."
+    ),
+    "warehouse/internal-movements/confirm": (
+        "Confirms the given internal movements, which moves their stock between "
+        "warehouses in the accounting; the step cannot undo it."
+    ),
+    "warehouse/purchases/calculate-overhead-costs": (
+        "Allocates the purchase's overhead costs across its items, changing their cost and "
+        "the related ledger entries; the step cannot undo it (Reset a purchase's overhead "
+        "costs reverses the allocation)."
+    ),
+    "warehouse/purchases/reset-overhead-costs": (
+        "Reverses the purchase's overhead cost allocation and its ledger entries, changing "
+        "the cost of its items; the step cannot undo it."
+    ),
+    "warehouse/stock-taking/generate": (
+        "Generates the stock-taking document's item lines from its filters; the step cannot "
+        "undo it."
+    ),
+    "warehouse/stock-taking-items/set-actual-quantity": (
+        "Overwrites the counted quantity of the item in the stock-taking document, which "
+        "decides the stock differences it books; the step cannot undo it."
+    ),
+    "e-commerce/orders/create-write-off": (
+        "Creates a write-off of the order's goods, reducing the stock in the accounting; "
+        "the step cannot undo it."
+    ),
+    "general-ledger/financial-accountability-articles/link": (
+        "Links the financial accountability article to the account, which changes how the "
+        "financial statements group it; the step cannot undo it."
+    ),
+}
+_SALARY_EFFECT = (
+    "Changes the payroll data the company's salaries, payslips and salary declarations "
+    "are calculated from; the step cannot undo it."
+)
 
 #: Titles the rule does not fit.
 TITLES: dict[str, str] = {
@@ -245,7 +312,8 @@ def titles() -> dict[str, str]:
 
 def kind(entry: dict[str, Any]) -> str:
     """read, file (a read answering a file), report (a report task), report_get,
-    upload, create, update, delete or other."""
+    upload, create, update, delete, action (another write) or action_file (a write
+    answering a file)."""
     path, action = entry["path"], entry["action"]
     if entry["group"] == "reports":
         return "report_get" if path == "reports/get" else "report"
@@ -253,8 +321,10 @@ def kind(entry: dict[str, Any]) -> str:
         return "upload"
     if action in _WRITE_ACTIONS:
         return action
-    if path in AFTER_LIVE_ACTIONS or path in READ_LIKE_WRITES:
-        return "other"
+    if path in FILE_ANSWER_ACTIONS:
+        return "action_file"
+    if path in IRREVERSIBLE_ACTIONS or path in READ_LIKE_WRITES:
+        return "action"
     if (
         path in EVERYDAY_WRITES
         or path.endswith(("/payment", "/add", "-create"))
@@ -273,21 +343,69 @@ def kind(entry: dict[str, Any]) -> str:
     return "read"
 
 
-def release(entry: dict[str, Any]) -> tuple[str, str]:
-    """(release, reason)."""
-    path = entry["path"]
+WRITE_KINDS = frozenset({"create", "update", "upload", "delete", "action", "action_file"})
+
+
+def danger(entry: dict[str, Any]) -> str:
+    """ "delete", "irreversible" or "" (an ordinary step)."""
     k = kind(entry)
-    if path in EVERYDAY_WRITES:
-        return "0.1.0", "Everyday write."
+    if k == "delete":
+        return "delete"
+    if entry["path"] in IRREVERSIBLE_ACTIONS or (entry["group"] == "salary" and k in WRITE_KINDS):
+        return "irreversible"
+    return ""
+
+
+def accounting_effect(entry: dict[str, Any]) -> str:
+    """The sentence an irreversible step's description carries."""
+    if entry["path"] in ACCOUNTING_EFFECTS:
+        return ACCOUNTING_EFFECTS[entry["path"]]
+    if entry["group"] == "salary":
+        return _SALARY_EFFECT
+    return ""
+
+
+_LIST_KINDS = {"decimal_list", "json", "object", "object_list"}
+
+
+def objects(entry: dict[str, Any]) -> str:
+    """How many objects a write changes: "one", "several" or "by_ids" (see the module).
+
+    "several" is the default; "one" only when the parameters can name nothing but one
+    object: plain values only, no list or nested record, and not a known exception.
+    """
+    import params  # the sibling module; plan is imported from the builder and tests
+
+    k = kind(entry)
+    if k not in WRITE_KINDS:
+        return ""
+    if k == "upload":
+        return "one"  # one file to the record named in its headers
+    nodes = params.tree(entry["params"])
+    if k == "delete":
+        return (
+            "by_ids" if any(n["kind"] in {"decimal_list", "object_list"} for n in nodes) else "one"
+        )
+    if entry["path"] in SEVERAL_OBJECTS or entry["path"] in READ_LIKE_WRITES:
+        return "several"
+    if any(n["kind"] in _LIST_KINDS for n in nodes):
+        return "several"
+    return "one"
+
+
+def release(entry: dict[str, Any]) -> tuple[str, str]:
+    """(release, reason): every endpoint is a step of 0.1.0."""
+    k = kind(entry)
     if k in {"read", "file", "report", "report_get"}:
         return "0.1.0", "Read: changes nothing in Site.pro Accounting."
-    if k == "delete":
-        return "after-live", "Deletion: planned after a check against a live company."
-    if entry["group"] == "salary":
-        return "after-live", "Salary: planned after a check against a live company."
-    if path in AFTER_LIVE_ACTIONS:
-        return "after-live", "Irreversible or wide action: planned after a live check."
-    return "0.2.0", "Planned for 0.2.0."
+    flag = danger(entry)
+    if flag == "delete":
+        return "0.1.0", "Deletion: explicit ids only; it cannot be undone."
+    if flag == "irreversible":
+        return "0.1.0", "Irreversible accounting action: explicit inputs; it cannot be undone."
+    if entry["path"] in EVERYDAY_WRITES:
+        return "0.1.0", "Everyday write."
+    return "0.1.0", "Write."
 
 
 @cache
@@ -302,6 +420,8 @@ def plan() -> tuple[dict[str, Any], ...]:
                 "operation_id": operation_id(entry["path"]),
                 "title": names[entry["path"]],
                 "kind": kind(entry),
+                "danger": danger(entry),
+                "objects": objects(entry),
                 "release": ship,
                 "reason": reason,
             }
@@ -309,4 +429,18 @@ def plan() -> tuple[dict[str, Any], ...]:
     return tuple(rows)
 
 
-__all__ = ["EVERYDAY_WRITES", "TITLES", "kind", "operation_id", "plan", "release", "titles"]
+__all__ = [
+    "EVERYDAY_WRITES",
+    "IRREVERSIBLE_ACTIONS",
+    "SEVERAL_OBJECTS",
+    "TITLES",
+    "WRITE_KINDS",
+    "accounting_effect",
+    "danger",
+    "kind",
+    "objects",
+    "operation_id",
+    "plan",
+    "release",
+    "titles",
+]

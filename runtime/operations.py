@@ -187,9 +187,10 @@ def validate(operation_id: str, operation_input: Mapping[str, Any]) -> None:
 def neutral_result(operation_id: str, operation_input: Mapping[str, Any]) -> dict[str, Any]:
     """Every declared output of a write in a test run: inputs checked, nothing sent."""
     validate(operation_id, operation_input)
-    result: dict[str, Any] = dict(
-        NEUTRAL.get(operation_id, {"id": None, "data": None, "message": None})
-    )
+    if operation_id in NEUTRAL:
+        result: dict[str, Any] = dict(NEUTRAL[operation_id])
+    else:
+        result = dict(NEUTRAL_BY_KIND.get(generic.spec(operation_id)["kind"], NEUTRAL_WRITE))
     result["warnings"] = []
     # Nothing was sent. "failed" + definitely-no-effect is the pair Core accepts
     # for "no external effect happened"; an extension may not report "suppressed".
@@ -198,6 +199,12 @@ def neutral_result(operation_id: str, operation_input: Mapping[str, Any]) -> dic
     return result
 
 
+#: The outputs of the generated writes in a test run: nothing was sent.
+NEUTRAL_WRITE: dict[str, Any] = {"id": None, "data": None, "message": None}
+NEUTRAL_BY_KIND: dict[str, dict[str, Any]] = {
+    "delete": {"sent_ids": [], "data": None, "message": None},
+    "action_file": {"file": None, "file_name": None, "mime_type": None, "size_bytes": None},
+}
 #: The outputs of the everyday writes in a test run.
 NEUTRAL: dict[str, dict[str, Any]] = {
     "find_or_create_client": {"client_id": None, "created": False, "client": None},

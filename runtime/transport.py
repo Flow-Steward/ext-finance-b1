@@ -18,6 +18,10 @@ completion", 500, 503.
 Outcome of a write: 401, 403 and 409 changed nothing; 400 changed nothing only for a
 write of one object (``single_object``); 480 and every other failure after a write
 was sent leave it unknown (``timeout_unknown``). Writes are never retried.
+
+A ``strict`` write (deletions and the irreversible accounting actions) trusts only
+401 and 403, and a 400 for one object: a 409 is unknown too, since what "already
+exists" means for a deletion or a settlement is not documented.
 """
 
 from __future__ import annotations
@@ -91,6 +95,8 @@ class B1Transport:
         self.mutated = False
         #: True once B1 confirmed a change in this invocation.
         self.committed = False
+        #: Set while a strict write (see the module) is under way.
+        self._strict = False
         #: Monotonic time after which no request may start (set by the operation).
         self.deadline: float | None = None
 
@@ -119,11 +125,42 @@ class B1Transport:
             expect_file=True,
         )
 
-    def write(self, path: str, body: Mapping[str, Any], *, single_object: bool) -> dict[str, Any]:
+    def write(
+        self,
+        path: str,
+        body: Mapping[str, Any],
+        *,
+        single_object: bool,
+        strict: bool = False,
+    ) -> dict[str, Any]:
         """A write: its JSON answer object, once B1 confirmed it."""
-        answer = self._json_call(path, body, mutating=True, single_object=single_object)
+        self._strict = strict
+        try:
+            answer = self._json_call(path, body, mutating=True, single_object=single_object)
+        finally:
+            self._strict = False
         self.committed = True
         return answer.data
+
+    def write_file(
+        self, path: str, body: Mapping[str, Any], *, single_object: bool, strict: bool = True
+    ) -> Answer:
+        """A write that answers with a file (a generated declaration)."""
+        self._strict = strict
+        try:
+            answer = self._call(
+                path,
+                dumps_json(body).encode("utf-8"),
+                "application/json; charset=utf-8",
+                {},
+                mutating=True,
+                single_object=single_object,
+                expect_file=True,
+            )
+        finally:
+            self._strict = False
+        self.committed = True
+        return answer
 
     def upload(
         self, path: str, content: bytes, *, content_type: str, headers: Mapping[str, str]
@@ -369,11 +406,11 @@ class B1Transport:
                 retryable=False,
                 http_status=status,
             )
-        if status == 409:
+        if status == 409 and not (mutating and self._strict):
             return errors.no_effect(
                 errors.CONFLICT,
                 f"Site.pro Accounting already has this {path.split('/')[-2]} (HTTP 409){suffix}; "
-                "nothing was saved",
+                "nothing was changed",
                 failure_class="provider",
                 retryable=False,
                 http_status=status,
@@ -382,7 +419,7 @@ class B1Transport:
             return errors.no_effect(
                 errors.UPSTREAM_VALIDATION_FAILED,
                 f"Site.pro Accounting refused {path} (HTTP 400){suffix}"
-                + ("; nothing was saved" if mutating else ""),
+                + ("; nothing was changed" if mutating else ""),
                 failure_class="provider",
                 retryable=False,
                 http_status=status,
@@ -432,7 +469,7 @@ class B1Transport:
         )
 
 
-CHECK = "; check in Site.pro Accounting whether it was saved before running the step again"
+CHECK = "; check in Site.pro Accounting what changed before running the step again"
 
 
 def unknown(message: str, code: str, status: int | None) -> ExtensionError:

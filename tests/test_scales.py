@@ -195,3 +195,17 @@ def test_a_shop_order_in_cents() -> None:
     )
     # payment.sum is typed String in the documentation: the whole number goes as text.
     assert with_payment.calls[0].body["payment"]["sum"] == "33310"
+
+
+def test_every_field_documented_as_multiplied_has_its_scale_over_all_600() -> None:
+    """Counted over every endpoint, written or read, not only some of them."""
+    assert len(FACTS) == 600
+    marked = [
+        (e["path"], f["field"])
+        for e in FACTS
+        for f in [*e["params"], *e["answer"]]
+        if "multiplied by" in f.get("description", "")
+    ]
+    scaled = [(p, f) for p, f, _ in SENT + READ]
+    assert sorted(marked) == sorted(scaled)
+    assert len({p for p, _ in scaled}) == 9

@@ -11,7 +11,8 @@ tests/reference/composite_specs.py (the everyday steps). Output (all generated):
 * ``runtime/registry.json`` — what the runtime checks and sends per generated step
 * ``tests/reference/coverage.json`` — every documented endpoint: its step, or when it
   ships and why
-* the ``external_effects`` of extension.yaml
+* ``ui/ui_manifest.yaml`` and the API pages ``ui/pages/b1-api*.yaml``
+* the ``external_effects`` of extension.yaml (that block only)
 
 Run from the bundle root:  python3 tests/reference/build_contracts.py
 """
@@ -46,22 +47,17 @@ DOWNLOAD_BINDING = "b1_file"
 MAX_UPLOAD_BYTES = 8 * 1024 * 1024
 MAX_DOWNLOAD_BYTES = 40 * 1024 * 1024
 HIDDEN_RESULTS = {"external_effect_status", "definitely_no_external_effect"}
-#: Writes that create several records in one call: a 400 says nothing about how far
-#: they got.
-MULTI_OBJECT = frozenset(
-    {
-        "shop/orders/add",
-        "e-commerce/orders/create",
-        "e-commerce/orders/create-sale",
-        "cash-register/sales/add",
-    }
-)
+#: At most this many records per deletion step.
+MAX_DELETE_IDS = 50
+#: The order of the steps inside a group: ordinary, irreversible, deletions last.
+DANGER_ORDER = {"": 0, "irreversible": 1, "delete": 2}
 #: The order of the groups in the step picker and on the API page.
 GROUPS = [
     ("everyday", "Everyday"),
     ("client", "Clients"),
     ("reference-book", "Items and reference data"),
     ("warehouse", "Sales and purchases (warehouse)"),
+    ("account", "File storage"),
     ("bank", "Bank"),
     ("cash-flow", "Cash"),
     ("cash-register", "Cash register"),
@@ -71,14 +67,13 @@ GROUPS = [
     ("general-ledger", "General ledger"),
     ("general-ledger-cards", "General ledger cards"),
     ("bi", "Analytics"),
+    ("declaration", "Declarations"),
+    ("traces", "Usage statistics"),
     ("reports", "Reports"),
     ("long-term-asset", "Long-term assets"),
     ("production", "Production"),
     ("personnel", "Personnel"),
     ("salary", "Salary"),
-    ("declaration", "Declarations"),
-    ("traces", "Traces"),
-    ("account", "Account"),
 ]
 BASE_ERRORS = [
     "invalid_payload",
@@ -307,7 +302,9 @@ def _record_schema(entry: dict[str, Any], description: str) -> dict[str, Any]:
     return schema
 
 
-def _description(entry: dict[str, Any], kind: str, title: str) -> str:
+def _description(row: dict[str, Any], entry: dict[str, Any], kind: str, title: str) -> str:
+    if kind == "delete":
+        return _delete_description(row, entry, title)
     text = entry["description"].strip()
     if not text or text.rstrip(".").lower() == entry["title"].rstrip(".").lower():
         text = f"{title} in Site.pro Accounting."
@@ -323,7 +320,55 @@ def _description(entry: dict[str, Any], kind: str, title: str) -> str:
         )
     if kind == "create":
         text += " Running the step again can create the record twice."
+    if row["danger"] == "irreversible":
+        text += " " + plan.accounting_effect(entry)
     return text[:1000]
+
+
+def _delete_description(row: dict[str, Any], entry: dict[str, Any], title: str) -> str:
+    if row["objects"] == "by_ids":
+        text = (
+            f"{title} in Site.pro Accounting: only the records whose IDs are given, at most "
+            f"{MAX_DELETE_IDS} per run."
+        )
+    else:
+        text = f"{title} in Site.pro Accounting: only the one record its inputs name."
+    if entry["group"] == "e-commerce":
+        text += ' Needs an "API for e-commerce" key in its connection.'
+    return text + " Deletion cannot be undone."
+
+
+def _delete_input(node: dict[str, Any]) -> dict[str, Any]:
+    """A deletion's input: positive whole IDs only, a closed short list."""
+    item = _input(node)
+    schema = item["schema"]
+    note = (node.get("description") or "").strip()
+    whole = {"type": "integer", "minimum": 1}
+    if node["kind"] == "decimal_list":
+        item["schema"] = {
+            "type": "array",
+            "items": whole,
+            "minItems": 1,
+            "maxItems": MAX_DELETE_IDS,
+            "title": node["name"],
+            "description": (f"{note} Whole numbers, no repeats, at most {MAX_DELETE_IDS}.".strip()),
+        }
+    elif node["kind"] in {"object", "object_list"}:
+        record = schema["items"] if node["kind"] == "object_list" else schema
+        for child in record.get("properties", {}).values():
+            child.clear()
+            child.update(whole)
+        if node["kind"] == "object_list":
+            schema.update(minItems=1, maxItems=MAX_DELETE_IDS)
+            schema["description"] = (
+                f"{note} Each record by its IDs; no repeats, at most {MAX_DELETE_IDS}."
+            ).strip()
+    elif node["kind"] in {"integer", "decimal"}:
+        item["value_type"] = "integer"
+        item["schema"] = {**whole, "title": node["name"]}
+        if note:
+            item["schema"]["description"] = note
+    return item
 
 
 def _upload_inputs(entry: dict[str, Any]) -> list[dict[str, Any]]:
@@ -372,10 +417,12 @@ def generated_step(
 ) -> tuple[dict[str, Any], dict[str, Any]]:
     """(step spec for the contracts, registry entry for the runtime)."""
     kind = row["kind"]
-    record = {
+    record: dict[str, Any] = {
         "path": entry["path"],
         "kind": kind,
-        "single_object": entry["path"] not in MULTI_OBJECT,
+        "objects": row["objects"],
+        "single_object": row["objects"] == "one",
+        "strict": bool(row["danger"]),
         "answer_scales": _answer_scales(entry),
     }
     if kind == "upload":
@@ -396,10 +443,14 @@ def generated_step(
         record["list"] = info
         record["params"] = params.tree(entry["params"], skip=params.LIST_PARAMS)
         inputs = _list_inputs(entry, info) + [_input(n) for n in record["params"]]
+    elif kind == "delete":
+        record["params"] = params.tree(entry["params"])
+        record["max_ids"] = MAX_DELETE_IDS if row["objects"] == "by_ids" else 1
+        inputs = [_delete_input(n) for n in record["params"]]
     else:
         record["params"] = params.tree(entry["params"])
         inputs = [_input(n) for n in record["params"]]
-    if kind in {"file", "report_get"}:
+    if kind in {"file", "report_get", "action_file"}:
         outputs = [
             {
                 "name": "file",
@@ -438,7 +489,32 @@ def generated_step(
             },
             WARNINGS,
         ]
-    elif kind in {"create", "update", "upload"}:
+    elif kind == "delete":
+        outputs = [
+            {
+                "name": "sent_ids",
+                "value_type": "array",
+                "schema": {
+                    "type": "array",
+                    "description": "The IDs sent for deletion (each an ID or a record of IDs).",
+                },
+            },
+            {
+                "name": "data",
+                "value_type": "object",
+                "schema": {
+                    "type": ["object", "array", "null"],
+                    "description": "What Site.pro Accounting returned.",
+                },
+            },
+            {
+                "name": "message",
+                "value_type": "text",
+                "schema": {"type": ["string", "null"], "description": "Its message."},
+            },
+            WARNINGS,
+        ]
+    elif kind in {"create", "update", "upload", "action"}:
         outputs = [
             {
                 "name": "id",
@@ -529,10 +605,11 @@ def generated_step(
     step = {
         "operation_id": row["operation_id"],
         "display_name": row["title"],
-        "kind": "action" if kind in {"create", "update", "upload"} else "source",
+        "kind": "action" if kind in plan.WRITE_KINDS else "source",
         "group": entry["group"],
+        "danger": row["danger"],
         "calls": [entry["path"]],
-        "description": _description(entry, kind, row["title"]),
+        "description": _description(row, entry, kind, row["title"]),
         "inputs": inputs,
         "outputs": outputs,
     }
@@ -544,11 +621,9 @@ def all_steps() -> tuple[list[dict[str, Any]], dict[str, dict[str, Any]]]:
     steps: list[dict[str, Any]] = []
     registry: dict[str, dict[str, Any]] = {}
     for spec in composite_specs.steps():
-        steps.append({**spec, "group": "everyday"})
+        steps.append({**spec, "group": "everyday", "danger": ""})
     generated = []
     for row in plan.plan():
-        if row["release"] != "0.1.0":
-            continue
         step, record = generated_step(row, endpoints[row["path"]])
         generated.append(step)
         registry[row["operation_id"]] = record
@@ -563,10 +638,10 @@ def all_steps() -> tuple[list[dict[str, Any]], dict[str, dict[str, Any]]]:
         "bank/sale-invoice/payment",
     ):
         oid = plan.operation_id(path)
-        if oid not in registry:  # pragma: no cover - all are released
-            raise SystemExit(f"{path} is not released")
+        if oid not in registry:  # pragma: no cover - every endpoint is a step
+            raise SystemExit(f"{path} has no step")
     order = {g: i for i, (g, _) in enumerate(GROUPS)}
-    generated.sort(key=lambda s: (order[s["group"]], s["display_name"]))
+    generated.sort(key=lambda s: (order[s["group"]], DANGER_ORDER[s["danger"]], s["display_name"]))
     return steps + generated, registry
 
 
@@ -749,6 +824,7 @@ def coverage(steps: list[dict[str, Any]]) -> dict[str, Any]:
         if spec["group"] == "everyday":
             for path in spec.get("calls", []):
                 everyday.setdefault(path, []).append(spec["operation_id"])
+    stepped = {s["operation_id"] for s in steps}
     rows = []
     for row in plan.plan():
         rows.append(
@@ -757,6 +833,9 @@ def coverage(steps: list[dict[str, Any]]) -> dict[str, Any]:
                 "operation_id": row["operation_id"],
                 "title": row["title"],
                 "kind": row["kind"],
+                "status": "step" if row["operation_id"] in stepped else "missing",
+                "danger": row["danger"],
+                "objects": row["objects"],
                 "release": row["release"],
                 "reason": row["reason"],
                 "everyday_steps": everyday.get(row["path"], []),
@@ -811,95 +890,166 @@ def _describe(item: dict[str, Any], *, input_side: bool) -> str:
     return f"- `{item['name']}` ({word}{optional}){': ' + description if description else ''}"
 
 
-def api_page(steps: list[dict[str, Any]]) -> dict[str, Any]:
-    components = [
-        {
-            "component_id": "api_overview",
-            "type": "markdown",
-            "title": "How the steps work",
-            "body": (
-                "B1 (Site.pro Accounting) is reached through its API at site.pro. Each step makes "
-                "one documented call, except the everyday steps, which make several.\n\n"
-                "- **Amounts are plain decimals.** Where Site.pro Accounting takes an amount "
-                "multiplied by 100, 1000, 10000 or 1000000, the step does it; a value with more "
-                "decimals than that allows is refused before anything is sent.\n"
-                "- **Writes are sent once.** Flow Steward remembers every change it made, so a "
-                "retried step does not send it twice, and test runs never send. When the outcome is "
-                "unclear, the step is not retried: check Site.pro Accounting first.\n"
-                "- **Lists return pages** of up to 500 records; pass next_cursor or the next page.\n"
-                "- **Reports** are generated in the background: a task ID first, the file about a "
-                "minute later.\n"
-            ),
-        }
+#: The API reference pages: (page id, title, groups). The everyday steps lead the first.
+API_PAGES = [
+    ("b1-api", "B1 API", ["everyday"]),
+    ("b1-api-clients-items", "API · Clients and items", ["client", "reference-book"]),
+    ("b1-api-sales-purchases", "API · Sales and purchases", ["warehouse", "account"]),
+    (
+        "b1-api-money",
+        "API · Bank, cash and shops",
+        ["bank", "cash-flow", "cash-register", "e-commerce", "shop"],
+    ),
+    (
+        "b1-api-ledger",
+        "API · Ledger and declarations",
+        ["document", "general-ledger", "general-ledger-cards", "bi", "declaration", "traces"],
+    ),
+    ("b1-api-reports", "API · Reports", ["reports"]),
+    ("b1-api-assets", "API · Assets and production", ["long-term-asset", "production"]),
+    ("b1-api-staff", "API · Personnel and salary", ["personnel", "salary"]),
+]
+_DANGER_HEADINGS = {
+    "irreversible": (
+        "**Irreversible actions.** Each changes the accounting in a way the step cannot undo; "
+        "its description says what changes."
+    ),
+    "delete": "**Deletions.** Only the IDs given are deleted, at most 50 per run; nothing "
+    "deleted can be restored by a step.",
+}
+
+
+def _step_lines(spec: dict[str, Any]) -> list[str]:
+    op = operation(spec)
+    kind = "changes data" if spec["kind"] == "action" else "reads only"
+    calls = ", ".join(f"`{c}`" for c in spec.get("calls", []))
+    return [
+        f"### {spec['display_name']}",
+        "",
+        spec["description"],
+        "",
+        f"Action id `{spec['operation_id']}` · {kind} · Site.pro Accounting: {calls}",
+        "",
+        "**Inputs**",
+        "",
+        *(
+            [_describe(i, input_side=True) for i in op["inputs"] if i["name"] != "connection_ref"]
+            or ["- none"]
+        ),
+        "",
+        "**Results**",
+        "",
+        *[_describe(o, input_side=False) for o in op["outputs"] if o["name"] not in HIDDEN_RESULTS],
+        "",
     ]
+
+
+def _group_component(group: str, title: str, specs: list[dict[str, Any]]) -> dict[str, Any]:
+    lines: list[str] = []
+    shown = ""
+    for spec in specs:
+        if spec["danger"] != shown:
+            shown = spec["danger"]
+            lines += [_DANGER_HEADINGS[shown], ""]
+        lines += _step_lines(spec)
+    return {
+        "component_id": "steps_" + group.replace("-", "_"),
+        "type": "markdown",
+        "title": title,
+        "body": "\n".join(lines).strip() + "\n",
+    }
+
+
+def api_pages(steps: list[dict[str, Any]]) -> dict[str, dict[str, Any]]:
+    """The API reference, one page per area so each stays readable."""
+    titles = dict(GROUPS)
     by_group: dict[str, list[dict[str, Any]]] = {}
     for spec in steps:
         by_group.setdefault(spec["group"], []).append(spec)
-    for group, title in GROUPS:
-        lines: list[str] = []
-        for spec in by_group.get(group, []):
-            op = operation(spec)
-            kind = "changes data" if spec["kind"] == "action" else "reads only"
-            calls = ", ".join(f"`{c}`" for c in spec.get("calls", []))
-            lines += [
-                f"### {spec['display_name']}",
-                "",
-                spec["description"],
-                "",
-                f"Action id `{spec['operation_id']}` · {kind} · Site.pro Accounting: {calls}",
-                "",
-                "**Inputs**",
-                "",
-                *(
-                    [
-                        _describe(i, input_side=True)
-                        for i in op["inputs"]
-                        if i["name"] != "connection_ref"
-                    ]
-                    or ["- none"]
-                ),
-                "",
-                "**Results**",
-                "",
-                *[
-                    _describe(o, input_side=False)
-                    for o in op["outputs"]
-                    if o["name"] not in HIDDEN_RESULTS
-                ],
-                "",
-            ]
-        if lines:
+    placed = [g for _, _, groups in API_PAGES for g in groups]
+    if sorted(placed) != sorted(titles):  # pragma: no cover - a builder mistake
+        raise SystemExit("every group must be on exactly one API page")
+    index = []
+    for page_id, page_title, groups in API_PAGES[1:]:
+        count = sum(len(by_group.get(g, [])) for g in groups)
+        names = ", ".join(titles[g] for g in groups)
+        index.append(f"- **{page_title.split(' · ')[1]}** ({count} steps): {names}.")
+    danger = [s for s in steps if s["danger"]]
+    overview = (
+        "B1 (Site.pro Accounting) is reached through its API at site.pro. Each step makes one "
+        "documented call, except the everyday steps below, which make several. Every documented "
+        f"operation has a step: {len(steps)} in all.\n\n"
+        "- **Amounts are plain decimals.** Where Site.pro Accounting takes an amount multiplied "
+        "by 100, 1000, 10000 or 1000000, the step does it; a value with more decimals than that "
+        "allows is refused before anything is sent.\n"
+        "- **Writes are sent once.** Flow Steward remembers every change it made, so a retried "
+        "step does not send it twice, and test runs never send. When the outcome is unclear, the "
+        "step is not retried: check Site.pro Accounting first.\n"
+        f"- **{len(danger)} steps cannot be undone**: deletions and irreversible accounting "
+        "actions such as settlements, confirmations, overhead costs, stock-taking, write-offs, "
+        "declarations and salary records. They take explicit IDs only and come last in their "
+        "section. Try them on a test company first.\n"
+        "- **Lists return pages** of up to 500 records; pass next_cursor or the next page.\n"
+        "- **Reports** are generated in the background: a task ID first, the file about a "
+        "minute later.\n\n"
+        "The steps by area:\n\n" + "\n".join(index) + "\n"
+    )
+    pages: dict[str, dict[str, Any]] = {}
+    for number, (page_id, page_title, groups) in enumerate(API_PAGES):
+        components: list[dict[str, Any]] = []
+        if number == 0:
             components.append(
                 {
-                    "component_id": "steps_" + group.replace("-", "_"),
+                    "component_id": "api_overview",
                     "type": "markdown",
-                    "title": title,
-                    "body": "\n".join(lines).strip() + "\n",
+                    "title": "How the steps work",
+                    "body": overview,
                 }
             )
-    return {
-        "page_id": "b1-api",
-        "title": "B1 API",
-        "description": "Every B1 (Site.pro Accounting) step: what it does, which call it "
-        "makes, its inputs and results.",
-        "components": components,
-    }
+        for group in groups:
+            if by_group.get(group):
+                components.append(_group_component(group, titles[group], by_group[group]))
+        description = (
+            "How the B1 (Site.pro Accounting) steps work, the everyday steps and the API areas."
+            if number == 0
+            else f"B1 (Site.pro Accounting) steps: {', '.join(titles[g] for g in groups)}."
+        )
+        pages[f"ui/pages/{page_id}.yaml"] = {
+            "page_id": page_id,
+            "title": page_title,
+            "description": description,
+            "components": components,
+        }
+    return pages
+
+
+def ui_manifest() -> dict[str, Any]:
+    refs = ["setup-guide", "connection", *(p for p, _, _ in API_PAGES), "coverage"]
+    refs += ["changelog", "support"]
+    return {"version": "1", "pages": [{"ref": f"pages/{r}.yaml"} for r in refs]}
 
 
 def coverage_page(cov: dict[str, Any]) -> dict[str, Any]:
     rows = cov["endpoints"]
-    shipped = [r for r in rows if r["release"] == "0.1.0"]
-    planned = [r for r in rows if r["release"] == "0.2.0"]
-    later = [r for r in rows if r["release"] == "after-live"]
+    stepped = [r for r in rows if r["status"] == "step"]
+    reads = [r for r in rows if r["kind"] in {"read", "file"}]
+    reports = [r for r in rows if r["kind"] in {"report", "report_get"}]
+    deletes = [r for r in rows if r["danger"] == "delete"]
+    irreversible = [r for r in rows if r["danger"] == "irreversible"]
+    writes = [r for r in rows if r["objects"] and not r["danger"]]
     lines = [
         f"The B1 (Site.pro Accounting) API documents {len(rows)} operations "
-        "([API documentation](https://site.pro/My-Accounting/doc/api)).",
+        "([API documentation](https://site.pro/My-Accounting/doc/api)); "
+        f"**{len(stepped)} of them have their own step** in this version.",
         "",
-        f"- **{len(shipped)} have their own step in this version:** every read, every report "
-        "and the writes of everyday sales, purchases, clients, items and payments.",
-        f"- **{len(planned)} are planned for 0.2.0:** the other create and update operations.",
-        f"- **{len(later)} come later:** deletions, salary, declarations, settlements, "
-        "confirmations and overhead cost allocation.",
+        f"- **{len(reads)} reads** of lists, records and files.",
+        f"- **{len(reports)} report steps**: {len(reports) - 1} generate a report, one gets "
+        "its file.",
+        f"- **{len(writes)} writes** that create or change records or upload files.",
+        f"- **{len(irreversible)} irreversible accounting actions**: salary records, "
+        "declarations, settlements, confirmations, overhead costs, stock-taking, write-offs "
+        "and article links.",
+        f"- **{len(deletes)} deletions**, each by explicit IDs.",
         "",
         "The everyday steps on top combine several operations: find or create a client or an "
         "item, a sales or purchase invoice with its lines, a payment checked for repeats, a "
@@ -951,7 +1101,8 @@ def outputs() -> dict[str, Any]:
         "contracts/step_ui_manifest.yaml": {"forms": [form_for(s) for s in steps]},
         "contracts/artifact_policies.yaml": {"artifact_policies": artifact_policies(steps)},
         "ui/actions/actions.yaml": {"actions": [action_for(op) for op in ops]},
-        "ui/pages/b1-api.yaml": api_page(steps),
+        **api_pages(steps),
+        "ui/ui_manifest.yaml": ui_manifest(),
         "ui/pages/coverage.yaml": coverage_page(cov),
         "ui/pages/changelog.yaml": changelog_page(),
         "runtime/registry.json": {"source": cov["source"], "operations": registry},
@@ -963,6 +1114,8 @@ def outputs() -> dict[str, Any]:
 def render(path: str, payload: Any) -> str:
     if path.endswith(".json"):
         return json.dumps(payload, indent=1, ensure_ascii=False, sort_keys=False) + "\n"
+    if path == "ui/ui_manifest.yaml":
+        return yaml.safe_dump(payload, sort_keys=False, width=100)
     if path.startswith("ui/pages/"):
         return GENERATED_HEADER + yaml.dump(
             payload, Dumper=_PageDumper, sort_keys=False, allow_unicode=True, width=1000
@@ -972,9 +1125,22 @@ def render(path: str, payload: Any) -> str:
     )
 
 
+def write_effects(effects: list[dict[str, Any]]) -> None:
+    """Replace the external_effects block of extension.yaml, leaving the rest as written."""
+    lines = (ROOT / "extension.yaml").read_text(encoding="utf-8").splitlines(keepends=True)
+    start = next(i for i, line in enumerate(lines) if line.startswith("external_effects:"))
+    end = next(
+        i for i in range(start + 1, len(lines)) if lines[i].strip() and lines[i][0] not in " -"
+    )
+    block = yaml.safe_dump({"external_effects": effects}, sort_keys=False, width=100)
+    text = "".join(lines[:start]) + block + "".join(lines[end:])
+    (ROOT / "extension.yaml").write_text(text, encoding="utf-8")
+
+
 def main() -> None:
     for path, payload in outputs().items():
         if path == "external_effects":
+            write_effects(payload)
             continue
         (ROOT / path).parent.mkdir(parents=True, exist_ok=True)
         (ROOT / path).write_text(render(path, payload), encoding="utf-8")

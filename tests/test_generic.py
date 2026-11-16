@@ -206,8 +206,8 @@ def test_an_upload_sends_the_bytes_with_its_headers() -> None:
     assert bad["error_code"] == "invalid_payload"
 
 
-def test_every_released_step_is_routable() -> None:
+def test_every_step_is_routable() -> None:
     from runtime import catalog
 
-    assert len(catalog.OPERATION_IDS) == 297
+    assert len(catalog.OPERATION_IDS) == 610
     assert catalog.GENERATED_IDS == set(generic.registry())

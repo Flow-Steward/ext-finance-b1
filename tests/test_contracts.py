@@ -2,6 +2,7 @@
 
 from __future__ import annotations
 
+import collections
 import hashlib
 import json
 import re
@@ -35,17 +36,19 @@ def test_generated_files_are_current(path: str) -> None:
     ), f"{path} drifted: run python3 tests/reference/build_contracts.py"
 
 
-def test_the_registry_is_exactly_the_released_endpoints() -> None:
-    released = {r["operation_id"]: r for r in plan.plan() if r["release"] == "0.1.0"}
-    assert set(generic.registry()) == set(released)
+def test_the_registry_is_every_documented_endpoint() -> None:
+    rows = {r["operation_id"]: r for r in plan.plan()}
+    assert len(rows) == 600
+    assert set(generic.registry()) == set(rows)
     for oid, entry in generic.registry().items():
-        assert entry["path"] == released[oid]["path"]
+        assert entry["path"] == rows[oid]["path"]
+        assert entry["kind"] == rows[oid]["kind"]
 
 
 def test_every_step_is_registered_once_and_routable() -> None:
     ops = load("contracts/operation_manifest.yaml")["operations"]
     ids = [o["operation_id"] for o in ops]
-    assert len(ids) == len(set(ids)) == len(catalog.OPERATION_IDS) == 297
+    assert len(ids) == len(set(ids)) == len(catalog.OPERATION_IDS) == 610
     assert set(ids) == set(catalog.OPERATION_IDS)
     assert not set(composites.COMPOSITES) & set(generic.registry())
     titles = [o["display_name"] for o in ops]
@@ -103,7 +106,9 @@ def test_coverage_names_every_endpoint() -> None:
         "8b8892c09f133a9ae2579ff0c93bb99e6950268960365a109a954ec4c72c47d4"
     )
     for row in cov["endpoints"]:
-        assert row["release"] in {"0.1.0", "0.2.0", "after-live"} and row["reason"]
+        assert row["status"] == "step" and row["release"] == "0.1.0" and row["reason"], row
+    ops = {o["operation_id"] for o in load("contracts/operation_manifest.yaml")["operations"]}
+    assert {r["operation_id"] for r in cov["endpoints"]} <= ops
 
 
 def test_the_facts_are_pinned_to_the_documentation_they_came_from() -> None:
@@ -151,4 +156,102 @@ def test_health() -> None:
     import health
 
     report = health.check_health()
-    assert report["ok"] is True and report["declared_operations"] == 297
+    assert report["ok"] is True and report["declared_operations"] == 610
+
+
+# -- one object or several: what a refusal can prove ----------------------------------------
+
+WRITES = [r for r in plan.plan() if r["kind"] in plan.WRITE_KINDS]
+
+
+def test_every_write_says_how_many_objects_it_changes() -> None:
+    assert len(WRITES) == 346
+    registry = generic.registry()
+    for row in WRITES:
+        entry = registry[row["operation_id"]]
+        assert row["objects"] in {"one", "several", "by_ids"}, row["path"]
+        assert entry["objects"] == row["objects"]
+        assert entry["single_object"] is (row["objects"] == "one"), row["path"]
+    for row in plan.plan():
+        if row["kind"] not in plan.WRITE_KINDS:
+            assert row["objects"] == "", row["path"]
+
+
+def test_one_object_only_when_the_inputs_can_name_nothing_more() -> None:
+    lists = {"decimal_list", "json", "object", "object_list"}
+    registry = generic.registry()
+    for row in WRITES:
+        entry = registry[row["operation_id"]]
+        nested = [n for n in entry["params"] if n["kind"] in lists]
+        if row["objects"] == "one" and row["kind"] != "delete":
+            assert not nested, row["path"]
+            assert row["path"] not in plan.SEVERAL_OBJECTS, row["path"]
+        if row["kind"] == "delete":
+            many = any(n["kind"] in {"decimal_list", "object_list"} for n in entry["params"])
+            assert row["objects"] == ("by_ids" if many else "one"), row["path"]
+            assert entry["max_ids"] == (50 if many else 1), row["path"]
+    for path in plan.SEVERAL_OBJECTS:
+        assert next(r for r in WRITES if r["path"] == path)["objects"] == "several", path
+    counts = collections.Counter(r["objects"] for r in WRITES)
+    assert counts == {"one": 234, "several": 15, "by_ids": 97}, counts
+
+
+def test_dangerous_steps_are_strict_and_say_what_cannot_be_undone() -> None:
+    registry = generic.registry()
+    ops = {o["operation_id"]: o for o in load("contracts/operation_manifest.yaml")["operations"]}
+    deletes = [r for r in plan.plan() if r["danger"] == "delete"]
+    irreversible = [r for r in plan.plan() if r["danger"] == "irreversible"]
+    assert len(deletes) == 117 and len(irreversible) == 23
+    for row in deletes:
+        op = ops[row["operation_id"]]
+        assert op["display_name"].startswith("Delete "), row["path"]
+        assert op["description"].endswith("Deletion cannot be undone."), row["path"]
+        assert registry[row["operation_id"]]["strict"] is True
+    for row in irreversible:
+        op = ops[row["operation_id"]]
+        assert "the step cannot undo it" in op["description"], row["path"]
+        assert registry[row["operation_id"]]["strict"] is True
+    for row in plan.plan():
+        if not row["danger"] and row["kind"] in plan.WRITE_KINDS:
+            assert registry[row["operation_id"]]["strict"] is False, row["path"]
+    assert set(plan.IRREVERSIBLE_ACTIONS) <= {r["path"] for r in irreversible}
+    salary = {r["path"] for r in irreversible if r["path"].startswith("salary/")}
+    assert len(salary) == 14
+
+
+def test_the_picker_lists_everyday_steps_first_and_dangerous_ones_last_in_each_group() -> None:
+    ops = load("contracts/operation_manifest.yaml")["operations"]
+    assert [o["operation_id"] for o in ops[: len(composites.COMPOSITES)]] == [
+        s["operation_id"] for s in build_contracts.composite_specs.steps()
+    ]
+    rows = {r["operation_id"]: r for r in plan.plan()}
+    groups = {plan.operation_id(e["path"]): e["group"] for e in plan.endpoints()}
+    order = [g for g, _ in build_contracts.GROUPS]
+    keys = [
+        (
+            order.index(groups[op["operation_id"]]),
+            build_contracts.DANGER_ORDER[rows[op["operation_id"]]["danger"]],
+        )
+        for op in ops[len(composites.COMPOSITES) :]
+    ]
+    assert keys == sorted(keys)
+
+
+def test_the_deletion_inputs_take_ids_only() -> None:
+    forms = {f["operation_id"]: f for f in load("contracts/operation_manifest.yaml")["operations"]}
+    for row in plan.plan():
+        if row["kind"] != "delete":
+            continue
+        for item in forms[row["operation_id"]]["inputs"][1:]:
+            schema = item["schema"]
+            if schema.get("type") == "array":
+                assert schema["minItems"] == 1 and schema["maxItems"] == 50, row["path"]
+                inner = schema["items"]
+                if inner.get("type") == "object":
+                    assert all(
+                        p == {"type": "integer", "minimum": 1} for p in inner["properties"].values()
+                    ), row["path"]
+                else:
+                    assert inner == {"type": "integer", "minimum": 1}, row["path"]
+            elif schema.get("type") == "integer":
+                assert schema["minimum"] == 1, row["path"]

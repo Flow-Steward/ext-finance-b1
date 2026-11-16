@@ -21,3 +21,4 @@ components:
       2. Paste the API key.
       3. Save and press **Test connection**. It lists ten currencies to check the key.
       4. In a workflow, add a B1 step and pick this connection. Start with the everyday steps on **B1 API**: Find or create a client, Create a sales invoice with lines.
+      5. Deletions and irreversible accounting actions are listed last in each area of **B1 API**. Try them on a test company before using them on a working one.

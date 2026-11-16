@@ -8,6 +8,7 @@ from __future__ import annotations
 
 import json
 from collections.abc import Mapping
+from decimal import Decimal
 from functools import cache
 from pathlib import Path
 from typing import Any
@@ -15,7 +16,7 @@ from typing import Any
 from . import budget, errors, files, values
 from .context import Context
 from .errors import invalid
-from .params import body, unscale
+from .params import body, check, unscale
 
 REGISTRY_FILE = Path(__file__).resolve().parent / "registry.json"
 #: Documented filter operators (list parameters and the General page's examples).
@@ -108,10 +109,86 @@ def _list_body(entry: Mapping[str, Any], given: Mapping[str, Any]) -> dict[str, 
     return out
 
 
+MAX_ID = 10**15
+
+
+def _record_id(value: Any, what: str) -> int:
+    """A positive whole ID; nothing else (no 0, no fraction, no range)."""
+    if isinstance(value, Decimal) and value == value.to_integral_value():
+        value = int(value)
+    if isinstance(value, str) and value.strip().isdigit():
+        value = int(value.strip())
+    if isinstance(value, bool) or not isinstance(value, int) or not 1 <= value <= MAX_ID:
+        raise invalid(f"{what} must be a positive whole number (an ID)")
+    return value
+
+
+def _id_record(node: Mapping[str, Any], value: Any, what: str) -> dict[str, int]:
+    children = node.get("children") or []
+    if not isinstance(value, Mapping):
+        raise invalid(f"{what} must be an object of IDs")
+    names = frozenset(c["name"] for c in children)
+    values.closed(value, names, what)
+    out = {}
+    for child in children:
+        if value.get(child["name"]) is None:
+            raise invalid(f"{what}.{child['name']} is required")
+        out[child["name"]] = _record_id(value[child["name"]], f"{what}.{child['name']}")
+    return out
+
+
+def _id_list(items: Any, what: str, max_ids: int, one: Any) -> list[Any]:
+    if not isinstance(items, list) or not items:
+        raise invalid(f"{what} must be a list of at least one ID")
+    if len(items) > max_ids:
+        raise invalid(f"{what} may hold at most {max_ids} IDs per run")
+    out = [one(item, f"{what} item {index}") for index, item in enumerate(items, start=1)]
+    seen: list[Any] = []
+    for item in out:
+        if item in seen:
+            raise invalid(f"{what} repeats {item}")
+        seen.append(item)
+    return out
+
+
+def delete_body(entry: Mapping[str, Any], given: Mapping[str, Any]) -> tuple[dict[str, Any], list]:
+    """(wire body, the IDs it deletes) of a deletion: explicit IDs only, closed, short."""
+    nodes = entry["params"]
+    max_ids = int(entry["max_ids"])
+    values.closed(given, frozenset(n["name"] for n in nodes), "The step input")
+    wire: dict[str, Any] = {}
+    listed: list[Any] | None = None
+    for node in nodes:
+        name, kind = node["name"], node["kind"]
+        value = given.get(name)
+        if value is None or value == "":
+            if node.get("required"):
+                raise invalid(f"{name} is required")
+            continue
+        if kind == "decimal_list":
+            wire[name] = listed = _id_list(value, name, max_ids, _record_id)
+        elif kind == "object_list":
+            wire[name] = listed = _id_list(
+                value, name, max_ids, lambda item, what: _id_record(node, item, what)
+            )
+        elif kind == "object":
+            wire[name] = _id_record(node, value, name)
+            listed = [wire[name]]
+        elif kind in {"integer", "decimal"}:
+            wire[name] = _record_id(value, name)
+        else:
+            wire[name] = check(node, value, name)
+    if listed is None:
+        listed = [next(iter(wire.values()))] if len(wire) == 1 else [dict(wire)]
+    return wire, listed
+
+
 def request_body(operation_id: str, operation_input: Mapping[str, Any]) -> dict[str, Any]:
     """The checked wire body of a generated step (also its test-run check)."""
     entry = spec(operation_id)
     given = {k: v for k, v in operation_input.items() if k != "connection_ref"}
+    if entry["kind"] == "delete":
+        return delete_body(entry, given)[0]
     if entry["kind"] == "upload":
         values.closed(
             given,
@@ -172,9 +249,23 @@ def run(context: Context, operation_id: str) -> dict[str, Any]:
         data = answer.get("data")
         record_id = data.get("id") if isinstance(data, Mapping) else answer.get("id")
         return {"id": record_id, "data": data, "message": answer.get("message"), "warnings": []}
+    if kind == "delete":
+        wire, sent = delete_body(entry, given)
+        answer = transport.write(path, wire, single_object=len(sent) == 1, strict=True)
+        return {
+            "sent_ids": sent,
+            "data": answer.get("data"),
+            "message": answer.get("message"),
+            "warnings": [],
+        }
     wire = request_body(operation_id, given)
-    if kind in {"file", "report_get"}:
-        got = transport.read_file(path, wire)
+    if kind in {"file", "report_get", "action_file"}:
+        if kind == "action_file":
+            got = transport.write_file(
+                path, wire, single_object=entry["single_object"], strict=entry["strict"]
+            )
+        else:
+            got = transport.read_file(path, wire)
         if got.file is None:
             raise errors.no_effect(
                 errors.INVALID_RESPONSE,
@@ -204,8 +295,10 @@ def run(context: Context, operation_id: str) -> dict[str, Any]:
         missing = [] if task is not None else ["Site.pro Accounting returned no task ID"]
         return {"task_id": task, "warnings": missing}
     warnings: list[str] = []
-    if kind in {"create", "update"}:
-        answer = transport.write(path, wire, single_object=entry["single_object"])
+    if kind in {"create", "update", "action"}:
+        answer = transport.write(
+            path, wire, single_object=entry["single_object"], strict=entry["strict"]
+        )
         data = _data_out(entry, answer, warnings)
         record_id = data.get("id") if isinstance(data, Mapping) else None
         return {
@@ -238,4 +331,4 @@ def run(context: Context, operation_id: str) -> dict[str, Any]:
     return result
 
 
-__all__ = ["OPERATORS", "registry", "request_body", "run", "spec"]
+__all__ = ["OPERATORS", "delete_body", "registry", "request_body", "run", "spec"]

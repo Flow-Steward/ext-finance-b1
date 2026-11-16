@@ -6,16 +6,21 @@ through its API ([documentation](https://site.pro/My-Accounting/doc/api)).
 - **Everyday steps**: find or create a client or an item, create a sales or purchase invoice
   with its lines, record a payment for a sale (checked for repeats), find a sale, get a
   report (generate and wait), test the connection.
-- **One step per documented operation** for every read — clients, items and reference data,
-  sales, purchases and stock, bank and cash, documents, general ledger, personnel, salary,
-  production, long-term assets, e-commerce and shop — with paging and filters, for every file
-  download and every report, and for the writes of everyday sales, purchases, clients,
-  items, payments and shop orders.
+- **One step for every one of the 600 documented operations**: clients, items and reference
+  data, sales, purchases and stock, bank and cash, documents, general ledger, personnel,
+  salary, production, long-term assets, e-commerce and shop — reads with paging and filters,
+  file downloads, reports, creates, updates, uploads and deletions.
+- **Steps that cannot be undone** — 117 deletions and 23 irreversible accounting actions
+  (salary records, declarations, settlements, confirmations, overhead costs, stock-taking,
+  write-offs, article links) — take explicit IDs only (a deletion at most 50), say in their
+  description what they change, and come last in their section. Try them on a test company
+  before using them on a working one.
 
 Amounts are plain decimals: where the API takes an amount multiplied by 100, 1000, 10000 or
-1000000, the step converts it, and refuses a value with more decimals than that allows. The
-extension's **Coverage** page says which operations have a step in this version and which come
-later.
+1000000, the step converts it, and refuses a value with more decimals than that allows.
+Writes are sent once and never retried; when the outcome is unclear, the step says so and
+asks to check Site.pro Accounting first. The extension's **B1 API** pages describe every step
+by area, and the **Coverage** page sums them up.
 
 ## Setup
 
@@ -36,5 +41,5 @@ python3 -m pytest -q tests                   # tests, no network
 ```
 
 `tests/reference/b1_api.json` holds the facts taken from the vendor's documentation
-(`extract_reference.py`); `tests/reference/plan.py` fixes the step id, title and release of
-every documented operation.
+(`extract_reference.py`); `tests/reference/plan.py` fixes the step id, title, kind, danger
+and object count of every documented operation.

@@ -8,10 +8,12 @@ components:
   type: markdown
   title: Coverage
   body: |
-    The B1 (Site.pro Accounting) API documents 600 operations ([API documentation](https://site.pro/My-Accounting/doc/api)).
+    The B1 (Site.pro Accounting) API documents 600 operations ([API documentation](https://site.pro/My-Accounting/doc/api)); **600 of them have their own step** in this version.
 
-    - **287 have their own step in this version:** every read, every report and the writes of everyday sales, purchases, clients, items and payments.
-    - **173 are planned for 0.2.0:** the other create and update operations.
-    - **140 come later:** deletions, salary, declarations, settlements, confirmations and overhead cost allocation.
+    - **172 reads** of lists, records and files.
+    - **82 report steps**: 81 generate a report, one gets its file.
+    - **206 writes** that create or change records or upload files.
+    - **23 irreversible accounting actions**: salary records, declarations, settlements, confirmations, overhead costs, stock-taking, write-offs and article links.
+    - **117 deletions**, each by explicit IDs.
 
     The everyday steps on top combine several operations: find or create a client or an item, a sales or purchase invoice with its lines, a payment checked for repeats, a report generated and waited for.

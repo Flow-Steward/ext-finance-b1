@@ -19,6 +19,14 @@ artifact_policies:
     content_type: application/octet-stream
     max_size_bytes: 41943040
     retention_class: run_window
+- operation_id: client_client_files_create
+  inputs:
+  - kind: artifact
+    value_type: artifact_handle
+    binding_key: b1_upload
+    field: file
+    required: true
+    max_size_bytes: 8388608
 - operation_id: reference_book_item_files_get
   outputs:
   - kind: artifact
@@ -28,6 +36,14 @@ artifact_policies:
     content_type: application/octet-stream
     max_size_bytes: 41943040
     retention_class: run_window
+- operation_id: reference_book_item_files_create
+  inputs:
+  - kind: artifact
+    value_type: artifact_handle
+    binding_key: b1_upload
+    field: file
+    required: true
+    max_size_bytes: 8388608
 - operation_id: warehouse_note_files_get
   outputs:
   - kind: artifact
@@ -82,6 +98,14 @@ artifact_policies:
     content_type: application/octet-stream
     max_size_bytes: 41943040
     retention_class: run_window
+- operation_id: warehouse_note_files_create
+  inputs:
+  - kind: artifact
+    value_type: artifact_handle
+    binding_key: b1_upload
+    field: file
+    required: true
+    max_size_bytes: 8388608
 - operation_id: warehouse_purchase_files_create
   inputs:
   - kind: artifact
@@ -98,6 +122,14 @@ artifact_policies:
     field: file
     required: true
     max_size_bytes: 8388608
+- operation_id: account_file_storage_upload
+  inputs:
+  - kind: artifact
+    value_type: artifact_handle
+    binding_key: b1_upload
+    field: file
+    required: true
+    max_size_bytes: 8388608
 - operation_id: bank_transaction_files_get
   outputs:
   - kind: artifact
@@ -107,6 +139,14 @@ artifact_policies:
     content_type: application/octet-stream
     max_size_bytes: 41943040
     retention_class: run_window
+- operation_id: bank_transaction_files_create
+  inputs:
+  - kind: artifact
+    value_type: artifact_handle
+    binding_key: b1_upload
+    field: file
+    required: true
+    max_size_bytes: 8388608
 - operation_id: cash_flow_transaction_files_get
   outputs:
   - kind: artifact
@@ -116,6 +156,14 @@ artifact_policies:
     content_type: application/octet-stream
     max_size_bytes: 41943040
     retention_class: run_window
+- operation_id: cash_flow_transaction_files_create
+  inputs:
+  - kind: artifact
+    value_type: artifact_handle
+    binding_key: b1_upload
+    field: file
+    required: true
+    max_size_bytes: 8388608
 - operation_id: shop_invoices_get_upd
   outputs:
   - kind: artifact
@@ -179,6 +227,30 @@ artifact_policies:
     content_type: application/octet-stream
     max_size_bytes: 41943040
     retention_class: run_window
+- operation_id: document_agreement_files_create
+  inputs:
+  - kind: artifact
+    value_type: artifact_handle
+    binding_key: b1_upload
+    field: file
+    required: true
+    max_size_bytes: 8388608
+- operation_id: document_insurance_files_create
+  inputs:
+  - kind: artifact
+    value_type: artifact_handle
+    binding_key: b1_upload
+    field: file
+    required: true
+    max_size_bytes: 8388608
+- operation_id: document_order_files_create
+  inputs:
+  - kind: artifact
+    value_type: artifact_handle
+    binding_key: b1_upload
+    field: file
+    required: true
+    max_size_bytes: 8388608
 - operation_id: general_ledger_card_files_get
   outputs:
   - kind: artifact
@@ -189,6 +261,31 @@ artifact_policies:
     max_size_bytes: 41943040
     retention_class: run_window
 - operation_id: general_ledger_general_journal_files_get
+  outputs:
+  - kind: artifact
+    value_type: artifact_handle
+    binding_key: b1_file
+    filename: b1-file.bin
+    content_type: application/octet-stream
+    max_size_bytes: 41943040
+    retention_class: run_window
+- operation_id: general_ledger_card_files_create
+  inputs:
+  - kind: artifact
+    value_type: artifact_handle
+    binding_key: b1_upload
+    field: file
+    required: true
+    max_size_bytes: 8388608
+- operation_id: general_ledger_general_journal_files_create
+  inputs:
+  - kind: artifact
+    value_type: artifact_handle
+    binding_key: b1_upload
+    field: file
+    required: true
+    max_size_bytes: 8388608
+- operation_id: declaration_generations_generate_ffdata
   outputs:
   - kind: artifact
     value_type: artifact_handle
@@ -215,6 +312,14 @@ artifact_policies:
     content_type: application/octet-stream
     max_size_bytes: 41943040
     retention_class: run_window
+- operation_id: long_term_asset_long_term_asset_files_create
+  inputs:
+  - kind: artifact
+    value_type: artifact_handle
+    binding_key: b1_upload
+    field: file
+    required: true
+    max_size_bytes: 8388608
 - operation_id: personnel_cv_files_get
   outputs:
   - kind: artifact
@@ -260,3 +365,43 @@ artifact_policies:
     content_type: application/octet-stream
     max_size_bytes: 41943040
     retention_class: run_window
+- operation_id: personnel_cv_files_create
+  inputs:
+  - kind: artifact
+    value_type: artifact_handle
+    binding_key: b1_upload
+    field: file
+    required: true
+    max_size_bytes: 8388608
+- operation_id: personnel_position_instruction_files_create
+  inputs:
+  - kind: artifact
+    value_type: artifact_handle
+    binding_key: b1_upload
+    field: file
+    required: true
+    max_size_bytes: 8388608
+- operation_id: personnel_employee_attachments_create
+  inputs:
+  - kind: artifact
+    value_type: artifact_handle
+    binding_key: b1_upload
+    field: file
+    required: true
+    max_size_bytes: 8388608
+- operation_id: personnel_employee_files_create
+  inputs:
+  - kind: artifact
+    value_type: artifact_handle
+    binding_key: b1_upload
+    field: file
+    required: true
+    max_size_bytes: 8388608
+- operation_id: personnel_employee_passport_files_create
+  inputs:
+  - kind: artifact
+    value_type: artifact_handle
+    binding_key: b1_upload
+    field: file
+    required: true
+    max_size_bytes: 8388608
