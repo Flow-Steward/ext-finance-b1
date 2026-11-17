@@ -17,7 +17,7 @@ from .context import Context
 from .errors import ExtensionError, invalid
 from .generic import registry, request_body
 from .params import body
-from .transport import MIN_CALL_WINDOW_SECONDS, DeadlineReached
+from .transport import CHECK, MIN_CALL_WINDOW_SECONDS, DeadlineReached, unknown
 
 SEARCH_ROWS = 10
 MAX_LINES = 200
@@ -142,6 +142,19 @@ def _created_id(answer: Mapping[str, Any]) -> Any:
     return data.get("id") if isinstance(data, Mapping) else None
 
 
+def _new_id(answer: Mapping[str, Any], what: str, path: str) -> Any:
+    """The id of a record just created; without it the step cannot report or go on."""
+    record_id = _created_id(answer)
+    if not _is_id(record_id):
+        raise unknown(
+            f"Site.pro Accounting confirmed {path} but returned no id of the new {what}, so "
+            f"it is not known which {what} was saved" + CHECK,
+            errors.INVALID_RESPONSE,
+            200,
+        )
+    return record_id
+
+
 def _write(context: Context, path: str, wire: dict[str, Any]) -> dict[str, Any]:
     return context.transport.write(path, wire, single_object=True)
 
@@ -212,7 +225,8 @@ def find_or_create_client(context: Context) -> dict[str, Any]:
         return {"client_id": client.get("id"), "created": False, "client": client, "warnings": []}
     _single_keys(context, "clients/list", rules, "client")
     answer = _write(context, "clients/create", wire)
-    return {"client_id": _created_id(answer), "created": True, "client": None, "warnings": []}
+    client_id = _new_id(answer, "client", "clients/create")
+    return {"client_id": client_id, "created": True, "client": None, "warnings": []}
 
 
 # -- items --------------------------------------------------------------------------------
@@ -256,7 +270,8 @@ def find_or_create_item(context: Context) -> dict[str, Any]:
         return {"item_id": item.get("id"), "created": False, "item": item, "warnings": []}
     _single_keys(context, "reference-book/items/list", rules, "item")
     answer = _write(context, "reference-book/items/create", wire)
-    return {"item_id": _created_id(answer), "created": True, "item": None, "warnings": []}
+    item_id = _new_id(answer, "item", "reference-book/items/create")
+    return {"item_id": item_id, "created": True, "item": None, "warnings": []}
 
 
 # -- sales ----------------------------------------------------------------------------------
@@ -534,10 +549,15 @@ def record_sale_payment(context: Context) -> dict[str, Any]:
     answer = _write(context, "bank/sale-invoice/payment", wire)
     data = answer.get("data")
     transaction = data.get("transactionId") if isinstance(data, Mapping) else None
+    missing = (
+        []
+        if transaction is not None
+        else ["Site.pro Accounting confirmed the payment but returned no transaction id"]
+    )
     return {
         "transaction_id": None if transaction is None else str(transaction),
         "payment_id": wire["paymentId"],
-        "warnings": [],
+        "warnings": missing,
     }
 
 

@@ -367,11 +367,31 @@ class B1Transport:
                 retryable=False,
                 http_status=status,
             ) from None
-        code = data.get("code")
-        if isinstance(code, int) and not isinstance(code, bool) and code != 200:
-            # A refusal inside an HTTP 200 answer.
-            raise self.refusal(code, raw, path, mutating=mutating, single_object=False)
-        return data
+        if "code" not in data:
+            # The one documented success example ({"data": {...}}) has no code.
+            return data
+        code = data["code"]
+        if isinstance(code, int) and not isinstance(code, bool):
+            if code != 200:
+                # A refusal inside an HTTP 200 answer.
+                raise self.refusal(code, raw, path, mutating=mutating, single_object=False)
+            return data
+        # A code that is not a number (null, true, "480", 200.0) confirms nothing.
+        shown = errors.safe_text(json.dumps(code, default=str), 40)
+        if mutating:
+            raise unknown(
+                f"Site.pro Accounting answered {path} (HTTP {status}) with code {shown}, "
+                "which is not 200: it is not known whether the change was saved" + CHECK,
+                errors.INVALID_RESPONSE,
+                status,
+            )
+        raise errors.no_effect(
+            errors.INVALID_RESPONSE,
+            f"Site.pro Accounting answered {path} with code {shown}, which is not 200",
+            failure_class="provider",
+            retryable=False,
+            http_status=status,
+        )
 
     def detail(self, raw: bytes) -> str:
         """B1's own message and field errors; never the key."""
@@ -601,11 +621,17 @@ def _transport_failure_facts(*, mutating: bool) -> dict[str, Any]:
     }
 
 
+def bare(answer: Mapping[str, Any]) -> bool:
+    """A write answer with neither ``code`` nor ``data``: accepted, but said."""
+    return "code" not in answer and "data" not in answer
+
+
 __all__ = [
     "CHECK",
     "MIN_CALL_WINDOW_SECONDS",
     "Answer",
     "B1Transport",
+    "bare",
     "DeadlineReached",
     "dumps_json",
     "error_text",

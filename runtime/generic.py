@@ -17,6 +17,7 @@ from . import budget, errors, files, values
 from .context import Context
 from .errors import invalid
 from .params import body, check, unscale
+from .transport import bare
 
 REGISTRY_FILE = Path(__file__).resolve().parent / "registry.json"
 #: Documented filter operators (list parameters and the General page's examples).
@@ -229,6 +230,15 @@ def _data_out(entry: Mapping[str, Any], answer: Mapping[str, Any], warnings: lis
     return unscale(answer.get("data"), entry.get("answer_scales") or {}, "data", warnings)
 
 
+def _bare_warning(path: str, answer: Mapping[str, Any]) -> list[str]:
+    if not bare(answer):
+        return []
+    return [
+        f"Site.pro Accounting confirmed {path} (HTTP 200) without an answer: no code and no "
+        "data, so nothing about the saved record is known"
+    ]
+
+
 def run(context: Context, operation_id: str) -> dict[str, Any]:
     entry = spec(operation_id)
     kind = entry["kind"]
@@ -248,7 +258,12 @@ def run(context: Context, operation_id: str) -> dict[str, Any]:
         )
         data = answer.get("data")
         record_id = data.get("id") if isinstance(data, Mapping) else answer.get("id")
-        return {"id": record_id, "data": data, "message": answer.get("message"), "warnings": []}
+        return {
+            "id": record_id,
+            "data": data,
+            "message": answer.get("message"),
+            "warnings": _bare_warning(path, answer),
+        }
     if kind == "delete":
         wire, sent = delete_body(entry, given)
         answer = transport.write(path, wire, single_object=len(sent) == 1, strict=True)
@@ -256,7 +271,7 @@ def run(context: Context, operation_id: str) -> dict[str, Any]:
             "sent_ids": sent,
             "data": answer.get("data"),
             "message": answer.get("message"),
-            "warnings": [],
+            "warnings": _bare_warning(path, answer),
         }
     wire = request_body(operation_id, given)
     if kind in {"file", "report_get", "action_file"}:
@@ -300,6 +315,7 @@ def run(context: Context, operation_id: str) -> dict[str, Any]:
             path, wire, single_object=entry["single_object"], strict=entry["strict"]
         )
         data = _data_out(entry, answer, warnings)
+        warnings += _bare_warning(path, answer)
         record_id = data.get("id") if isinstance(data, Mapping) else None
         return {
             "id": record_id,
