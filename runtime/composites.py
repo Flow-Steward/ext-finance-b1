@@ -33,8 +33,10 @@ def _find(context: Context, path: str, rules: list[tuple[str, str]]) -> list[Map
 
     Site.pro Accounting applies the filter; every row it returns is checked again here.
     A row that does not match means the filter was not applied as asked, so the search
-    cannot be trusted: the step stops without writing anything. When more rows match
-    than were read, that is several matches.
+    cannot be trusted: the step stops without writing anything. So does an answer whose
+    ``data`` is not a list, a row without an id, and an empty list whose ``records`` or
+    ``hasMore`` says there are more. When more rows match than were read, that is several
+    matches.
     """
     answer = context.transport.read(
         path,
@@ -47,25 +49,24 @@ def _find(context: Context, path: str, rules: list[tuple[str, str]]) -> list[Map
         },
     )
     data = answer.get("data")
-    rows = data if isinstance(data, list) else []
+    if not isinstance(data, list):
+        raise _untrusted(path, rules, "an answer without its list of records")
+    rows = data
     matched = [
         row
         for row in rows
         if isinstance(row, Mapping) and all(str(row.get(f) or "") == v for f, v in rules)
     ]
     if len(matched) != len(rows):
-        raise errors.no_effect(
-            errors.INVALID_RESPONSE,
-            f"Site.pro Accounting answered the search of {path} by {_described(rules)} with "
-            f"{len(rows) - len(matched)} records that do not match it: the search cannot be "
-            "trusted, so nothing was created or changed",
-            failure_class="provider",
-            retryable=False,
-        )
+        raise _untrusted(path, rules, f"{len(rows) - len(matched)} records that do not match it")
+    if any(not _is_id(row.get("id")) for row in matched):
+        raise _untrusted(path, rules, "records without an id")
     records = answer.get("records")
     more = answer.get("hasMore") is True or (
         isinstance(records, int) and not isinstance(records, bool) and records > len(matched)
     )
+    if not matched and more:
+        raise _untrusted(path, rules, "no records but a count or a next page that says otherwise")
     if matched and more:
         raise errors.no_effect(
             errors.CONFLICT,
@@ -73,6 +74,22 @@ def _find(context: Context, path: str, rules: list[tuple[str, str]]) -> list[Map
             "not name one record, so nothing was created or changed",
         )
     return matched
+
+
+def _is_id(value: Any) -> bool:
+    if isinstance(value, bool):
+        return False
+    return isinstance(value, int) or (isinstance(value, str) and value.strip() != "")
+
+
+def _untrusted(path: str, rules: list[tuple[str, str]], what: str) -> ExtensionError:
+    return errors.no_effect(
+        errors.INVALID_RESPONSE,
+        f"Site.pro Accounting answered the search of {path} by {_described(rules)} with "
+        f"{what}: the search cannot be trusted, so nothing was created or changed",
+        failure_class="provider",
+        retryable=False,
+    )
 
 
 def _single_keys(context: Context, path: str, rules: list[tuple[str, str]], what: str) -> None:
