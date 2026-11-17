@@ -1,5 +1,12 @@
 # Changelog
 
+## 0.1.1 — 2026-11-17
+
+- The everyday steps that look before they write (find or create a client or an item, create a sales or purchase invoice, record a sale payment) stop without writing when the search answer is not a list of records, a record has no id, or an empty list comes with a count or a next page that says there are more.
+- An answer whose `code` is anything but the number 200 (null, true, text such as "480") confirms nothing: after a write the outcome is unknown and the step is not repeated; a read stops with an invalid answer. An answer without `code` is accepted as before; a write answered with neither `code` nor `data` succeeds with a warning.
+- Find or create client and Find or create item report an unknown outcome when Site.pro Accounting confirms the creation without the new record's id.
+- A write whose answer is too large for the step output keeps its identifiers and the fact that the change was made, and says what was cut.
+
 ## 0.1.0 — 2026-11-16
 
 - First release: steps for B1 (Site.pro Accounting) through its API.
